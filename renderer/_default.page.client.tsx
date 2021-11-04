@@ -1,11 +1,9 @@
-import ReactDOM from "react-dom";
-import React from "react";
-import { getPage } from "vite-plugin-ssr/client";
-import { PageWrapper } from "./PageWrapper";
-import type { PageContext } from "./types";
-import type { PageContextBuiltInClient } from "vite-plugin-ssr/client";
-
-hydrate();
+import ReactDOM from 'react-dom';
+import React from 'react';
+import type { PageContextBuiltInClient } from 'vite-plugin-ssr/client';
+import { getPage } from 'vite-plugin-ssr/client';
+import PageWrapper from './PageWrapper';
+import type { PageContext } from './types';
 
 async function hydrate() {
   // We do Server Routing, but we can also do Client Routing by using `useClientRouter()`
@@ -16,6 +14,8 @@ async function hydrate() {
     <PageWrapper pageContext={pageContext}>
       <Page {...pageProps} />
     </PageWrapper>,
-    document.getElementById("page-view")
+    document.getElementById('page-view'),
   );
 }
+
+hydrate();

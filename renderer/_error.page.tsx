@@ -1,5 +1,6 @@
-import React from "react";
+import React from 'react';
 
+// eslint-disable-next-line import/prefer-default-export
 export { Page };
 
 function Page({ is404 }: { is404: boolean }) {
@@ -10,12 +11,11 @@ function Page({ is404 }: { is404: boolean }) {
         <p>This page could not be found.</p>
       </>
     );
-  } else {
-    return (
-      <>
-        <h1>500 Internal Server Error</h1>
-        <p>Something went wrong.</p>
-      </>
-    );
   }
+  return (
+    <>
+      <h1>500 Internal Server Error</h1>
+      <p>Something went wrong.</p>
+    </>
+  );
 }
