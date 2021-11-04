@@ -1,13 +1,14 @@
 /* eslint-disable import/prefer-default-export */
+import { PageContextBuiltIn } from 'vite-plugin-ssr';
 import Storage from '../../src/instances/Storage';
 import Topic from '../../src/types/Topic';
 
-export const onBeforeRender = async (pageContext: any) => {
+const onBeforeRender = async (pageContext: PageContextBuiltIn) => {
   const topic = (await Storage.getTopic(pageContext.routeParams.topicID)) as Topic;
   const comments = await Storage.getComments(pageContext.routeParams.topicID);
   const documentProps = {
     // This title and description will override the defaults
-    title: '影之避难所',
+    title: topic.title,
     description: 'Our mission is to explore the galaxy.',
   };
   return {
@@ -17,3 +18,11 @@ export const onBeforeRender = async (pageContext: any) => {
     },
   };
 };
+
+const prerender = async () => {
+  const topicList = await Storage.getAllTopics();
+  const urls = topicList.map((topic) => `/topic/${topic.topicID}`);
+  return urls;
+};
+
+export { onBeforeRender, prerender };

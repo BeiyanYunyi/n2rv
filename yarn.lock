@@ -649,6 +649,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/uuid@npm:^8.3.1":
+  version: 8.3.1
+  resolution: "@types/uuid@npm:8.3.1"
+  checksum: b41bdc5e86c6f0f1899306be10455636da0f2168c9489b869edd6837ddeb7c0e501b1ff7d857402462986bada2a379125743dd895fa801d03437cd632116a373
+  languageName: node
+  linkType: hard
+
 "@typescript-eslint/eslint-plugin@npm:^5.3.0":
   version: 5.3.0
   resolution: "@typescript-eslint/eslint-plugin@npm:5.3.0"
@@ -1159,6 +1166,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"canvas-renderer@npm:~2.1.1":
+  version: 2.1.1
+  resolution: "canvas-renderer@npm:2.1.1"
+  checksum: 6bb28714be5c809d46d67e41076660a851ab25a22cea0d0e3b0b11d935aede2efbf3b996e3c1a4dfb48689bb90f5bf60f83056e70515d18b5b30b29a330ecc01
+  languageName: node
+  linkType: hard
+
 "chalk@npm:^2.0.0":
   version: 2.4.2
   resolution: "chalk@npm:2.4.2"
@@ -1318,6 +1332,16 @@ __metadata:
   version: 1.0.3
   resolution: "core-util-is@npm:1.0.3"
   checksum: 9de8597363a8e9b9952491ebe18167e3b36e7707569eed0ebf14f8bba773611376466ae34575bca8cfe3c767890c859c74056084738f09d4e4a6f902b2ad7d99
+  languageName: node
+  linkType: hard
+
+"cors-anywhere@npm:^0.4.4":
+  version: 0.4.4
+  resolution: "cors-anywhere@npm:0.4.4"
+  dependencies:
+    http-proxy: 1.11.1
+    proxy-from-env: 0.0.1
+  checksum: 02e87cbebafc371c1d50535b6282feb0ae4b576500a6e3b07cd9b5f7fcd24f6bf4f6edbd3eef3eb730365f109475a1ec33ea116931769762646e78950d4a8696
   languageName: node
   linkType: hard
 
@@ -2163,6 +2187,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"eventemitter3@npm:1.x.x":
+  version: 1.2.0
+  resolution: "eventemitter3@npm:1.2.0"
+  checksum: 1ce3c91340f5038bd611c31a32c69167ccc598049a6844f58400583b4d70f5c0c2d13a201c763624f81de461498fe2767d0bfadcb2c0c417e37556a481b00c1d
+  languageName: node
+  linkType: hard
+
 "express@npm:^4.17.1":
   version: 4.17.1
   resolution: "express@npm:4.17.1"
@@ -2610,6 +2641,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"http-proxy@npm:1.11.1":
+  version: 1.11.1
+  resolution: "http-proxy@npm:1.11.1"
+  dependencies:
+    eventemitter3: 1.x.x
+    requires-port: 0.x.x
+  checksum: 2bd44ed6f45d49de125862df3818edd64fa6bcdc54baa509c4d3665e19dd3c4a95b80de3e7d9550b95b920c5e235564ff21eb9aff7f74b4df81892555d096ec7
+  languageName: node
+  linkType: hard
+
 "https-proxy-agent@npm:^5.0.0":
   version: 5.0.0
   resolution: "https-proxy-agent@npm:5.0.0"
@@ -2916,6 +2957,18 @@ __metadata:
   version: 2.0.0
   resolution: "isexe@npm:2.0.0"
   checksum: 26bf6c5480dda5161c820c5b5c751ae1e766c587b1f951ea3fcfc973bafb7831ae5b54a31a69bd670220e42e99ec154475025a468eae58ea262f813fdc8d1c62
+  languageName: node
+  linkType: hard
+
+"jdenticon@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "jdenticon@npm:2.2.0"
+  dependencies:
+    "@types/node": "*"
+    canvas-renderer: ~2.1.1
+  bin:
+    jdenticon: bin/jdenticon.js
+  checksum: 2aeae02a1071dfdb3f934cd5681e0a5cb8bf3f996dde14f59baa802faa79b9807c7656866201b6e18339f98742d814fd9a2eec08de9e9179eb0b494a14a0415c
   languageName: node
   linkType: hard
 
@@ -3352,9 +3405,11 @@ __metadata:
     "@types/node": ^16.11.0
     "@types/react": ^17.0.30
     "@types/react-dom": ^17.0.9
+    "@types/uuid": ^8.3.1
     "@typescript-eslint/eslint-plugin": ^5.3.0
     "@typescript-eslint/parser": ^5.3.0
     "@vitejs/plugin-react": ^1.0.4
+    cors-anywhere: ^0.4.4
     cross-env: ^7.0.3
     date-fns: ^2.25.0
     eslint: ^7.2.0
@@ -3372,8 +3427,11 @@ __metadata:
     prettier: ^2.4.1
     react: ^17.0.2
     react-dom: ^17.0.2
+    react-jdenticon: ^0.0.9
+    rimraf: ^3.0.2
     ts-node: ^10.3.0
     typescript: ^4.4.4
+    uuid: ^8.3.2
     vite: 2.6.7
     vite-plugin-ssr: ^0.3.23
   languageName: unknown
@@ -3879,6 +3937,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"proxy-from-env@npm:0.0.1":
+  version: 0.0.1
+  resolution: "proxy-from-env@npm:0.0.1"
+  checksum: 801947dd787b417528dee516599bfa4a66ab8508025ee7fe31ce8dddffbd2571a2c113c8fff4a794886fb68a75316af97559f87c0f86fcd59399a300f2bfe6a7
+  languageName: node
+  linkType: hard
+
 "punycode@npm:^2.1.0":
   version: 2.1.1
   resolution: "punycode@npm:2.1.1"
@@ -3936,6 +4001,18 @@ __metadata:
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
   checksum: f7a19ac3496de32ca9ae12aa030f00f14a3d45374f1ceca0af707c831b2a6098ef0d6bdae51bd437b0a306d7f01d4677fcc8de7c0d331eb47ad0f46130e53c5f
+  languageName: node
+  linkType: hard
+
+"react-jdenticon@npm:^0.0.9":
+  version: 0.0.9
+  resolution: "react-jdenticon@npm:0.0.9"
+  dependencies:
+    jdenticon: ^2.2.0
+    prop-types: ^15.7.2
+  peerDependencies:
+    react: ^16.8.0
+  checksum: 35c0d6e13c35480daabf4ff8ddd784bf8a1f3eb3b421be99ca66f64c773c2b811b86958a2f47c09c70a79316786c09e5787663a2506b0670c6ec641b7cdd810a
   languageName: node
   linkType: hard
 
@@ -4026,6 +4103,13 @@ __metadata:
   version: 2.0.2
   resolution: "require-from-string@npm:2.0.2"
   checksum: a03ef6895445f33a4015300c426699bc66b2b044ba7b670aa238610381b56d3f07c686251740d575e22f4c87531ba662d06937508f0f3c0f1ddc04db3130560b
+  languageName: node
+  linkType: hard
+
+"requires-port@npm:0.x.x":
+  version: 0.0.1
+  resolution: "requires-port@npm:0.0.1"
+  checksum: 36a3414a76ff1dd4f7df519c2315e7af3eb54312d764319cf9aea4e0ab3a084772ff01edb46487c04fa5c9abe5de627e8eeb500d350b9b21407b94fe346358e2
   languageName: node
   linkType: hard
 
@@ -4740,6 +4824,15 @@ __metadata:
   version: 1.0.1
   resolution: "utils-merge@npm:1.0.1"
   checksum: c81095493225ecfc28add49c106ca4f09cdf56bc66731aa8dabc2edbbccb1e1bfe2de6a115e5c6a380d3ea166d1636410b62ef216bb07b3feb1cfde1d95d5080
+  languageName: node
+  linkType: hard
+
+"uuid@npm:^8.3.2":
+  version: 8.3.2
+  resolution: "uuid@npm:8.3.2"
+  bin:
+    uuid: dist/bin/uuid
+  checksum: 5575a8a75c13120e2f10e6ddc801b2c7ed7d8f3c8ac22c7ed0c7b2ba6383ec0abda88c905085d630e251719e0777045ae3236f04c812184b7c765f63a70e58df
   languageName: node
   linkType: hard
 

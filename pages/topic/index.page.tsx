@@ -1,18 +1,17 @@
-import React from 'react';
 import { format } from 'date-fns';
 import parse from 'html-react-parser';
-import UserFace from './UserFace';
-import Topic from '../../src/types/Topic';
+import React from 'react';
+import '../../assets/douban.css';
+import '../../assets/init.css';
+import '../../assets/inline1.css';
+import '../../assets/inline2.css';
 import Reply from '../../src/types/Reply';
+import Topic from '../../src/types/Topic';
 import Comments from './Comments';
+import UserFace from './UserFace';
 
 const Page = ({ topic, comments }: { topic: Topic; comments: Reply[] }) => (
   <>
-    <script src="/assets/jdenticon.min.js" />
-    <link rel="stylesheet" href="/assets/douban.css" />
-    <link rel="stylesheet" href="/assets/init.css" />
-    <link rel="stylesheet" href="/assets/inline1.css" />
-    <link rel="stylesheet" href="/assets/inline2.css" />
     <div>
       <a href="../../">返回</a>&emsp;
       {topic.deleteTime ? (
@@ -32,7 +31,9 @@ const Page = ({ topic, comments }: { topic: Topic; comments: Reply[] }) => (
           <div className="article">
             <h1>{topic?.title}</h1>
             <div id="topic-content" className="topic-content clearfix">
-              <UserFace authorID={topic.authorID} />
+              <div style={{}}>
+                <UserFace authorID={topic.authorID} />
+              </div>
               <div className="topic-doc">
                 <h3>
                   <span className="from">
@@ -44,7 +45,8 @@ const Page = ({ topic, comments }: { topic: Topic; comments: Reply[] }) => (
                   </span>
                 </h3>
                 <div className="topic-content">
-                  {topic?.content && parse(topic.content.replaceAll('https://img', '/cors/https://img'))}
+                  {topic?.content &&
+                    parse(topic.content.replaceAll('https://img', '/cors/https://img').replaceAll('.webp', '.jpg'))}
                 </div>
               </div>
             </div>

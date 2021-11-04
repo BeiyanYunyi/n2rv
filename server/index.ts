@@ -1,14 +1,19 @@
 /* eslint-disable no-console */
 import express from 'express';
 import { createPageRenderer } from 'vite-plugin-ssr';
+import corsRouter from './routers/corsRouter';
 
 const isProduction = process.env.NODE_ENV === 'production';
 const root = `${__dirname}/..`;
 
 (async () => {
   const app = express();
-  app.use('/assets', express.static('../assets'));
-
+  app.use('/cors', corsRouter);
+  if (isProduction) {
+    app.use('/assets', express.static('../assets'));
+  } else {
+    app.use('/assets', express.static('../../assets'));
+  }
   let viteDevServer;
   if (isProduction) {
     app.use(express.static(`${root}/dist/client`));

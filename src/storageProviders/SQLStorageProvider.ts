@@ -1,5 +1,6 @@
 import knex from 'knex';
 import config from '../../config/config.json';
+import { ImageInDB } from '../types/Image';
 import Reply from '../types/Reply';
 import StorageProvider from '../types/StorageProvider';
 import Topic from '../types/Topic';
@@ -38,6 +39,12 @@ class SQLStorageProvider implements StorageProvider {
       .where('topicID', '=', topicID)
       .orderBy('replyTime', 'asc');
     return comments;
+  }
+
+  async getImg(imgID: string) {
+    const img = await this.db<ImageInDB>('image').first('imgContent').where('imgID', imgID);
+    if (img) return img.imgContent;
+    return null;
   }
 }
 

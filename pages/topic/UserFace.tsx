@@ -1,9 +1,10 @@
 import React from 'react';
+import Jdenticon from 'react-jdenticon';
 
 const UserFace = ({ authorID }: { authorID: string }) => (
   <div className="user-face">
     <a className="" href={`https://www.douban.com/people/${authorID}`}>
-      <svg className="pil" width="100%" height="100%" data-jdenticon-value={authorID} />
+      <Jdenticon className="pil" size="100%" value={authorID} />
     </a>
   </div>
 );

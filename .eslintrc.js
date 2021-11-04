@@ -19,6 +19,7 @@ module.exports = {
     'react/jsx-props-no-spreading': 0,
     'max-len': ['error', { code: 120 }],
     '@typescript-eslint/indent': 0,
+    'operator-linebreak': 0,
   },
   parserOptions: {
     project: './tsconfig.json',

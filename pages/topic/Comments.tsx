@@ -1,10 +1,11 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { randomUUID } from 'crypto';
-import React from 'react';
 import format from 'date-fns/format';
+import parse from 'html-react-parser';
+import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import Reply from '../../src/types/Reply';
-import UserFace from './UserFace';
 import CommentQuote from './CommentQuote';
+import UserFace from './UserFace';
 
 const Comment = ({ reply }: { reply: Reply }) => (
   <li id={reply.replyID.toString()} className="clearfix comment-item reply-item">
@@ -32,7 +33,9 @@ const Comment = ({ reply }: { reply: Reply }) => (
       ) : (
         <></>
       )}
-      <p className="reply-content">{reply.content}</p>
+      <p className=" reply-content" style={{ fontSize: '14px', paddingBottom: '10px', whiteSpace: 'pre-line' }}>
+        {parse(reply.content)}
+      </p>
     </div>
   </li>
 );
@@ -40,7 +43,7 @@ const Comment = ({ reply }: { reply: Reply }) => (
 const Comments = ({ replies }: { replies: Reply[] }) => (
   <ul id="comments" className="topic-reply">
     {replies.map((reply) => (
-      <Comment reply={reply} key={randomUUID()} />
+      <Comment reply={reply} key={uuidv4()} />
     ))}
   </ul>
 );
