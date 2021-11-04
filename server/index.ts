@@ -7,6 +7,7 @@ const root = `${__dirname}/..`;
 
 (async () => {
   const app = express();
+  app.use('/assets', express.static('../assets'));
 
   let viteDevServer;
   if (isProduction) {
