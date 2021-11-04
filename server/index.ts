@@ -1,5 +1,9 @@
 /* eslint-disable no-console */
 import express from 'express';
+import fs from 'fs';
+import http from 'http';
+import https from 'https';
+import path from 'path';
 import { createPageRenderer } from 'vite-plugin-ssr';
 import corsRouter from './routers/corsRouter';
 
@@ -41,6 +45,14 @@ const root = `${__dirname}/..`;
   });
 
   const port = process.env.PORT || 3000;
-  app.listen(port);
+  if (isProduction) {
+    const key = fs.readFileSync(path.join(root, 'certs', 'priv.key'));
+    const cert = fs.readFileSync(path.join(root, 'certs', 'pub.cer'));
+    const server = https.createServer({ key, cert }, app);
+    server.listen(port);
+  } else {
+    const server = http.createServer(app);
+    server.listen(port);
+  }
   console.log(`Server running at http://localhost:${port}`);
 })();

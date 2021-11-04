@@ -4,7 +4,7 @@
   "license": "AGPL-3.0-or-later",
   "scripts": {
     "dev": "yarn server",
-    "prod": "npm run build && npm run server:prod",
+    "prod": "yarn build && yarn server:prod",
     "build": "yarn build:clean && yarn build:vite",
     "build:vite": "vite build && vite build --ssr",
     "build:clean": "rimraf dist/",
