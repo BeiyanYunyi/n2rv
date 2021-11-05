@@ -5,6 +5,7 @@ import http from 'http';
 import https from 'https';
 import path from 'path';
 import { createPageRenderer } from 'vite-plugin-ssr';
+import apiRouter from './routers/apiRouter';
 import corsRouter from './routers/corsRouter';
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -13,6 +14,7 @@ const root = `${__dirname}/..`;
 (async () => {
   const app = express();
   app.use('/cors', corsRouter);
+  app.use('/api', apiRouter);
   if (isProduction) {
     app.use('/assets', express.static('../assets'));
   } else {

@@ -20,6 +20,8 @@ module.exports = {
     'max-len': ['error', { code: 120 }],
     '@typescript-eslint/indent': 0,
     'operator-linebreak': 0,
+    'object-curly-newline': 0,
+    'implicit-arrow-linebreak': 0,
   },
   parserOptions: {
     project: './tsconfig.json',

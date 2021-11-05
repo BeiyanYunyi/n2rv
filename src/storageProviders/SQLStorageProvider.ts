@@ -19,10 +19,12 @@ class SQLStorageProvider implements StorageProvider {
     searchPath: [config.groupURL.substring(29).replace('/', ''), 'public'],
   });
 
-  async getAllTopics() {
+  async getAllTopics(skip: number, limit: number) {
     const topics = await this.db<Topic>('topicList')
       .select('title', 'topicID', 'authorName', 'authorID', 'lastReplyTime', 'reply', 'isElite')
-      .orderBy('lastReplyTime', 'desc');
+      .orderBy('lastReplyTime', 'desc')
+      .offset(skip)
+      .limit(limit);
     return topics;
   }
 
@@ -45,6 +47,11 @@ class SQLStorageProvider implements StorageProvider {
     const img = await this.db<ImageInDB>('image').first('imgContent').where('imgID', imgID);
     if (img) return img.imgContent;
     return null;
+  }
+
+  async getPages() {
+    const count = await this.db<Topic>('topicList').count('topicID');
+    return Math.floor(Number(count[0].count) / 50) + 1;
   }
 }
 
