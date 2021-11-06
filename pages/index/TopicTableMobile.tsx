@@ -1,7 +1,7 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import MessageIcon from '@mui/icons-material/Message';
-import { Card, CardHeader, Chip, Fab, Stack, Typography, useTheme } from '@mui/material';
+import { Card, CardActionArea, CardHeader, Chip, Fab, Stack, Typography, useTheme } from '@mui/material';
 import { format } from 'date-fns';
 import React from 'react';
 import UserFace from '../../renderer/components/UserFace';
@@ -40,25 +40,31 @@ const TopicTableMobile = () => {
       <Stack spacing={1}>
         {processedData.map((topic) => (
           <Card key={topic.topicID}>
-            <CardHeader
-              title={topic.title}
-              subheader={
-                <>
-                  <Typography variant="caption">{topic.authorName}</Typography>
-                </>
-              }
-              avatar={<UserFace authorID={topic.authorID} authorName={topic.authorName} />}
-              action={
-                <Chip
-                  label={topic.reply}
-                  style={{ paddingLeft: 4 }}
-                  size="small"
-                  icon={<MessageIcon />}
-                  variant="outlined"
-                  color="info"
-                />
-              }
-            />
+            <CardActionArea
+              onClick={() => {
+                window.location.href = `topic/${topic.topicID}`;
+              }}
+            >
+              <CardHeader
+                title={topic.title}
+                subheader={
+                  <>
+                    <Typography variant="caption">{topic.authorName}</Typography>
+                  </>
+                }
+                avatar={<UserFace authorID={topic.authorID} authorName={topic.authorName} />}
+                action={
+                  <Chip
+                    label={topic.reply}
+                    style={{ paddingLeft: 4 }}
+                    size="small"
+                    icon={<MessageIcon />}
+                    variant="outlined"
+                    color="info"
+                  />
+                }
+              />
+            </CardActionArea>
           </Card>
         ))}
 
