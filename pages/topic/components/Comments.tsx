@@ -3,7 +3,7 @@ import format from 'date-fns/format';
 import parse from 'html-react-parser';
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import Reply from '../../src/types/Reply';
+import Reply from '../../../src/types/Reply';
 import CommentQuote from './CommentQuote';
 import UserFace from './UserFace';
 

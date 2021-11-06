@@ -29,10 +29,10 @@ class SQLStorageProvider implements StorageProvider {
   }
 
   async getTopic(topicID: string | number) {
-    const topics = await this.db<Topic>('topicList')
-      .select('title', 'topicID', 'authorName', 'authorID', 'isElite', 'content', 'createTime', 'deleteTime')
+    const topic = await this.db<Topic>('topicList')
+      .first('title', 'topicID', 'authorName', 'authorID', 'isElite', 'content', 'createTime', 'deleteTime')
       .where('topicID', '=', Number(topicID));
-    return topics.length === 1 ? topics[0] : null;
+    return topic || null;
   }
 
   async getComments(topicID: string | number) {

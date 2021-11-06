@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react';
-import Reply from '../../src/types/Reply';
+import Reply from '../../../src/types/Reply';
 
 const CommentQuote = ({ reply }: { reply: Reply }) => (
   <div className="reply-quote">

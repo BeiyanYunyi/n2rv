@@ -7,8 +7,8 @@ import '../../assets/inline1.css';
 import '../../assets/inline2.css';
 import Reply from '../../src/types/Reply';
 import Topic from '../../src/types/Topic';
-import Comments from './Comments';
-import UserFace from './UserFace';
+import Comments from './components/Comments';
+import UserFace from './components/UserFace';
 
 const Page = ({ topic, comments }: { topic: Topic; comments: Reply[] }) => (
   <>

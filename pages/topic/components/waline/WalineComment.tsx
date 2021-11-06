@@ -1,6 +1,6 @@
 import Waline from '@waline/client';
 import React from 'react';
-import config from '../../../config/config.json';
+import config from '../../../../config/config.json';
 
 const WalineComment = () => {
   React.useEffect(() => {
