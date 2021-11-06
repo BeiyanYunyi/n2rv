@@ -22,6 +22,7 @@ module.exports = {
     'operator-linebreak': 0,
     'object-curly-newline': 0,
     'implicit-arrow-linebreak': 0,
+    'react/jsx-wrap-multilines': 0,
   },
   parserOptions: {
     project: './tsconfig.json',

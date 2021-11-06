@@ -1,62 +1,61 @@
+import { Button, Card, CardContent, CardHeader, Chip, Container, Stack, Typography } from '@mui/material';
 import { format } from 'date-fns';
 import parse from 'html-react-parser';
 import React from 'react';
-import '../../assets/douban.css';
-import '../../assets/init.css';
-import '../../assets/inline1.css';
-import '../../assets/inline2.css';
 import Reply from '../../src/types/Reply';
 import Topic from '../../src/types/Topic';
 import Comments from './components/Comments';
 import UserFace from './components/UserFace';
 
 const Page = ({ topic, comments }: { topic: Topic; comments: Reply[] }) => (
-  <>
-    <div>
-      <a href="../../">返回</a>&emsp;
-      {topic.deleteTime ? (
-        <>
-          <a href={`https://www.douban.com/group/topic/${topic.topicID}`}>
-            <del>原帖</del>
-          </a>
+  <Container>
+    <Stack direction="row" spacing={1}>
+      <Button href="../../" variant="outlined">
+        返回
+      </Button>
+      <>
+        <Button
+          href={`https://www.douban.com/group/topic/${topic.topicID}`}
+          variant="outlined"
+          disabled={!!topic.deleteTime}
+        >
+          原帖
+        </Button>
+        {topic.deleteTime && (
           <span>在{format(Math.abs(topic.deleteTime) * 1000, 'yyyy-MM-dd HH:mm:ss')}前已被删除</span>
-        </>
-      ) : (
-        <a href={`https://www.douban.com/group/topic/${topic.topicID}`}>原帖</a>
-      )}
-    </div>
-    <div id="wrapper">
-      <div id="content">
-        <div className="grid-16-8 clearfix" style={{ position: 'relative' }}>
-          <div className="article">
-            <h1>{topic?.title}</h1>
-            <div id="topic-content" className="topic-content clearfix">
-              <div style={{}}>
-                <UserFace authorID={topic.authorID} />
-              </div>
-              <div className="topic-doc">
-                <h3>
-                  <span className="from">
-                    来自：<a href={`https://www.douban.com/people/${topic?.authorID}`}>{topic?.authorName}</a>
-                  </span>
-                  {'                '}
-                  <span className="create-time color-green" style={{ display: 'inline-block' }}>
-                    {format(topic?.createTime! * 1000, 'yyyy-MM-dd HH:mm:ss')}
-                  </span>
-                </h3>
-                <div className="topic-content">
-                  {topic?.content &&
-                    parse(topic.content.replaceAll('https://img', '/cors/https://img').replaceAll('.webp', '.jpg'))}
-                </div>
-              </div>
-            </div>
-            <Comments replies={comments} />
-          </div>
-        </div>
-      </div>
-      <div id="walineWrapper" />
-    </div>
-  </>
+        )}
+      </>
+    </Stack>
+    <Card style={{ marginBottom: 8, marginTop: 8 }}>
+      <Typography variant="h5" style={{ margin: 8 }}>
+        {topic.title}
+      </Typography>
+      <CardHeader
+        avatar={<UserFace authorID={topic.authorID} authorName={topic.authorName} />}
+        title={topic.authorName}
+        subheader={format(topic?.createTime! * 1000, 'yyyy-MM-dd HH:mm:ss')}
+        action={
+          <>
+            <Chip label="楼主" color="primary" size="small" variant="outlined" style={{ marginRight: 8 }} />
+            <Chip label="# 1" size="small" variant="outlined" />
+          </>
+        }
+      />
+      <CardContent style={{ paddingTop: 0 }}>
+        <Typography component="div">
+          {topic?.content &&
+            parse(
+              topic.content
+                .replaceAll('https://img', '/cors/https://img')
+                .replaceAll('.webp', '.jpg')
+                .replace('<br />', ''),
+            )}
+        </Typography>
+      </CardContent>
+    </Card>
+    <Comments replies={comments} />
+    <div id="walineWrapper" />
+  </Container>
 );
 
 export default Page;

@@ -1,12 +1,11 @@
+import { Avatar, Link } from '@mui/material';
 import React from 'react';
-import Jdenticon from 'react-jdenticon';
+import stringAvatar from '../utils/stringAvatar';
 
-const UserFace = ({ authorID }: { authorID: string }) => (
-  <div className="user-face">
-    <a className="" href={`https://www.douban.com/people/${authorID}`}>
-      <Jdenticon className="pil" size="48" value={authorID} />
-    </a>
-  </div>
+const UserFace = ({ authorID, authorName }: { authorID: string; authorName: string }) => (
+  <Link href={`https://www.douban.com/people/${authorID}`} underline="none">
+    <Avatar {...stringAvatar(authorName)} />
+  </Link>
 );
 
 export default UserFace;

@@ -1,30 +1,29 @@
 /* eslint-disable jsx-a11y/alt-text */
+import { Card, CardContent, CardHeader, Typography } from '@mui/material';
+import parse from 'html-react-parser';
 import React from 'react';
 import Reply from '../../../src/types/Reply';
+import UserFace from './UserFace';
 
 const CommentQuote = ({ reply }: { reply: Reply }) => (
-  <div className="reply-quote">
-    <div className="reply-quote-content">
-      <span className="all" style={{ display: 'inline' }}>
-        {reply.quotingImage ? (
-          <div className="quote-img">
-            <div className="comment-photos">
-              <div className="cmt-img-wrapper">
-                <div className="cmt-img cmt-img-large">
-                  <img data-orig={reply.quotingImage} src={`/cors/${reply.quotingImage}`} />
-                </div>
-              </div>
-            </div>
-          </div>
-        ) : (
-          reply.quotingText
-        )}
-      </span>
-      <span className="pubdate">
-        <a href={`https://www.douban.com/people/${reply.quotingAuthorID}`}>{reply.quotingAuthorName}</a>
-      </span>
-    </div>
-  </div>
+  <Card style={{ margin: 8, marginBottom: 0 }}>
+    <CardHeader
+      avatar={<UserFace authorID={reply.quotingAuthorID!} authorName={reply.quotingAuthorName!} />}
+      title={reply.quotingAuthorName}
+    />
+    <CardContent style={{ padding: 8, paddingTop: 0 }}>
+      {reply.quotingImage && (
+        <div className="quote-img">
+          <img data-orig={reply.quotingImage} src={`/cors/${reply.quotingImage}`} />
+        </div>
+      )}
+      {reply.quotingText && (
+        <Typography component="div" variant="caption">
+          {parse(reply.quotingText)}
+        </Typography>
+      )}
+    </CardContent>
+  </Card>
 );
 
 export default CommentQuote;
