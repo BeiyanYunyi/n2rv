@@ -3,6 +3,8 @@ import corsAnywhere from 'cors-anywhere';
 import getImgID from '../../src/utils/getImgID';
 import Storage from '../../src/instances/Storage';
 
+require('express-async-errors');
+
 const corsRouter = express.Router();
 
 const proxy = corsAnywhere.createServer({

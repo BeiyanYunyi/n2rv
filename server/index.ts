@@ -8,6 +8,8 @@ import { createPageRenderer } from 'vite-plugin-ssr';
 import apiRouter from './routers/apiRouter';
 import corsRouter from './routers/corsRouter';
 
+require('express-async-errors');
+
 const isProduction = process.env.NODE_ENV === 'production';
 const root = `${__dirname}/..`;
 

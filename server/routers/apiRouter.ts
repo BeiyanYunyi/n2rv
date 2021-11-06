@@ -1,6 +1,8 @@
 import express from 'express';
 import Storage from '../../src/instances/Storage';
 
+require('express-async-errors');
+
 const apiRouter = express.Router();
 
 apiRouter.use(express.json());

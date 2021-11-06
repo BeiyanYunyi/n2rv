@@ -1120,6 +1120,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@waline/client@npm:^1.5.1":
+  version: 1.5.1
+  resolution: "@waline/client@npm:1.5.1"
+  checksum: 23d00b547eb0436c1637f6a391f4a1cf73067fd5fdf077bd1068edc29d9e93d6ce99cd6f432bbf10405102f22d9242d03a75736aa157dbe0980593c3f9055ec0
+  languageName: node
+  linkType: hard
+
 "abbrev@npm:1":
   version: 1.1.1
   resolution: "abbrev@npm:1.1.1"
@@ -2601,6 +2608,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"express-async-errors@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "express-async-errors@npm:3.1.1"
+  peerDependencies:
+    express: ^4.16.2
+  checksum: 3a2a6df8ea957185df401a239189d617715c38fba13fac8ced7750b25fa95b0ae656e5d1385d12d0e4dcd7997e90d070b218e86abcf8e68bb6048830b53ba668
+  languageName: node
+  linkType: hard
+
 "express@npm:^4.17.1":
   version: 4.17.1
   resolution: "express@npm:4.17.1"
@@ -3869,6 +3885,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.3.0
     "@typescript-eslint/parser": ^5.3.0
     "@vitejs/plugin-react": ^1.0.4
+    "@waline/client": ^1.5.1
     axios: ^0.24.0
     cors-anywhere: ^0.4.4
     cross-env: ^7.0.3
@@ -3882,6 +3899,7 @@ __metadata:
     eslint-plugin-react: ^7.26.1
     eslint-plugin-react-hooks: ^4.2.0
     express: ^4.17.1
+    express-async-errors: ^3.1.1
     html-react-parser: ^1.4.0
     knex: ^0.95.13
     pg: ^8.7.1

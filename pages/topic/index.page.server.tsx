@@ -20,7 +20,7 @@ const onBeforeRender = async (pageContext: PageContextBuiltIn) => {
 };
 
 const prerender = async () => {
-  const topicList = await Storage.getAllTopics();
+  const topicList = await Storage.getAllTopics(0, 100);
   const urls = topicList.map((topic) => `/topic/${topic.topicID}`);
   return urls;
 };
