@@ -54,8 +54,8 @@ const Page = ({ topic, comments }: { topic: Topic; comments: Reply[] }) => (
           </div>
         </div>
       </div>
+      <div id="walineWrapper" />
     </div>
-    <div id="walineWrapper" />
   </>
 );
 
