@@ -5,7 +5,7 @@ import React from 'react';
 import Reply from '../../src/types/Reply';
 import Topic from '../../src/types/Topic';
 import Comments from './components/Comments';
-import UserFace from './components/UserFace';
+import UserFace from '../../renderer/components/UserFace';
 
 const Page = ({ topic, comments }: { topic: Topic; comments: Reply[] }) => (
   <Container>
@@ -22,7 +22,9 @@ const Page = ({ topic, comments }: { topic: Topic; comments: Reply[] }) => (
           原帖
         </Button>
         {topic.deleteTime && (
-          <span>在{format(Math.abs(topic.deleteTime) * 1000, 'yyyy-MM-dd HH:mm:ss')}前已被删除</span>
+          <Typography variant="caption" style={{ alignItems: 'center', display: 'flex' }}>
+            在{format(Math.abs(topic.deleteTime) * 1000, 'yyyy-MM-dd HH:mm:ss')}前已被删除
+          </Typography>
         )}
       </>
     </Stack>

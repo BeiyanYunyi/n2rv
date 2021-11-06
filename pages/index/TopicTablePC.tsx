@@ -9,7 +9,7 @@ import { TopicWhileGetAll } from '../../src/types/Topic';
 
 type TopicList = TopicWhileGetAll[];
 
-const TopicTable = () => {
+const TopicTablePC = () => {
   const [topicList, setTopicList] = React.useState<TopicList>([]);
   const [loading, setLoading] = React.useState(false);
   const [page, setPage] = React.useState(1);
@@ -161,4 +161,4 @@ const TopicTable = () => {
   );
 };
 
-export default TopicTable;
+export default TopicTablePC;

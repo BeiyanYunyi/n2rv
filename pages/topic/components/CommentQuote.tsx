@@ -3,10 +3,10 @@ import { Card, CardContent, CardHeader, Typography } from '@mui/material';
 import parse from 'html-react-parser';
 import React from 'react';
 import Reply from '../../../src/types/Reply';
-import UserFace from './UserFace';
+import UserFace from '../../../renderer/components/UserFace';
 
 const CommentQuote = ({ reply }: { reply: Reply }) => (
-  <Card style={{ margin: 8, marginBottom: 0 }}>
+  <Card style={{ margin: 8, marginBottom: 0 }} variant="outlined">
     <CardHeader
       avatar={<UserFace authorID={reply.quotingAuthorID!} authorName={reply.quotingAuthorName!} />}
       title={reply.quotingAuthorName}

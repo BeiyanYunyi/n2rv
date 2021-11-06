@@ -5,7 +5,7 @@ import parse from 'html-react-parser';
 import React from 'react';
 import Reply from '../../../src/types/Reply';
 import CommentQuote from './CommentQuote';
-import UserFace from './UserFace';
+import UserFace from '../../../renderer/components/UserFace';
 
 const Comment = ({ reply, index }: { reply: Reply; index: number }) => (
   <Card>
@@ -22,16 +22,10 @@ const Comment = ({ reply, index }: { reply: Reply; index: number }) => (
       }
     />
     <CardContent style={{ paddingTop: 0 }}>
-      {reply.image ? (
+      {reply.image && (
         <div className="comment-photos" style={{}}>
-          <div className="cmt-img-wrapper">
-            <div className="cmt-img cmt-img-large">
-              <img data-orig={reply.image} src={`/cors/${reply.image}`} />
-            </div>
-          </div>
+          <img data-orig={reply.image} src={`/cors/${reply.image}`} />
         </div>
-      ) : (
-        <></>
       )}
       <Typography component="div">{parse(reply.content)}</Typography>
     </CardContent>
