@@ -6,7 +6,9 @@ const apiWrapper = {
   client: axios.create({ baseURL: '/api' }),
   async getTopics(page: number, needDeleted: boolean) {
     const { data }: { data: { topicList: TopicWhileGetAll[]; pages: number } } =
-      await this.client.get(`/topic?page=${page - 1}${needDeleted ? '&needDeleted=1' : ''}`);
+      await this.client.get('/topic', {
+        params: { page: page - 1, needDeleted: needDeleted ? 1 : undefined },
+      });
     return data;
   },
   async getTopic(id: string | number) {

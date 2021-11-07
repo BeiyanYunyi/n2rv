@@ -32,7 +32,7 @@ class SQLStorageProvider implements StorageProvider {
     const topics = await this.db<Topic>('topicList')
       .select('title', 'topicID', 'authorName', 'authorID', 'lastReplyTime', 'reply', 'isElite')
       .whereNotNull('deleteTime')
-      .orderBy('deleteTime', 'desc')
+      .orderBy('lastReplyTime', 'desc')
       .offset(skip)
       .limit(limit);
     return topics;

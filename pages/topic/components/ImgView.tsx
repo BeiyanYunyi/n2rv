@@ -13,19 +13,19 @@ const ImgView = ({ src }: { src: string }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   return (
-    <div
-      style={
-        isMobile
-          ? { maxHeight: 225, maxWidth: 225 }
-          : { maxHeight: window.screen.height / 3, maxWidth: window.screen.width / 3 }
-      }
-    >
-      <LightGallery plugins={[lgThumbnail, lgZoom]} mode="lg-fade">
-        <a className="gallery-item" data-src={src}>
-          <img className="img-responsive" src={src} />
-        </a>
-      </LightGallery>
-    </div>
+    <LightGallery plugins={[lgThumbnail, lgZoom]} mode="lg-fade">
+      <a className="gallery-item" data-src={src}>
+        <img
+          className="img-responsive"
+          src={src}
+          style={
+            isMobile
+              ? { maxHeight: window.screen.height / 1.5, maxWidth: window.screen.width / 1.5 }
+              : { maxHeight: window.screen.height / 3, maxWidth: window.screen.width / 3 }
+          }
+        />
+      </a>
+    </LightGallery>
   );
 };
 
