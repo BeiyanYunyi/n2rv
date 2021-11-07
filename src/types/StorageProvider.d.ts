@@ -5,6 +5,10 @@ export default class StorageProvider {
     skip: number,
     limit: number,
   ): Promise<Pick<Topic, 'title' | 'topicID' | 'authorName' | 'authorID' | 'lastReplyTime' | 'reply' | 'isElite'>[]>;
+  getDeletedTopics(
+    skip: number,
+    limit: number,
+  ): Promise<Pick<Topic, 'title' | 'topicID' | 'authorName' | 'authorID' | 'lastReplyTime' | 'reply' | 'isElite'>[]>;
   getTopic(
     topicID: string | number,
   ): Promise<Pick<

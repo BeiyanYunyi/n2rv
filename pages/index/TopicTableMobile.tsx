@@ -14,28 +14,19 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { stringToColor } from '../../renderer/utils/stringAvatar';
-import apiWrapper from '../../renderer/wrapper/apiWrapper';
-import { TopicWhileGetAll } from '../../src/types/Topic';
 import ReplyChip from './components/ReplyChip';
+import TopicTableProps from '../../src/types/TopicTableProps';
 import formatLastReplyTime from './utils/formatLastReplyTime';
 
-const TopicTableMobile = () => {
-  const [topicList, setTopicList] = React.useState<TopicWhileGetAll[]>([]);
-  const [loading, setLoading] = React.useState(false);
-  const [page, setPage] = React.useState(1);
-  const [lastPage, setLastPage] = React.useState(1);
+const TopicTableMobile = ({
+  topicList,
+  loading,
+  setLoading,
+  page,
+  setPage,
+  lastPage,
+}: TopicTableProps) => {
   const theme = useTheme();
-
-  React.useEffect(() => {
-    apiWrapper.getPages().then((res) => setLastPage(res));
-  }, []);
-
-  React.useEffect(() => {
-    apiWrapper.getTopics(page).then((res) => {
-      setTopicList(res);
-      setLoading(false);
-    });
-  }, [page]);
 
   return (
     <>
@@ -56,8 +47,13 @@ const TopicTableMobile = () => {
                   />
                   <CardContent style={{ paddingTop: 0, paddingLeft: 8 }}>
                     <Stack direction="row" spacing={1}>
-                      <Avatar sx={{ bgcolor: stringToColor(topic.authorName), height: 20, width: 20 }}>
-                        <Typography style={{ color: theme.palette.info.contrastText }} variant="caption">
+                      <Avatar
+                        sx={{ bgcolor: stringToColor(topic.authorName), height: 20, width: 20 }}
+                      >
+                        <Typography
+                          style={{ color: theme.palette.info.contrastText }}
+                          variant="caption"
+                        >
                           {topic.authorName.substring(0, 1)}
                         </Typography>
                       </Avatar>
@@ -81,7 +77,10 @@ const TopicTableMobile = () => {
               style={
                 loading || page === 1
                   ? undefined
-                  : { backgroundColor: theme.palette.error.light, color: theme.palette.error.contrastText }
+                  : {
+                      backgroundColor: theme.palette.error.light,
+                      color: theme.palette.error.contrastText,
+                    }
               }
               disabled={loading || page === 1}
               size="small"
@@ -101,7 +100,10 @@ const TopicTableMobile = () => {
               style={
                 loading || page >= lastPage
                   ? undefined
-                  : { backgroundColor: theme.palette.success.light, color: theme.palette.success.contrastText }
+                  : {
+                      backgroundColor: theme.palette.success.light,
+                      color: theme.palette.success.contrastText,
+                    }
               }
               color="primary"
               size="small"

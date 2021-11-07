@@ -28,9 +28,28 @@ class SQLStorageProvider implements StorageProvider {
     return topics;
   }
 
+  async getDeletedTopics(skip: number, limit: number) {
+    const topics = await this.db<Topic>('topicList')
+      .select('title', 'topicID', 'authorName', 'authorID', 'lastReplyTime', 'reply', 'isElite')
+      .whereNotNull('deleteTime')
+      .orderBy('deleteTime', 'desc')
+      .offset(skip)
+      .limit(limit);
+    return topics;
+  }
+
   async getTopic(topicID: string | number) {
     const topic = await this.db<Topic>('topicList')
-      .first('title', 'topicID', 'authorName', 'authorID', 'isElite', 'content', 'createTime', 'deleteTime')
+      .first(
+        'title',
+        'topicID',
+        'authorName',
+        'authorID',
+        'isElite',
+        'content',
+        'createTime',
+        'deleteTime',
+      )
       .where('topicID', '=', Number(topicID));
     return topic || null;
   }
@@ -51,6 +70,11 @@ class SQLStorageProvider implements StorageProvider {
 
   async getPages() {
     const count = await this.db<Topic>('topicList').count('topicID');
+    return Math.floor(Number(count[0].count) / 50) + 1;
+  }
+
+  async getDeletedPages() {
+    const count = await this.db<Topic>('topicList').whereNotNull('deleteTime').count('topicID');
     return Math.floor(Number(count[0].count) / 50) + 1;
   }
 }

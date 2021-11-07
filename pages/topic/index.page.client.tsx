@@ -1,15 +1,17 @@
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import { Button, Card, CardContent, CardHeader, Chip, Container, Skeleton, Stack, Typography } from '@mui/material';
+import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Chip,
+  Container,
+  Skeleton,
+  Stack,
+  Typography,
+} from '@mui/material';
 import Waline from '@waline/client';
 import { format } from 'date-fns';
 import parse, { Element } from 'html-react-parser';
-import lgThumbnail from 'lightgallery/plugins/thumbnail';
-import lgZoom from 'lightgallery/plugins/zoom';
-import LightGallery from 'lightgallery/react';
-import 'lightgallery/css/lightgallery.css';
-import 'lightgallery/css/lg-zoom.css';
-import 'lightgallery/css/lg-thumbnail.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import config from '../../config/config.json';
@@ -18,6 +20,7 @@ import apiWrapper from '../../renderer/wrapper/apiWrapper';
 import Reply from '../../src/types/Reply';
 import Topic from '../../src/types/Topic';
 import Comments from './components/Comments';
+import ImgView from './components/ImgView';
 
 const initialTopic: Topic = {
   title: '',
@@ -74,10 +77,18 @@ const Page = () => {
         <CardHeader
           avatar={<UserFace authorID={topic.authorID} authorName={topic.authorName} />}
           title={topic.authorName || <Skeleton />}
-          subheader={topic.createTime ? format(topic.createTime * 1000, 'yyyy-MM-dd HH:mm:ss') : <Skeleton />}
+          subheader={
+            topic.createTime ? format(topic.createTime * 1000, 'yyyy-MM-dd HH:mm:ss') : <Skeleton />
+          }
           action={
             <>
-              <Chip label="楼主" color="primary" size="small" variant="outlined" style={{ marginRight: 8 }} />
+              <Chip
+                label="楼主"
+                color="primary"
+                size="small"
+                variant="outlined"
+                style={{ marginRight: 8 }}
+              />
               <Chip label="# 1" size="small" variant="outlined" />
             </>
           }
@@ -97,13 +108,7 @@ const Page = () => {
                   // eslint-disable-next-line consistent-return
                   replace: (domNode) => {
                     if (domNode instanceof Element && domNode.attribs && domNode.name === 'img') {
-                      return (
-                        <LightGallery plugins={[lgThumbnail, lgZoom]} mode="lg-fade">
-                          <a className="gallery-item" data-src={domNode.attribs.src}>
-                            <img className="img-responsive" src={domNode.attribs.src} />
-                          </a>
-                        </LightGallery>
-                      );
+                      return <ImgView src={domNode.attribs.src} />;
                     }
                   },
                 },
@@ -120,4 +125,4 @@ const Page = () => {
 
 export default Page;
 
-ReactDOM.render(<Page />, window.document.querySelector('div#page-view'));
+ReactDOM.render(<Page />, window.document.getElementById('page-view'));

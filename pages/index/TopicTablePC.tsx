@@ -1,36 +1,36 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { Grid, IconButton, Link, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material';
+import {
+  Grid,
+  IconButton,
+  Link,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Typography,
+} from '@mui/material';
 import { format } from 'date-fns';
 import React from 'react';
 import { useBlockLayout, useTable } from 'react-table';
-import apiWrapper from '../../renderer/wrapper/apiWrapper';
-import { TopicWhileGetAll } from '../../src/types/Topic';
+import TopicTableProps from '../../src/types/TopicTableProps';
 
-type TopicList = TopicWhileGetAll[];
-
-const TopicTablePC = () => {
-  const [topicList, setTopicList] = React.useState<TopicList>([]);
-  const [loading, setLoading] = React.useState(false);
-  const [page, setPage] = React.useState(1);
-  const [lastPage, setLastPage] = React.useState(1);
-
-  React.useEffect(() => {
-    apiWrapper.getPages().then((res) => setLastPage(res));
-  }, []);
-
-  React.useEffect(() => {
-    apiWrapper.getTopics(page).then((res) => {
-      setTopicList(res);
-      setLoading(false);
-    });
-  }, [page]);
-
+const TopicTablePC = ({
+  topicList,
+  loading,
+  setLoading,
+  page,
+  setPage,
+  lastPage,
+}: TopicTableProps) => {
   const processedData = React.useMemo(
     () =>
       topicList.map((ele) => ({
         ...ele,
-        lastReplyTime: ele.lastReplyTime ? format(Number(ele.lastReplyTime) * 1000, 'yy-MM-dd HH:mm') : '',
+        lastReplyTime: ele.lastReplyTime
+          ? format(Number(ele.lastReplyTime) * 1000, 'yy-MM-dd HH:mm')
+          : '',
       })),
     [topicList],
   );
@@ -85,8 +85,15 @@ const TopicTablePC = () => {
           {headerGroups.map((headerGroup) => (
             <TableRow {...headerGroup.getHeaderGroupProps()} component="div">
               {headerGroup.headers.map((column) => (
-                <TableCell {...column.getHeaderProps({ style: { padding: 8 } })} component="div" padding="none">
-                  <Typography style={{ height: '100%', width: '100%', display: 'flex', alignItems: 'center' }} noWrap>
+                <TableCell
+                  {...column.getHeaderProps({ style: { padding: 8 } })}
+                  component="div"
+                  padding="none"
+                >
+                  <Typography
+                    style={{ height: '100%', width: '100%', display: 'flex', alignItems: 'center' }}
+                    noWrap
+                  >
                     {column.render('Header')}
                   </Typography>
                 </TableCell>
@@ -103,7 +110,12 @@ const TopicTablePC = () => {
                   <TableCell component="div" {...cell.getCellProps({ style: { padding: 8 } })}>
                     <Typography
                       variant="body2"
-                      style={{ height: '100%', width: '100%', display: 'flex', alignItems: 'center' }}
+                      style={{
+                        height: '100%',
+                        width: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                      }}
                       noWrap
                     >
                       {cell.column.id === 'title' ? (
