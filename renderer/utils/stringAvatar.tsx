@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material';
 import React from 'react';
 
-const stringToColor = (string: string) => {
+export const stringToColor = (string: string) => {
   let hash = 0;
   let i;
 

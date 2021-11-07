@@ -1,12 +1,23 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import MessageIcon from '@mui/icons-material/Message';
-import { Card, CardActionArea, CardHeader, Chip, Fab, Stack, Typography, useTheme } from '@mui/material';
-import { format } from 'date-fns';
+import {
+  Avatar,
+  Card,
+  CardActionArea,
+  CardContent,
+  CardHeader,
+  Chip,
+  Fab,
+  Stack,
+  Typography,
+  useTheme,
+} from '@mui/material';
 import React from 'react';
-import UserFace from '../../renderer/components/UserFace';
+import { stringToColor } from '../../renderer/utils/stringAvatar';
 import apiWrapper from '../../renderer/wrapper/apiWrapper';
 import { TopicWhileGetAll } from '../../src/types/Topic';
+import ReplyChip from './components/ReplyChip';
+import formatLastReplyTime from './utils/formatLastReplyTime';
 
 const TopicTableMobile = () => {
   const [topicList, setTopicList] = React.useState<TopicWhileGetAll[]>([]);
@@ -26,44 +37,40 @@ const TopicTableMobile = () => {
     });
   }, [page]);
 
-  const processedData = React.useMemo(
-    () =>
-      topicList.map((ele) => ({
-        ...ele,
-        lastReplyTime: ele.lastReplyTime ? format(Number(ele.lastReplyTime) * 1000, 'yy-MM-dd HH:mm') : '',
-      })),
-    [topicList],
-  );
-
   return (
     <>
       <Stack spacing={1}>
-        {processedData.map((topic) => (
+        {topicList.map((topic) => (
           <Card key={topic.topicID}>
             <CardActionArea
               onClick={() => {
                 window.location.href = `topic/${topic.topicID}`;
               }}
             >
-              <CardHeader
-                title={topic.title}
-                subheader={
-                  <>
-                    <Typography variant="caption">{topic.authorName}</Typography>
-                  </>
-                }
-                avatar={<UserFace authorID={topic.authorID} authorName={topic.authorName} />}
-                action={
-                  <Chip
-                    label={topic.reply}
-                    style={{ paddingLeft: 4 }}
-                    size="small"
-                    icon={<MessageIcon />}
-                    variant="outlined"
-                    color="info"
+              <Stack direction="row" alignItems="center">
+                <ReplyChip reply={topic.reply} />
+                <div>
+                  <CardHeader
+                    style={{ paddingBottom: 0, paddingLeft: 8 }}
+                    title={<Typography variant="h6">{topic.title}</Typography>}
                   />
-                }
-              />
+                  <CardContent style={{ paddingTop: 0, paddingLeft: 8 }}>
+                    <Stack direction="row" spacing={1}>
+                      <Avatar sx={{ bgcolor: stringToColor(topic.authorName), height: 20, width: 20 }}>
+                        <Typography style={{ color: theme.palette.info.contrastText }} variant="caption">
+                          {topic.authorName.substring(0, 1)}
+                        </Typography>
+                      </Avatar>
+                      <Typography variant="caption" style={{ color: 'rgba(0,0,0,0.6)' }}>
+                        {topic.authorName}
+                      </Typography>
+                      <Typography variant="caption" style={{ color: 'rgba(0,0,0,0.4)' }}>
+                        {topic.lastReplyTime && formatLastReplyTime(topic.lastReplyTime)}
+                      </Typography>
+                    </Stack>
+                  </CardContent>
+                </div>
+              </Stack>
             </CardActionArea>
           </Card>
         ))}

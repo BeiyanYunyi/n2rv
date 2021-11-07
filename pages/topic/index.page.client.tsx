@@ -24,7 +24,7 @@ const initialTopic: Topic = {
   topicID: '',
   authorID: '',
   authorName: '',
-  content: '',
+  content: null,
   createTime: null,
   reply: '',
   lastFetchTime: 0,
@@ -84,7 +84,10 @@ const Page = () => {
         />
         <CardContent style={{ paddingTop: 0 }}>
           <Typography component="div">
-            {topic?.content &&
+            {topic.content === null ? (
+              <Skeleton />
+            ) : (
+              topic.content &&
               parse(
                 topic.content
                   .replaceAll('https://img', '/cors/https://img')
@@ -104,7 +107,8 @@ const Page = () => {
                     }
                   },
                 },
-              )}
+              )
+            )}
           </Typography>
         </CardContent>
       </Card>
