@@ -32,6 +32,7 @@
     "express-async-errors": "^3.1.1",
     "html-react-parser": "^1.4.0",
     "knex": "^0.95.13",
+    "lightgallery": "^2.3.0",
     "pg": "^8.7.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

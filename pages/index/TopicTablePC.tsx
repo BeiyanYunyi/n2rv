@@ -20,7 +20,7 @@ const TopicTablePC = () => {
   }, []);
 
   React.useEffect(() => {
-    apiWrapper.getAllTopics(page).then((res) => {
+    apiWrapper.getTopics(page).then((res) => {
       setTopicList(res);
       setLoading(false);
     });

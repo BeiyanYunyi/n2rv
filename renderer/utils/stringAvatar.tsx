@@ -1,3 +1,6 @@
+import { Typography } from '@mui/material';
+import React from 'react';
+
 const stringToColor = (string: string) => {
   let hash = 0;
   let i;
@@ -18,15 +21,11 @@ const stringToColor = (string: string) => {
   return color;
 };
 
-const stringAvatar = (name: string) => {
-  const reg = /[^\u4e00-\u9fa5]/gi;
-  const charactor = name.replace(reg, '');
-  return {
-    sx: {
-      bgcolor: stringToColor(name),
-    },
-    children: `${charactor ? charactor.substring(0, 1) : name.substring(0, 2)}`,
-  };
-};
+const stringAvatar = (name: string) => ({
+  sx: {
+    bgcolor: stringToColor(name),
+  },
+  children: <Typography>{name.substring(0, 2)}</Typography>,
+});
 
 export default stringAvatar;

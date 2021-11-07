@@ -10,6 +10,6 @@ const Page = () => {
   return <Container>{isMobile ? <TopicTableMobile /> : <TopicTablePC />}</Container>;
 };
 
-ReactDOM.render(<Page />, window.document.querySelector('div#app-root'));
+ReactDOM.render(<Page />, window.document.querySelector('div#page-view'));
 
 export default Page;

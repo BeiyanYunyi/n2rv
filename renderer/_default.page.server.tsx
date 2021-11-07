@@ -24,7 +24,7 @@ async function render(pageContext: PageContextBuiltIn & PageContext) {
   const desc = (documentProps && documentProps.description) || 'App using Vite + vite-plugin-ssr';
 
   const documentHtml = escapeInject`<!DOCTYPE html>
-    <html lang="en">
+    <html lang="zh-CN">
       <head>
         <meta charset="UTF-8" />
         <link rel="icon" href="${logoUrl}" />

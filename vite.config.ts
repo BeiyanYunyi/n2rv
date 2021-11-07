@@ -5,6 +5,9 @@ import { searchForWorkspaceRoot, UserConfig } from 'vite';
 const config: UserConfig = {
   server: { fs: { allow: [searchForWorkspaceRoot(process.cwd()), '.'] } },
   plugins: [react(), ssr()],
+  build: {
+    rollupOptions: { output: { manualChunks: { mui: ['@mui/material', '@mui/system'] } } },
+  },
 };
 
 export default config;

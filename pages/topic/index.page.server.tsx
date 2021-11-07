@@ -5,7 +5,6 @@ import Topic from '../../src/types/Topic';
 
 const onBeforeRender = async (pageContext: PageContextBuiltIn) => {
   const topic = (await Storage.getTopic(pageContext.routeParams.topicID)) as Topic;
-  const comments = await Storage.getComments(pageContext.routeParams.topicID);
   const documentProps = {
     // This title and description will override the defaults
     title: topic.title,
@@ -14,7 +13,6 @@ const onBeforeRender = async (pageContext: PageContextBuiltIn) => {
   return {
     pageContext: {
       documentProps,
-      pageProps: { topic, comments },
     },
   };
 };

@@ -2,10 +2,13 @@
 import { Card, CardContent, CardHeader, Chip, Stack, Typography } from '@mui/material';
 import format from 'date-fns/format';
 import parse from 'html-react-parser';
+import lgThumbnail from 'lightgallery/plugins/thumbnail';
+import lgZoom from 'lightgallery/plugins/zoom';
+import LightGallery from 'lightgallery/react';
 import React from 'react';
+import UserFace from '../../../renderer/components/UserFace';
 import Reply from '../../../src/types/Reply';
 import CommentQuote from './CommentQuote';
-import UserFace from '../../../renderer/components/UserFace';
 
 const Comment = ({ reply, index }: { reply: Reply; index: number }) => (
   <Card>
@@ -23,9 +26,11 @@ const Comment = ({ reply, index }: { reply: Reply; index: number }) => (
     />
     <CardContent style={{ paddingTop: 0 }}>
       {reply.image && (
-        <div className="comment-photos" style={{}}>
-          <img data-orig={reply.image} src={`/cors/${reply.image}`} />
-        </div>
+        <LightGallery plugins={[lgThumbnail, lgZoom]} mode="lg-fade">
+          <a className="gallery-item" data-src={`/cors/${reply.image}`}>
+            <img className="img-responsive" data-orig={reply.image} src={`/cors/${reply.image}`} />
+          </a>
+        </LightGallery>
       )}
       <Typography component="div">{parse(reply.content)}</Typography>
     </CardContent>

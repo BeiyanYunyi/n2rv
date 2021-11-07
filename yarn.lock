@@ -3585,6 +3585,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lightgallery@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "lightgallery@npm:2.3.0"
+  checksum: 54d32c64b04cd8de92d6888bd54e7e99076896c1ab4eb05d27919d930984a4334a20140681488662d36768d9311ae6fe19f31accd65a4107425b73ae4f22d2fe
+  languageName: node
+  linkType: hard
+
 "lines-and-columns@npm:^1.1.6":
   version: 1.1.6
   resolution: "lines-and-columns@npm:1.1.6"
@@ -3902,6 +3909,7 @@ __metadata:
     express-async-errors: ^3.1.1
     html-react-parser: ^1.4.0
     knex: ^0.95.13
+    lightgallery: ^2.3.0
     pg: ^8.7.1
     prettier: ^2.4.1
     react: ^17.0.2
