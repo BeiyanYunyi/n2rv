@@ -50,8 +50,8 @@ const root = `${__dirname}/..`;
 
   const port = process.env.PORT || 3000;
   if (isProduction) {
-    const key = fs.readFileSync(path.join(root, 'certs', 'priv.key'));
-    const cert = fs.readFileSync(path.join(root, 'certs', 'pub.cer'));
+    const key = fs.readFileSync(path.join(root, 'certs', 'priv.key')).toString();
+    const cert = fs.readFileSync(path.join(root, 'certs', 'pub.cer')).toString();
     const server = https.createServer({ key, cert }, app);
     server.listen(port);
   } else {

@@ -1,6 +1,6 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { Grid, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material';
+import { Grid, IconButton, Link, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material';
 import { format } from 'date-fns';
 import React from 'react';
 import { useBlockLayout, useTable } from 'react-table';
@@ -107,7 +107,9 @@ const TopicTablePC = () => {
                       noWrap
                     >
                       {cell.column.id === 'title' ? (
-                        <a href={`topic/${cell.row.original.topicID}`}>{cell.render('Cell')}</a>
+                        <Link underline="none" href={`topic/${cell.row.original.topicID}`}>
+                          {cell.render('Cell')}
+                        </Link>
                       ) : (
                         cell.render('Cell')
                       )}
