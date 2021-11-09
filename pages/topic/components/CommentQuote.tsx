@@ -2,8 +2,9 @@
 import { Card, CardContent, CardHeader, Typography } from '@mui/material';
 import parse from 'html-react-parser';
 import React from 'react';
-import Reply from '../../../src/types/Reply';
+import ImgView from '../../../renderer/components/ImgView';
 import UserFace from '../../../renderer/components/UserFace';
+import Reply from '../../../src/types/Reply';
 
 const CommentQuote = ({ reply }: { reply: Reply }) => (
   <Card style={{ margin: 8, marginBottom: 0 }} variant="outlined">
@@ -12,11 +13,7 @@ const CommentQuote = ({ reply }: { reply: Reply }) => (
       title={reply.quotingAuthorName}
     />
     <CardContent style={{ padding: 8, paddingTop: 0 }}>
-      {reply.quotingImage && (
-        <div className="quote-img">
-          <img data-orig={reply.quotingImage} src={`/cors/${reply.quotingImage}`} />
-        </div>
-      )}
+      {reply.quotingImage && <ImgView src={`/cors/${reply.quotingImage}`} />}
       {reply.quotingText && (
         <Typography component="div" variant="caption">
           {parse(reply.quotingText)}

@@ -105,7 +105,6 @@ const TopicTableMobile = ({
                       color: theme.palette.success.contrastText,
                     }
               }
-              color="primary"
               size="small"
               disabled={loading || page >= lastPage}
               onClick={

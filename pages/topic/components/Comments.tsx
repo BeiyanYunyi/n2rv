@@ -6,7 +6,7 @@ import React from 'react';
 import UserFace from '../../../renderer/components/UserFace';
 import Reply from '../../../src/types/Reply';
 import CommentQuote from './CommentQuote';
-import ImgView from './ImgView';
+import ImgView from '../../../renderer/components/ImgView';
 
 const Comment = ({ reply, index }: { reply: Reply; index: number }) => (
   <Card>

@@ -11,16 +11,16 @@ import {
 } from '@mui/material';
 import Waline from '@waline/client';
 import { format } from 'date-fns';
-import parse, { Element } from 'html-react-parser';
+import parse from 'html-react-parser';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import config from '../../config/config.json';
 import UserFace from '../../renderer/components/UserFace';
+import parserOpt from '../../renderer/utils/parserOpt';
 import apiWrapper from '../../renderer/wrapper/apiWrapper';
 import Reply from '../../src/types/Reply';
 import Topic from '../../src/types/Topic';
 import Comments from './components/Comments';
-import ImgView from './components/ImgView';
 
 const initialTopic: Topic = {
   title: '',
@@ -104,14 +104,7 @@ const Page = () => {
                   .replaceAll('https://img', '/cors/https://img')
                   .replaceAll('.webp', '.jpg')
                   .replace('<br />', ''),
-                {
-                  // eslint-disable-next-line consistent-return
-                  replace: (domNode) => {
-                    if (domNode instanceof Element && domNode.attribs && domNode.name === 'img') {
-                      return <ImgView src={domNode.attribs.src} />;
-                    }
-                  },
-                },
+                parserOpt,
               )
             )}
           </Typography>
