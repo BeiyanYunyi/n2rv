@@ -52,7 +52,12 @@ const Page = () => {
   return (
     <Container>
       <Stack direction="row" spacing={1}>
-        <Button href="../../" variant="outlined">
+        <Button
+          onClick={() => {
+            window.history.back();
+          }}
+          variant="outlined"
+        >
           返回
         </Button>
         <>

@@ -55,7 +55,7 @@ const SubjectCard = ({ domNode }: { domNode: Element }) => {
   return (
     <>
       <Card style={{ margin: 8 }}>
-        <Stack direction="row">
+        <Stack direction="row" alignItems="center">
           <img src={subjectCoverSrc} style={{ maxHeight: 150, maxWidth: 102 }} />
           <div>
             <CardHeader
@@ -72,7 +72,7 @@ const SubjectCard = ({ domNode }: { domNode: Element }) => {
               subheaderTypographyProps={{
                 style: { color: '#e09015', textAlign: 'center' },
               }}
-              style={{ paddingBottom: 0, paddingTop: 8 }}
+              style={{ paddingBottom: 0, paddingTop: 0 }}
             />
             {subjectSummary && (
               <Typography variant="caption" style={{ padding: 16, paddingTop: 0 }}>
