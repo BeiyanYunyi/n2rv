@@ -1,6 +1,8 @@
 import { Container, FormControlLabel, Switch, useMediaQuery, useTheme } from '@mui/material';
 import React from 'react';
+import Waline from '@waline/client';
 import ReactDOM from 'react-dom';
+import config from '../../config/config.json';
 import apiWrapper from '../../renderer/wrapper/apiWrapper';
 import { TopicWhileGetAll } from '../../src/types/Topic';
 import TopicTableMobile from './TopicTableMobile';
@@ -21,6 +23,9 @@ const Page = () => {
       setLoading(false);
     });
   }, [page, needDeleted]);
+  React.useEffect(() => {
+    Waline({ el: '#waline', serverURL: config.walineURL });
+  }, []);
   const topicTableProps = {
     topicList,
     needDeleted,
@@ -47,6 +52,7 @@ const Page = () => {
         />
       </div>
       {isMobile ? <TopicTableMobile {...topicTableProps} /> : <TopicTablePC {...topicTableProps} />}
+      <div id="waline" />
     </Container>
   );
 };
