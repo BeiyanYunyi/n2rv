@@ -13,9 +13,10 @@ import {
   useTheme,
 } from '@mui/material';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { stringToColor } from '../../renderer/utils/stringAvatar';
-import ReplyChip from './components/ReplyChip';
 import TopicTableProps from '../../src/types/TopicTableProps';
+import ReplyChip from './components/ReplyChip';
 import formatLastReplyTime from './utils/formatLastReplyTime';
 
 const TopicTableMobile = ({
@@ -26,6 +27,7 @@ const TopicTableMobile = ({
   setPage,
   lastPage,
 }: TopicTableProps) => {
+  const navigate = useNavigate();
   const theme = useTheme();
 
   return (
@@ -34,8 +36,10 @@ const TopicTableMobile = ({
         {topicList.map((topic) => (
           <Card key={topic.topicID}>
             <CardActionArea
-              onClick={() => {
-                window.location.href = `topic/${topic.topicID}`;
+              href={`/topic/${topic.topicID}`}
+              onClick={(e) => {
+                e.preventDefault();
+                navigate(`topic/${topic.topicID}`);
               }}
             >
               <Stack direction="row" alignItems="center">

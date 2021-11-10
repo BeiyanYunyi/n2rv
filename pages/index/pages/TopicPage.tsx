@@ -13,14 +13,14 @@ import Waline from '@waline/client';
 import { format } from 'date-fns';
 import parse from 'html-react-parser';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import config from '../../config/config.json';
-import UserFace from '../../renderer/components/UserFace';
-import parserOpt from '../../renderer/utils/parserOpt';
-import apiWrapper from '../../renderer/wrapper/apiWrapper';
-import Reply from '../../src/types/Reply';
-import Topic from '../../src/types/Topic';
-import Comments from './components/Comments';
+import { useNavigate, useParams } from 'react-router-dom';
+import config from '../../../config/config.json';
+import UserFace from '../../../renderer/components/UserFace';
+import parserOpt from '../../../renderer/utils/parserOpt';
+import apiWrapper from '../../../renderer/wrapper/apiWrapper';
+import Reply from '../../../src/types/Reply';
+import Topic from '../../../src/types/Topic';
+import Comments from '../components/Comments';
 
 const initialTopic: Topic = {
   title: '',
@@ -36,25 +36,31 @@ const initialTopic: Topic = {
   deleteTime: null,
 };
 
-const Page = () => {
+const TopicPage = () => {
+  const navigate = useNavigate();
+  const params = useParams();
   const [topic, setTopic] = React.useState<Topic>(initialTopic);
   const [comments, setComments] = React.useState<Reply[]>([]);
   React.useEffect(() => {
     Waline({ el: '#waline', serverURL: config.walineURL });
   }, []);
   React.useEffect(() => {
-    apiWrapper.getTopic(window.location.pathname.split('/')[2]).then((res) => {
-      setTopic(res.topic);
-      setComments(res.comments);
-    });
-  }, []);
+    if (params.topicId) {
+      apiWrapper.getTopic(params.topicId).then((res) => {
+        setTopic(res.topic);
+        setComments(res.comments);
+      });
+    }
+  }, [params.topicId]);
 
   return (
     <Container>
       <Stack direction="row" spacing={1}>
         <Button
-          onClick={() => {
-            window.history.back();
+          href="/"
+          onClick={(e) => {
+            e.preventDefault();
+            navigate('../../');
           }}
           variant="outlined"
         >
@@ -121,6 +127,4 @@ const Page = () => {
   );
 };
 
-export default Page;
-
-ReactDOM.render(<Page />, window.document.getElementById('page-view'));
+export default TopicPage;

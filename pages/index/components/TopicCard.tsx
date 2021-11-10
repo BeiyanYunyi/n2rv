@@ -22,9 +22,9 @@ const TopicCard = ({ domNode }: TopicCardProp) => {
   const [groupImg] = groupImgDiv.children as Element[];
   const [groupMemberText] = groupMemberSpan.children as unknown as { data: string }[];
   const [groupNameText] = groupNameStrong.children as unknown as { data: string }[];
-  const topicCoverImgSrc = topicCoverImg?.attribs.src;
   const [topicTitle, topicDesc] = topicInfo.children as Element[];
   const topicTitleStr = (topicTitle.firstChild as unknown as { data: string }).data;
+  const topicCoverImgSrc = topicCoverImg?.attribs.src;
   const groupLink = groupHd.attribs.href;
   const topicLink = topicMain.attribs.href;
   const groupName = groupNameText.data;

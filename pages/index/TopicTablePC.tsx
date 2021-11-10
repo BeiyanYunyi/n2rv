@@ -13,6 +13,7 @@ import {
 } from '@mui/material';
 import { format } from 'date-fns';
 import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import { useBlockLayout, useTable } from 'react-table';
 import TopicTableProps from '../../src/types/TopicTableProps';
 
@@ -119,7 +120,11 @@ const TopicTablePC = ({
                       noWrap
                     >
                       {cell.column.id === 'title' ? (
-                        <Link underline="none" href={`topic/${cell.row.original.topicID}`}>
+                        <Link
+                          component={RouterLink}
+                          to={`topic/${cell.row.original.topicID}`}
+                          underline="hover"
+                        >
                           {cell.render('Cell')}
                         </Link>
                       ) : (

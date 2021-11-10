@@ -1,7 +1,7 @@
 import { Element, HTMLReactParserOptions } from 'html-react-parser';
 import React from 'react';
-import SubjectCard from '../../pages/topic/components/SubjectCard';
-import TopicCard from '../../pages/topic/components/TopicCard';
+import SubjectCard from '../../pages/index/components/SubjectCard';
+import TopicCard from '../../pages/index/components/TopicCard';
 import ImgView from '../components/ImgView';
 
 const parserOpt: HTMLReactParserOptions = {
