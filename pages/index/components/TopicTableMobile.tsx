@@ -14,10 +14,10 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { stringToColor } from '../../renderer/utils/stringAvatar';
-import TopicTableProps from '../../src/types/TopicTableProps';
-import ReplyChip from './components/ReplyChip';
-import formatLastReplyTime from './utils/formatLastReplyTime';
+import { stringToColor } from '../../../renderer/utils/stringAvatar';
+import TopicTableProps from '../../../src/types/TopicTableProps';
+import ReplyChip from './ReplyChip';
+import formatLastReplyTime from '../utils/formatLastReplyTime';
 
 const TopicTableMobile = ({
   topicList,

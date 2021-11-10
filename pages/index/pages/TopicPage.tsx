@@ -9,18 +9,17 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import Waline from '@waline/client';
 import { format } from 'date-fns';
 import parse from 'html-react-parser';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import config from '../../../config/config.json';
 import UserFace from '../../../renderer/components/UserFace';
 import parserOpt from '../../../renderer/utils/parserOpt';
 import apiWrapper from '../../../renderer/wrapper/apiWrapper';
 import Reply from '../../../src/types/Reply';
 import Topic from '../../../src/types/Topic';
 import Comments from '../components/Comments';
+import AppWaline from '../components/AppWaline';
 
 const initialTopic: Topic = {
   title: '',
@@ -41,9 +40,6 @@ const TopicPage = () => {
   const params = useParams();
   const [topic, setTopic] = React.useState<Topic>(initialTopic);
   const [comments, setComments] = React.useState<Reply[]>([]);
-  React.useEffect(() => {
-    Waline({ el: '#waline', serverURL: config.walineURL });
-  }, []);
   React.useEffect(() => {
     if (params.topicId) {
       apiWrapper.getTopic(params.topicId).then((res) => {
@@ -122,7 +118,7 @@ const TopicPage = () => {
         </CardContent>
       </Card>
       <Comments replies={comments} />
-      <div id="waline" />
+      <AppWaline />
     </Container>
   );
 };
