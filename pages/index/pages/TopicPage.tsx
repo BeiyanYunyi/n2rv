@@ -66,6 +66,7 @@ const TopicPage = () => {
           <Button
             href={`https://www.douban.com/group/topic/${topic.topicID}`}
             variant="outlined"
+            rel="noreferrer"
             disabled={!!topic.deleteTime}
           >
             原帖
