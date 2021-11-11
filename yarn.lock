@@ -1550,13 +1550,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"canvas-renderer@npm:~2.1.1":
-  version: 2.1.1
-  resolution: "canvas-renderer@npm:2.1.1"
-  checksum: 6bb28714be5c809d46d67e41076660a851ab25a22cea0d0e3b0b11d935aede2efbf3b996e3c1a4dfb48689bb90f5bf60f83056e70515d18b5b30b29a330ecc01
-  languageName: node
-  linkType: hard
-
 "chalk@npm:^2.0.0":
   version: 2.4.2
   resolution: "chalk@npm:2.4.2"
@@ -3434,18 +3427,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jdenticon@npm:^2.2.0":
-  version: 2.2.0
-  resolution: "jdenticon@npm:2.2.0"
-  dependencies:
-    "@types/node": "*"
-    canvas-renderer: ~2.1.1
-  bin:
-    jdenticon: bin/jdenticon.js
-  checksum: 2aeae02a1071dfdb3f934cd5681e0a5cb8bf3f996dde14f59baa802faa79b9807c7656866201b6e18339f98742d814fd9a2eec08de9e9179eb0b494a14a0415c
-  languageName: node
-  linkType: hard
-
 "js-tokens@npm:^3.0.0 || ^4.0.0, js-tokens@npm:^4.0.0":
   version: 4.0.0
   resolution: "js-tokens@npm:4.0.0"
@@ -3932,13 +3913,11 @@ __metadata:
     prettier: ^2.4.1
     react: ^17.0.2
     react-dom: ^17.0.2
-    react-jdenticon: ^0.0.9
     react-router-dom: ^6.0.2
     react-table: ^7.7.0
     rimraf: ^3.0.2
     ts-node: ^10.3.0
     typescript: ^4.4.4
-    uuid: ^8.3.2
     vite: 2.6.7
     vite-plugin-ssr: ^0.3.23
   languageName: unknown
@@ -4527,18 +4506,6 @@ __metadata:
   version: 17.0.2
   resolution: "react-is@npm:17.0.2"
   checksum: 9d6d111d8990dc98bc5402c1266a808b0459b5d54830bbea24c12d908b536df7883f268a7868cfaedde3dd9d4e0d574db456f84d2e6df9c4526f99bb4b5344d8
-  languageName: node
-  linkType: hard
-
-"react-jdenticon@npm:^0.0.9":
-  version: 0.0.9
-  resolution: "react-jdenticon@npm:0.0.9"
-  dependencies:
-    jdenticon: ^2.2.0
-    prop-types: ^15.7.2
-  peerDependencies:
-    react: ^16.8.0
-  checksum: 35c0d6e13c35480daabf4ff8ddd784bf8a1f3eb3b421be99ca66f64c773c2b811b86958a2f47c09c70a79316786c09e5787663a2506b0670c6ec641b7cdd810a
   languageName: node
   linkType: hard
 
@@ -5405,15 +5372,6 @@ __metadata:
   version: 1.0.1
   resolution: "utils-merge@npm:1.0.1"
   checksum: c81095493225ecfc28add49c106ca4f09cdf56bc66731aa8dabc2edbbccb1e1bfe2de6a115e5c6a380d3ea166d1636410b62ef216bb07b3feb1cfde1d95d5080
-  languageName: node
-  linkType: hard
-
-"uuid@npm:^8.3.2":
-  version: 8.3.2
-  resolution: "uuid@npm:8.3.2"
-  bin:
-    uuid: dist/bin/uuid
-  checksum: 5575a8a75c13120e2f10e6ddc801b2c7ed7d8f3c8ac22c7ed0c7b2ba6383ec0abda88c905085d630e251719e0777045ae3236f04c812184b7c765f63a70e58df
   languageName: node
   linkType: hard
 

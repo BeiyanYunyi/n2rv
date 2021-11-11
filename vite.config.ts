@@ -6,7 +6,16 @@ const config: UserConfig = {
   server: { fs: { allow: [searchForWorkspaceRoot(process.cwd()), '.'] } },
   plugins: [react(), ssr()],
   build: {
-    rollupOptions: { output: { manualChunks: { mui: ['@mui/material', '@mui/system'] } } },
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          console.log(id);
+          if (id.includes('@mui')) {
+            return 'mui';
+          }
+        },
+      },
+    },
   },
 };
 
