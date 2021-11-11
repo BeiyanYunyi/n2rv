@@ -1,4 +1,4 @@
-import { Container, FormControlLabel, Switch, useMediaQuery, useTheme } from '@mui/material';
+import { Container, FormControlLabel, Stack, Switch, useMediaQuery, useTheme } from '@mui/material';
 import React from 'react';
 import apiWrapper from '../../../renderer/wrapper/apiWrapper';
 import { TopicWhileGetAll } from '../../../src/types/Topic';
@@ -11,16 +11,20 @@ const IndexPage = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [topicList, setTopicList] = React.useState<TopicWhileGetAll[]>([]);
   const [needDeleted, setNeedDeleted] = React.useState(false);
+  const [needElite, setNeedElite] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [page, setPage] = React.useState(1);
   const [lastPage, setLastPage] = React.useState(1);
   React.useEffect(() => {
-    apiWrapper.getTopics(page, needDeleted).then((res) => {
+    document.title = '影之避难所';
+  }, []);
+  React.useEffect(() => {
+    apiWrapper.getTopics(page, needDeleted, needElite).then((res) => {
       setLastPage(res.pages);
       setTopicList(res.topicList);
       setLoading(false);
     });
-  }, [page, needDeleted]);
+  }, [page, needDeleted, needElite]);
   const topicTableProps = {
     topicList,
     needDeleted,
@@ -33,7 +37,7 @@ const IndexPage = () => {
   };
   return (
     <Container>
-      <div style={{ width: '100%', textAlign: 'center' }}>
+      <Stack justifyContent="center" direction="row">
         <FormControlLabel
           control={
             <Switch
@@ -43,9 +47,20 @@ const IndexPage = () => {
               }}
             />
           }
-          label="只看被删的帖子"
+          label="已删帖"
         />
-      </div>
+        <FormControlLabel
+          control={
+            <Switch
+              checked={needElite}
+              onChange={() => {
+                setNeedElite((oriState) => !oriState);
+              }}
+            />
+          }
+          label="精品"
+        />
+      </Stack>
       {isMobile ? <TopicTableMobile {...topicTableProps} /> : <TopicTablePC {...topicTableProps} />}
       <AppWaline />
     </Container>

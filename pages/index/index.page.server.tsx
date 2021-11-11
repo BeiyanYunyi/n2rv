@@ -4,7 +4,7 @@ export const onBeforeRender = async () => {
   const documentProps = {
     // This title and description will override the defaults
     title: '影之避难所',
-    description: 'Our mission is to explore the galaxy.',
+    description: '永不陷落的波派',
   };
   return {
     pageContext: { documentProps },

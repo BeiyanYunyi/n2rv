@@ -15,21 +15,18 @@ apiRouter.get('/topic/:id', async (req, res) => {
 });
 
 apiRouter.get('/topic', async (req, res) => {
-  const { page, needDeleted } = req.query as {
+  const { page, needDeleted, needElite } = req.query as {
     page: string | undefined;
     needDeleted: string | undefined;
+    needElite: string | undefined;
   };
-  const pages = needDeleted ? await Storage.getDeletedPages() : await Storage.getPages();
+  const pages = await Storage.getPages(!!needDeleted, !!needElite);
   if (!page) {
-    const topicList = needDeleted
-      ? await Storage.getDeletedTopics(0, 50)
-      : await Storage.getAllTopics(0, 50);
+    const topicList = await Storage.getAllTopics(0, 50, !!needDeleted, !!needElite);
     return res.send({ topicList, pages });
   }
   const pageNum = Number(page) * 50;
-  const topicList = needDeleted
-    ? await Storage.getDeletedTopics(pageNum, 50)
-    : await Storage.getAllTopics(pageNum, 50);
+  const topicList = await Storage.getAllTopics(pageNum, 50, !!needDeleted, !!needElite);
   return res.send({ topicList, pages });
 });
 

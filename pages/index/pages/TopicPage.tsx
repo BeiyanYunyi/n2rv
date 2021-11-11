@@ -45,6 +45,7 @@ const TopicPage = () => {
       apiWrapper.getTopic(params.topicId).then((res) => {
         setTopic(res.topic);
         setComments(res.comments);
+        document.title = res.topic.title;
       });
     }
   }, [params.topicId]);

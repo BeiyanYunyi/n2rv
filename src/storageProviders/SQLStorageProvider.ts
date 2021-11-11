@@ -19,22 +19,15 @@ class SQLStorageProvider implements StorageProvider {
     searchPath: [config.groupURL.substring(29).replace('/', ''), 'public'],
   });
 
-  async getAllTopics(skip: number, limit: number) {
-    const topics = await this.db<Topic>('topicList')
+  async getAllTopics(skip: number, limit: number, needDeleted: boolean, needElite: boolean) {
+    const query0 = this.db<Topic>('topicList')
       .select('title', 'topicID', 'authorName', 'authorID', 'lastReplyTime', 'reply', 'isElite')
       .orderBy('lastReplyTime', 'desc')
       .offset(skip)
       .limit(limit);
-    return topics;
-  }
-
-  async getDeletedTopics(skip: number, limit: number) {
-    const topics = await this.db<Topic>('topicList')
-      .select('title', 'topicID', 'authorName', 'authorID', 'lastReplyTime', 'reply', 'isElite')
-      .whereNotNull('deleteTime')
-      .orderBy('lastReplyTime', 'desc')
-      .offset(skip)
-      .limit(limit);
+    const query1 = needDeleted ? query0.whereNotNull('deleteTime') : query0;
+    const query2 = needElite ? query1.where('isElite', true) : query1;
+    const topics = await query2;
     return topics;
   }
 
@@ -68,13 +61,11 @@ class SQLStorageProvider implements StorageProvider {
     return null;
   }
 
-  async getPages() {
-    const count = await this.db<Topic>('topicList').count('topicID');
-    return Math.floor(Number(count[0].count) / 50) + 1;
-  }
-
-  async getDeletedPages() {
-    const count = await this.db<Topic>('topicList').whereNotNull('deleteTime').count('topicID');
+  async getPages(deleted: boolean, elite: boolean) {
+    const query0 = this.db<Topic>('topicList');
+    const query1 = deleted ? query0.whereNotNull('deleteTime') : query0;
+    const query2 = elite ? query1.where('isElite', true) : query1;
+    const count = await query2.count('topicID');
     return Math.floor(Number(count[0].count) / 50) + 1;
   }
 }

@@ -9,7 +9,6 @@ const config: UserConfig = {
     rollupOptions: {
       output: {
         manualChunks(id) {
-          console.log(id);
           if (id.includes('@mui')) {
             return 'mui';
           }
