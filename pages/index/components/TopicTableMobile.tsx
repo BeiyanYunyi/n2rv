@@ -47,7 +47,12 @@ const TopicTableMobile = ({
                 <div>
                   <CardHeader
                     style={{ paddingBottom: 0, paddingLeft: 8 }}
-                    title={<Typography variant="h6">{topic.title}</Typography>}
+                    title={
+                      <Typography variant="h6">
+                        {topic.isElite && <Chip label="精品" size="small" color="error" />}
+                        {topic.title}
+                      </Typography>
+                    }
                   />
                   <CardContent style={{ paddingTop: 0, paddingLeft: 8 }}>
                     <Stack direction="row" spacing={1}>

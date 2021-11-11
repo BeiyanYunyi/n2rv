@@ -56,7 +56,7 @@ const TopicPage = () => {
           href="/"
           onClick={(e) => {
             e.preventDefault();
-            navigate('../../');
+            navigate('/');
           }}
           variant="outlined"
         >

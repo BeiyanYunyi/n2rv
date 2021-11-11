@@ -1,9 +1,11 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import {
+  Chip,
   Grid,
   IconButton,
   Link,
+  Stack,
   Table,
   TableBody,
   TableCell,
@@ -108,9 +110,19 @@ const TopicTablePC = ({
             return (
               <TableRow {...row.getRowProps()} component="div">
                 {row.cells.map((cell) => (
-                  <TableCell component="div" {...cell.getCellProps({ style: { padding: 8 } })}>
+                  <TableCell
+                    component="div"
+                    {...cell.getCellProps({
+                      style: {
+                        padding: 8,
+                        paddingTop: cell.row.original.isElite ? 6 : 8,
+                        paddingBottom: cell.row.original.isElite ? 6 : 8,
+                      },
+                    })}
+                  >
                     <Typography
                       variant="body2"
+                      component="div"
                       style={{
                         height: '100%',
                         width: '100%',
@@ -125,7 +137,12 @@ const TopicTablePC = ({
                           to={`topic/${cell.row.original.topicID}`}
                           underline="hover"
                         >
-                          {cell.render('Cell')}
+                          <Stack direction="row" alignItems="center">
+                            {cell.row.original.isElite && (
+                              <Chip label="精品" size="small" color="error" />
+                            )}
+                            {cell.render('Cell')}
+                          </Stack>
                         </Link>
                       ) : (
                         cell.render('Cell')
