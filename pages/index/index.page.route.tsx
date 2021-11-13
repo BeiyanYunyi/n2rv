@@ -3,6 +3,12 @@ import { PageContext } from '../../renderer/types';
 
 export default (pageContext: PageContextBuiltIn & PageContext) => {
   const { url } = pageContext;
-  if (url === '/about') return false;
-  return true;
+  switch (url) {
+    case '/about':
+      return false;
+    case '/assets':
+      return false;
+    default:
+      return true;
+  }
 };

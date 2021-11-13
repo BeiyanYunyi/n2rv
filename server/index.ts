@@ -11,17 +11,14 @@ import corsRouter from './routers/corsRouter';
 require('express-async-errors');
 
 const isProduction = process.env.NODE_ENV === 'production';
-const root = `${__dirname}/..`;
+const root = path.resolve(`${__dirname}/..`);
+const logoPath = path.join(root, 'server', 'static');
 
 (async () => {
   const app = express();
+  app.use('/static', express.static(logoPath));
   app.use('/cors', corsRouter);
   app.use('/api', apiRouter);
-  if (isProduction) {
-    app.use('/assets', express.static('../assets'));
-  } else {
-    app.use('/assets', express.static('../../assets'));
-  }
   let viteDevServer;
   if (isProduction) {
     app.use(express.static(`${root}/dist/client`));
