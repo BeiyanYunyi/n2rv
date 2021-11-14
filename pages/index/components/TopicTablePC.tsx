@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import {
@@ -143,6 +144,13 @@ const TopicTablePC = ({
                             )}
                             {cell.render('Cell')}
                           </Stack>
+                        </Link>
+                      ) : cell.column.id === 'authorName' ? (
+                        <Link
+                          href={`https://www.douban.com/people/${cell.row.original.authorID}`}
+                          underline="hover"
+                        >
+                          {cell.render('Cell')}
                         </Link>
                       ) : (
                         cell.render('Cell')
