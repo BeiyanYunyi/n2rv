@@ -1,6 +1,7 @@
 {
   "address": "",
   "servAddr":"",
+  "listenPort": 1145,
   "port": 5555,
   "username": "",
   "password": "",
