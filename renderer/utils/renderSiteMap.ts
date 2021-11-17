@@ -5,8 +5,8 @@ import Storage from '../../src/instances/Storage';
 const renderSiteMap = async () => {
   const port = process.env.PORT || 3000;
   const topics = await Storage.getAllTopics(0, 1000, false, false);
-  const urlAry = [`https://${config.address}:${port}`].concat(
-    topics.map((topic) => `https://${config.address}:${port}/topic/${topic.topicID}`),
+  const urlAry = [`https://${config.servAddr}:${port}`].concat(
+    topics.map((topic) => `https://${config.servAddr}:${port}/topic/${topic.topicID}`),
   );
   return urlAry.join('\n');
 };

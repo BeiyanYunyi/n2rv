@@ -1,5 +1,6 @@
 {
   "address": "",
+  "servAddr":"",
   "port": 5555,
   "username": "",
   "password": "",
