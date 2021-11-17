@@ -5,7 +5,7 @@ import http from 'http';
 import https from 'https';
 import path from 'path';
 import { createPageRenderer } from 'vite-plugin-ssr';
-import renderSiteMap from '../renderer/components/SiteMap';
+import renderSiteMap from '../renderer/utils/renderSiteMap';
 import apiRouter from './routers/apiRouter';
 import corsRouter from './routers/corsRouter';
 
@@ -18,7 +18,7 @@ const logoPath = path.join(root, 'server', 'static');
 (async () => {
   const app = express();
   app.use('/static', express.static(logoPath));
-  app.get('/sitemap.xml', async (_req, res) => {
+  app.get('/sitemap', async (_req, res) => {
     const sitemap = await renderSiteMap();
     res.send(sitemap);
   });
