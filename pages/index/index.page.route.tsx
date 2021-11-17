@@ -8,6 +8,8 @@ export default (pageContext: PageContextBuiltIn & PageContext) => {
       return false;
     case '/assets':
       return false;
+    case '/sitemap.xml':
+      return false;
     default:
       return true;
   }
