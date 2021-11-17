@@ -328,6 +328,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/standalone@npm:^7.15.7":
+  version: 7.16.4
+  resolution: "@babel/standalone@npm:7.16.4"
+  checksum: b9d97dea1af42567e78d1a153a0276de904057e6d5c8e8bdb12f1741a1e9aa3e95e709ff57abc19b1c23b6e57a4066366ad99db89992c1bf923394ad8783e8f0
+  languageName: node
+  linkType: hard
+
 "@babel/template@npm:^7.16.0":
   version: 7.16.0
   resolution: "@babel/template@npm:7.16.0"
@@ -1113,6 +1120,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vitejs/plugin-legacy@npm:^1.6.2":
+  version: 1.6.2
+  resolution: "@vitejs/plugin-legacy@npm:1.6.2"
+  dependencies:
+    "@babel/standalone": ^7.15.7
+    core-js: ^3.18.1
+    magic-string: ^0.25.7
+    regenerator-runtime: ^0.13.9
+    systemjs: ^6.10.3
+  peerDependencies:
+    vite: ^2.0.0
+  checksum: 4d28ef30aea6b6dcbe4b52af5790dfd2d92af4c36f424e0b521b052cf2b52638abed53d1c140847888a0a38d2db27796085184930cfa28e61c48eb036ab2d260
+  languageName: node
+  linkType: hard
+
 "@vitejs/plugin-react@npm:^1.0.4":
   version: 1.0.7
   resolution: "@vitejs/plugin-react@npm:1.0.7"
@@ -1709,6 +1731,13 @@ __metadata:
   version: 3.19.1
   resolution: "core-js-pure@npm:3.19.1"
   checksum: b6d593ce2ac9da1adf8da3efc0b9cca8cc969d7d758c511db877a41d92216dbdf7a2341f89c07516bf0da1ce8b994e103f604ab37ca31379a35512c05d291804
+  languageName: node
+  linkType: hard
+
+"core-js@npm:^3.18.1":
+  version: 3.19.1
+  resolution: "core-js@npm:3.19.1"
+  checksum: 2f669061788dc6fea823f0433d871deeaaaacc7d68ef2748859509522a34df5c83e648c3c6a1993fed0ab188081b3cf32b957b2a1f46156a2b20bd775961ade4
   languageName: node
   linkType: hard
 
@@ -3656,6 +3685,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"magic-string@npm:^0.25.7":
+  version: 0.25.7
+  resolution: "magic-string@npm:0.25.7"
+  dependencies:
+    sourcemap-codec: ^1.4.4
+  checksum: 727a1fb70f9610304fe384f1df0251eb7d1d9dd779c07ef1225690361b71b216f26f5d934bfb11c919b5b0e7ba50f6240c823a6f2e44cfd33d4a07d7747ca829
+  languageName: node
+  linkType: hard
+
 "make-error@npm:^1.1.1":
   version: 1.3.6
   resolution: "make-error@npm:1.3.6"
@@ -3890,6 +3928,7 @@ __metadata:
     "@types/uuid": ^8.3.1
     "@typescript-eslint/eslint-plugin": ^5.3.0
     "@typescript-eslint/parser": ^5.3.0
+    "@vitejs/plugin-legacy": ^1.6.2
     "@vitejs/plugin-react": ^1.0.4
     "@waline/client": ^1.5.1
     axios: ^0.24.0
@@ -3915,6 +3954,7 @@ __metadata:
     react-dom: ^17.0.2
     react-router-dom: ^6.0.2
     react-table: ^7.7.0
+    regenerator-runtime: ^0.13.9
     rimraf: ^3.0.2
     ts-node: ^10.3.0
     typescript: ^4.4.4
@@ -4616,7 +4656,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"regenerator-runtime@npm:^0.13.4":
+"regenerator-runtime@npm:^0.13.4, regenerator-runtime@npm:^0.13.9":
   version: 0.13.9
   resolution: "regenerator-runtime@npm:0.13.9"
   checksum: 65ed455fe5afd799e2897baf691ca21c2772e1a969d19bb0c4695757c2d96249eb74ee3553ea34a91062b2a676beedf630b4c1551cc6299afb937be1426ec55e
@@ -4948,6 +4988,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"sourcemap-codec@npm:^1.4.4":
+  version: 1.4.8
+  resolution: "sourcemap-codec@npm:1.4.8"
+  checksum: b57981c05611afef31605732b598ccf65124a9fcb03b833532659ac4d29ac0f7bfacbc0d6c5a28a03e84c7510e7e556d758d0bb57786e214660016fb94279316
+  languageName: node
+  linkType: hard
+
 "split2@npm:^3.1.1":
   version: 3.2.2
   resolution: "split2@npm:3.2.2"
@@ -5128,6 +5175,13 @@ __metadata:
   dependencies:
     has-flag: ^4.0.0
   checksum: 3dda818de06ebbe5b9653e07842d9479f3555ebc77e9a0280caf5a14fb877ffee9ed57007c3b78f5a6324b8dbeec648d9e97a24e2ed9fdb81ddc69ea07100f4a
+  languageName: node
+  linkType: hard
+
+"systemjs@npm:^6.10.3":
+  version: 6.11.0
+  resolution: "systemjs@npm:6.11.0"
+  checksum: 11cdc79ec135ab641313dfec0e74bb118afd42d09651e21f5e637461e625ee4e99705f57fc71e10757679b9304fb6e66c9a6266f179925d7721202cdd1e7d720
   languageName: node
   linkType: hard
 
