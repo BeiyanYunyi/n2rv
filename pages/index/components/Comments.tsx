@@ -1,12 +1,22 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { Card, CardContent, CardHeader, Chip, Stack, Typography } from '@mui/material';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Chip,
+  Stack,
+  Typography,
+} from '@mui/material';
 import format from 'date-fns/format';
 import parse from 'html-react-parser';
 import React from 'react';
+import ImgView from '../../../renderer/components/ImgView';
 import UserFace from '../../../renderer/components/UserFace';
 import Reply from '../../../src/types/Reply';
 import CommentQuote from './CommentQuote';
-import ImgView from '../../../renderer/components/ImgView';
 
 const Comment = ({ reply, index }: { reply: Reply; index: number }) => (
   <Card>
@@ -22,10 +32,15 @@ const Comment = ({ reply, index }: { reply: Reply; index: number }) => (
         </Stack>
       }
     />
-    <CardContent style={{ paddingTop: 0 }}>
+    <CardContent sx={{ paddingTop: 0, paddingBottom: 0 }}>
       {reply.image && <ImgView src={`/cors/${reply.image}`} />}
       <Typography component="div">{parse(reply.content)}</Typography>
     </CardContent>
+    <CardActions sx={{ justifyContent: 'flex-end' }}>
+      <Button variant="text" startIcon={<ThumbUpIcon fontSize="inherit" />} size="small" disabled>
+        {reply.votes}
+      </Button>
+    </CardActions>
   </Card>
 );
 
