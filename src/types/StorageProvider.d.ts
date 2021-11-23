@@ -21,4 +21,5 @@ export default class StorageProvider {
   getComments(topicID: string | number): Promise<Reply[]>;
   getImg(imgID: string): Promise<Blob | null>;
   getPages(deleted: boolean, elite: boolean): Promise<number>;
+  fullTextQueryTopic(queryStr: string, skip: number, limit: number): Promise<Topic[]>;
 }

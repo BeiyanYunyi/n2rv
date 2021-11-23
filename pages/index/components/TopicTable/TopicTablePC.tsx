@@ -18,7 +18,7 @@ import { format } from 'date-fns';
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { useBlockLayout, useTable } from 'react-table';
-import TopicTableProps from '../../../src/types/TopicTableProps';
+import TopicTableProps from '../../../../src/types/TopicTableProps';
 
 const TopicTablePC = ({
   topicList,

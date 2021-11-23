@@ -2352,6 +2352,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"eslint-config-prettier@npm:^8.3.0":
+  version: 8.3.0
+  resolution: "eslint-config-prettier@npm:8.3.0"
+  peerDependencies:
+    eslint: ">=7.0.0"
+  bin:
+    eslint-config-prettier: bin/cli.js
+  checksum: df4cea3032671995bb5ab07e016169072f7fa59f44a53251664d9ca60951b66cdc872683b5c6a3729c91497c11490ca44a79654b395dd6756beb0c3903a37196
+  languageName: node
+  linkType: hard
+
 "eslint-import-resolver-node@npm:^0.3.6":
   version: 0.3.6
   resolution: "eslint-import-resolver-node@npm:0.3.6"
@@ -3938,6 +3949,7 @@ __metadata:
     eslint: ^7.2.0
     eslint-config-airbnb: ^18.2.1
     eslint-config-airbnb-typescript: ^14.0.1
+    eslint-config-prettier: ^8.3.0
     eslint-import-resolver-node: ^0.3.6
     eslint-plugin-import: ^2.25.2
     eslint-plugin-jsx-a11y: ^6.4.1
@@ -3949,6 +3961,7 @@ __metadata:
     knex: ^0.95.13
     lightgallery: ^2.3.0
     pg: ^8.7.1
+    pg-tsquery: ^8.3.0
     prettier: ^2.4.1
     react: ^17.0.2
     react-dom: ^17.0.2
@@ -4298,6 +4311,13 @@ __metadata:
   version: 1.5.0
   resolution: "pg-protocol@npm:1.5.0"
   checksum: b839d12cafe942ef9cbc5b13c174eb2356804fb4fe8ead8279f46a36be90722d19a91409955beb8a3d5301639c44854e49749de4aef02dc361fee3e2a61fb1e4
+  languageName: node
+  linkType: hard
+
+"pg-tsquery@npm:^8.3.0":
+  version: 8.3.0
+  resolution: "pg-tsquery@npm:8.3.0"
+  checksum: c6c263285f648460615b46db762f9147e8c583104f3bb41a964094a9a7db1ec6a1e428d59127d613ad8bc47d5f8a0e32bb1063901a695b40570c67b4a586300c
   languageName: node
   linkType: hard
 

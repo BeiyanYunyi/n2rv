@@ -30,4 +30,14 @@ apiRouter.get('/topic', async (req, res) => {
   return res.send({ topicList, pages });
 });
 
+apiRouter.get('/search/topics', async (req, res) => {
+  const { query, page } = req.query as { query: string | undefined; page: string | undefined };
+  if (query && !Number.isNaN(Number(page))) {
+    const pageNum = Number(page) * 50;
+    const topicList = await Storage.fullTextQueryTopic(query, pageNum, 50);
+    return res.send(topicList);
+  }
+  return res.status(400).end();
+});
+
 export default apiRouter;
