@@ -16,15 +16,15 @@ const apiWrapper = {
     return data;
   },
   async getTopic(id: string | number) {
-    const { data }: { data: { topic: Topic; comments: Reply[] } } =
-      await this.client.get(`/topic/${id}`);
+    const { data }: { data: { topic: Topic; comments: Reply[] } } = await this.client.get(
+      `/topic/${id}`,
+    );
     return data;
   },
   async searchTopic(searchStr: string, page: number) {
-    const { data }: { data: Topic[] } = await this.client.get(
-      '/search/topics',
-      { params: { page: page - 1, query: searchStr } },
-    );
+    const { data }: { data: TopicWhileGetAll[] } = await this.client.get('/search/topics', {
+      params: { page: page - 1, query: searchStr },
+    });
     return data;
   },
 };

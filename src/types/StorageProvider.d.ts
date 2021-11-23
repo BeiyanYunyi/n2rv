@@ -1,4 +1,4 @@
-import Topic from './Topic';
+import Topic, { TopicWhileGetAll } from './Topic';
 
 export default class StorageProvider {
   getAllTopics(
@@ -6,12 +6,7 @@ export default class StorageProvider {
     limit: number,
     needDeleted: boolean,
     needElite: boolean,
-  ): Promise<
-    Pick<
-      Topic,
-      'title' | 'topicID' | 'authorName' | 'authorID' | 'lastReplyTime' | 'reply' | 'isElite'
-    >[]
-  >;
+  ): Promise<TopicWhileGetAll[]>;
   getTopic(
     topicID: string | number,
   ): Promise<Pick<
@@ -21,5 +16,5 @@ export default class StorageProvider {
   getComments(topicID: string | number): Promise<Reply[]>;
   getImg(imgID: string): Promise<Blob | null>;
   getPages(deleted: boolean, elite: boolean): Promise<number>;
-  fullTextQueryTopic(queryStr: string, skip: number, limit: number): Promise<Topic[]>;
+  fullTextQueryTopic(queryStr: string): Promise<TopicWhileGetAll[]>;
 }

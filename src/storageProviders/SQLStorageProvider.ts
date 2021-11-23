@@ -6,6 +6,16 @@ import Reply from '../types/Reply';
 import StorageProvider from '../types/StorageProvider';
 import Topic from '../types/Topic';
 
+const topicWhileGetAll = [
+  'title',
+  'topicID',
+  'authorName',
+  'authorID',
+  'lastReplyTime',
+  'reply',
+  'isElite',
+];
+
 class SQLStorageProvider implements StorageProvider {
   db = knex({
     client: 'pg',
@@ -20,22 +30,9 @@ class SQLStorageProvider implements StorageProvider {
     searchPath: [config.groupURL.substring(29).replace('/', ''), 'public'],
   });
 
-  async getAllTopics(
-    skip: number,
-    limit: number,
-    needDeleted: boolean,
-    needElite: boolean,
-  ) {
+  async getAllTopics(skip: number, limit: number, needDeleted: boolean, needElite: boolean) {
     const query0 = this.db<Topic>('topicList')
-      .select(
-        'title',
-        'topicID',
-        'authorName',
-        'authorID',
-        'lastReplyTime',
-        'reply',
-        'isElite',
-      )
+      .select(...topicWhileGetAll)
       .orderBy('lastReplyTime', 'desc')
       .offset(skip)
       .limit(limit);
@@ -70,9 +67,7 @@ class SQLStorageProvider implements StorageProvider {
   }
 
   async getImg(imgID: string) {
-    const img = await this.db<ImageInDB>('image')
-      .first('imgContent')
-      .where('imgID', imgID);
+    const img = await this.db<ImageInDB>('image').first('imgContent').where('imgID', imgID);
     if (img) return img.imgContent;
     return null;
   }
@@ -85,28 +80,19 @@ class SQLStorageProvider implements StorageProvider {
     return Math.floor(Number(count[0].count) / 50) + 1;
   }
 
-  async fullTextQueryTopic(queryStr: string, skip: number, limit: number) {
+  async fullTextQueryTopic(queryStr: string) {
     const parser = tsquery();
     const topicsContentPms = this.db<Topic>('topicList')
-      .select('*')
-      .whereRaw(
-        "to_tsvector('testzhcfg', content) @@ to_tsquery('testzhcfg', ?)",
-        [parser(queryStr)],
-      )
-      .offset(skip)
-      .limit(limit);
+      .select(...topicWhileGetAll)
+      .whereRaw("to_tsvector('testzhcfg', content) @@ to_tsquery('testzhcfg', ?)", [
+        parser(queryStr),
+      ]);
     const topicsTitlePms = this.db<Topic>('topicList')
-      .select('*')
-      .whereRaw(
-        "to_tsvector('testzhcfg', title) @@ to_tsquery('testzhcfg', ?)",
-        [parser(queryStr)],
-      )
-      .offset(skip)
-      .limit(limit);
-    const [topicsTitle, topicsContent] = await Promise.all([
-      topicsTitlePms,
-      topicsContentPms,
-    ]);
+      .select(...topicWhileGetAll)
+      .whereRaw("to_tsvector('testzhcfg', title) @@ to_tsquery('testzhcfg', ?)", [
+        parser(queryStr),
+      ]);
+    const [topicsTitle, topicsContent] = await Promise.all([topicsTitlePms, topicsContentPms]);
     const topicTitleId = topicsTitle.map((topic) => topic.topicID);
     topicsContent.forEach((topic) => {
       if (!topicTitleId.includes(topic.topicID)) topicsTitle.push(topic);

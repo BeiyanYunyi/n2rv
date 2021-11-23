@@ -11,12 +11,12 @@ import {
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import apiWrapper from '../../../renderer/wrapper/apiWrapper';
-import Topic from '../../../src/types/Topic';
+import { TopicWhileGetAll } from '../../../src/types/Topic';
 import TopicElement from '../components/TopicTable/TopicElement';
 
 const SearchPage = () => {
   const [searchStr, setSearchStr] = useState('');
-  const [topics, setTopics] = useState<Topic[]>([]);
+  const [topics, setTopics] = useState<TopicWhileGetAll[]>([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const search = async () => {
