@@ -22,6 +22,7 @@ const config: UserConfig = {
   ],
   build: {
     rollupOptions: {
+      /*
       output: {
         manualChunks(id) {
           if (id.includes('@mui')) {
@@ -29,6 +30,7 @@ const config: UserConfig = {
           }
         },
       },
+      */
     },
   },
 };

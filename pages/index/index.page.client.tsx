@@ -1,4 +1,5 @@
 import Skeleton from '@mui/material/Skeleton';
+import Typography from '@mui/material/Typography';
 import 'lightgallery/css/lg-thumbnail.css';
 import 'lightgallery/css/lg-zoom.css';
 import 'lightgallery/css/lightgallery.css';
@@ -6,10 +7,10 @@ import { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Outlet, Route, Routes } from 'react-router-dom';
 import ReloadPrompt from './components/ReloadPrompt';
-import IndexPage from './pages/IndexPage';
-import TopicPage from './pages/TopicPage';
 
 const SearchPage = lazy(() => import('./pages/SearchPage'));
+const TopicPage = lazy(() => import('./pages/TopicPage'));
+const IndexPage = lazy(() => import('./pages/IndexPage'));
 
 const Page = () => (
   <Router>
@@ -31,8 +32,22 @@ const Page = () => (
             </Suspense>
           }
         />
-        <Route path="topic/:topicId" element={<TopicPage />} />
-        <Route path="" element={<IndexPage />} />
+        <Route
+          path="topic/:topicId"
+          element={
+            <Suspense fallback={<Skeleton />}>
+              <TopicPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path=""
+          element={
+            <Suspense fallback={<Typography>网页加载中</Typography>}>
+              <IndexPage />
+            </Suspense>
+          }
+        />
       </Route>
     </Routes>
   </Router>
