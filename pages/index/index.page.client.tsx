@@ -1,5 +1,4 @@
-import Skeleton from '@mui/material/Skeleton';
-import Typography from '@mui/material/Typography';
+import { Skeleton, Typography } from '@mui/material';
 import 'lightgallery/css/lg-thumbnail.css';
 import 'lightgallery/css/lg-zoom.css';
 import 'lightgallery/css/lightgallery.css';

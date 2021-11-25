@@ -1,4 +1,4 @@
-import Typography from '@mui/material/Typography';
+import { Typography } from '@mui/material';
 
 export const stringToColor = (string: string) => {
   let hash = 0;

@@ -1,6 +1,5 @@
 import MessageIcon from '@mui/icons-material/Message';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
+import { Stack, Typography } from '@mui/material';
 
 const ReplyChip = ({ reply }: { reply: string }) => (
   <Stack alignItems="center" style={{ paddingLeft: 8 }}>

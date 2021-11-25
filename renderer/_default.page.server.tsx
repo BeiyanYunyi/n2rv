@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import type { PageContextBuiltIn } from 'vite-plugin-ssr';
 import { dangerouslySkipEscape, escapeInject } from 'vite-plugin-ssr';

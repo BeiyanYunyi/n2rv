@@ -1,11 +1,5 @@
 module.exports = {
-  extends: [
-    'airbnb',
-    'airbnb/hooks',
-    'airbnb-typescript',
-    'prettier',
-    'plugin:react/jsx-runtime',
-  ],
+  extends: ['airbnb', 'airbnb/hooks', 'airbnb-typescript', 'prettier', 'plugin:react/jsx-runtime'],
   env: {
     // 你的环境变量（包含多个预定义的全局变量）
     //
@@ -23,6 +17,7 @@ module.exports = {
   rules: {
     'react/jsx-one-expression-per-line': 0,
     'react/jsx-props-no-spreading': 0,
+    'react/function-component-definition': 0,
   },
   parserOptions: {
     project: './tsconfig.json',

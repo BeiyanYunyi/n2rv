@@ -1,13 +1,15 @@
 /* eslint-disable jsx-a11y/alt-text */
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
-import Chip from '@mui/material/Chip';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Chip,
+  Stack,
+  Typography,
+} from '@mui/material';
 import format from 'date-fns/format';
 import parse from 'html-react-parser';
 import Reply from '../../../src/types/Reply';

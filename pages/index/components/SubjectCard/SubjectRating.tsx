@@ -1,8 +1,7 @@
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import React from 'react';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
+import { Stack, Typography } from '@mui/material';
+import React from 'react';
 
 const SubjectStars = ({ stars }: { stars: number }) => {
   const [starsAry, setStarsAry] = React.useState<(0 | 1)[]>([]);

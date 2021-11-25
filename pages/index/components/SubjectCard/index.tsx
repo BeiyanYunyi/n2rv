@@ -1,9 +1,5 @@
 /* eslint-disable jsx-a11y/alt-text */
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import Link from '@mui/material/Link';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
+import { Card, CardHeader, Link, Stack, Typography } from '@mui/material';
 import { Element } from 'html-react-parser';
 import SubjectRating from './SubjectRating';
 

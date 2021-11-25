@@ -1,12 +1,14 @@
-import Avatar from '@mui/material/Avatar';
-import Card from '@mui/material/Card';
-import CardActionArea from '@mui/material/CardActionArea';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
-import Chip from '@mui/material/Chip';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import useTheme from '@mui/system/useTheme';
+import {
+  Avatar,
+  Card,
+  CardActionArea,
+  CardContent,
+  CardHeader,
+  Chip,
+  Stack,
+  Typography,
+  useTheme,
+} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { stringToColor } from '../../../../renderer/utils/stringAvatar';
 import { TopicWhileGetAll } from '../../../../src/types/Topic';

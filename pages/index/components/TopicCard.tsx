@@ -1,10 +1,5 @@
 /* eslint-disable jsx-a11y/alt-text */
-import Avatar from '@mui/material/Avatar';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
+import { Avatar, Card, CardContent, CardHeader, Stack, Typography } from '@mui/material';
 import { domToReact, Element } from 'html-react-parser';
 
 interface TopicCardProp {

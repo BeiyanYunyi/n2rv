@@ -1,6 +1,4 @@
-import Avatar from '@mui/material/Avatar';
-import Link from '@mui/material/Link';
-import Skeleton from '@mui/material/Skeleton';
+import { Avatar, Link, Skeleton } from '@mui/material';
 import stringAvatar from '../../../renderer/utils/stringAvatar';
 
 const UserFace = ({ authorID, authorName }: { authorID: string; authorName: string }) => {

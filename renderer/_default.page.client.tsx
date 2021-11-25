@@ -1,5 +1,4 @@
 import ReactDOM from 'react-dom';
-import React from 'react';
 import type { PageContextBuiltInClient } from 'vite-plugin-ssr/client';
 import { getPage } from 'vite-plugin-ssr/client';
 import PageWrapper from './PageWrapper';
