@@ -1,14 +1,12 @@
-import {
-  Avatar,
-  Card,
-  CardActionArea,
-  CardContent,
-  CardHeader,
-  Chip,
-  Stack,
-  Typography,
-  useTheme,
-} from '@mui/material';
+import Avatar from '@mui/material/Avatar';
+import Card from '@mui/material/Card';
+import CardActionArea from '@mui/material/CardActionArea';
+import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
+import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
+import useTheme from '@mui/system/useTheme';
 import { useNavigate } from 'react-router-dom';
 import { stringToColor } from '../../../../renderer/utils/stringAvatar';
 import { TopicWhileGetAll } from '../../../../src/types/Topic';
@@ -34,9 +32,7 @@ const TopicElement = ({ topic }: { topic: TopicWhileGetAll }) => {
               style={{ paddingBottom: 0, paddingLeft: 8 }}
               title={
                 <Typography variant="h6">
-                  {topic.isElite && (
-                    <Chip label="精品" size="small" color="error" />
-                  )}
+                  {topic.isElite && <Chip label="精品" size="small" color="error" />}
                   {topic.title}
                 </Typography>
               }
@@ -50,25 +46,15 @@ const TopicElement = ({ topic }: { topic: TopicWhileGetAll }) => {
                     width: 20,
                   }}
                 >
-                  <Typography
-                    style={{ color: theme.palette.info.contrastText }}
-                    variant="caption"
-                  >
+                  <Typography style={{ color: theme.palette.info.contrastText }} variant="caption">
                     {topic.authorName.substring(0, 1)}
                   </Typography>
                 </Avatar>
-                <Typography
-                  variant="caption"
-                  style={{ color: 'rgba(0,0,0,0.6)' }}
-                >
+                <Typography variant="caption" style={{ color: 'rgba(0,0,0,0.6)' }}>
                   {topic.authorName}
                 </Typography>
-                <Typography
-                  variant="caption"
-                  style={{ color: 'rgba(0,0,0,0.4)' }}
-                >
-                  {topic.lastReplyTime &&
-                    formatLastReplyTime(topic.lastReplyTime)}
+                <Typography variant="caption" style={{ color: 'rgba(0,0,0,0.4)' }}>
+                  {topic.lastReplyTime && formatLastReplyTime(topic.lastReplyTime)}
                 </Typography>
               </Stack>
             </CardContent>

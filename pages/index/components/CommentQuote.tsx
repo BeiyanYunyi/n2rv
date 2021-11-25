@@ -1,5 +1,8 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { Card, CardContent, CardHeader, Typography } from '@mui/material';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
+import Typography from '@mui/material/Typography';
 import parse from 'html-react-parser';
 import Reply from '../../../src/types/Reply';
 import ImgView from './ImgView';

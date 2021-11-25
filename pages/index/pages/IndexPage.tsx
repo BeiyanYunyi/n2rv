@@ -1,12 +1,10 @@
-import {
-  Button,
-  Container,
-  FormControlLabel,
-  Stack,
-  Switch,
-  useMediaQuery,
-  useTheme,
-} from '@mui/material';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Stack from '@mui/material/Stack';
+import Switch from '@mui/material/Switch';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import useTheme from '@mui/system/useTheme';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import apiWrapper from '../../../renderer/wrapper/apiWrapper';

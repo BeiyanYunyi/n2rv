@@ -1,7 +1,10 @@
-import { Skeleton } from '@mui/material';
+import Skeleton from '@mui/material/Skeleton';
+import 'lightgallery/css/lg-thumbnail.css';
+import 'lightgallery/css/lg-zoom.css';
+import 'lightgallery/css/lightgallery.css';
 import { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
+import { BrowserRouter as Router, Outlet, Route, Routes } from 'react-router-dom';
 import ReloadPrompt from './components/ReloadPrompt';
 import IndexPage from './pages/IndexPage';
 import TopicPage from './pages/TopicPage';

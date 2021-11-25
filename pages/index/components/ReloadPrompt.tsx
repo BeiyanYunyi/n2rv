@@ -1,6 +1,8 @@
 import CloseIcon from '@mui/icons-material/Close';
 import UpdateIcon from '@mui/icons-material/Update';
-import { Alert, IconButton, Snackbar } from '@mui/material';
+import Alert from '@mui/material/Alert';
+import IconButton from '@mui/material/IconButton';
+import Snackbar from '@mui/material/Snackbar';
 import { useRegisterSW } from 'virtual:pwa-register/react';
 
 const ReloadPrompt = () => {

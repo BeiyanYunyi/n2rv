@@ -1,15 +1,13 @@
-import {
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  Chip,
-  Container,
-  Skeleton,
-  Stack,
-  Typography,
-} from '@mui/material';
-import { format } from 'date-fns';
+import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
+import Chip from '@mui/material/Chip';
+import Container from '@mui/material/Container';
+import Skeleton from '@mui/material/Skeleton';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
+import format from 'date-fns/format';
 import parse from 'html-react-parser';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';

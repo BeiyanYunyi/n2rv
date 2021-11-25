@@ -1,13 +1,11 @@
 import SearchIcon from '@mui/icons-material/Search';
-import {
-  Button,
-  Container,
-  IconButton,
-  InputAdornment,
-  Skeleton,
-  Stack,
-  TextField,
-} from '@mui/material';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import Skeleton from '@mui/material/Skeleton';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import apiWrapper from '../../../renderer/wrapper/apiWrapper';

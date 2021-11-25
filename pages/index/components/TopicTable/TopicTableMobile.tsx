@@ -1,6 +1,9 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { Chip, Fab, Stack, useTheme } from '@mui/material';
+import Chip from '@mui/material/Chip';
+import Fab from '@mui/material/Fab';
+import Stack from '@mui/material/Stack';
+import useTheme from '@mui/system/useTheme';
 import TopicTableProps from '../../../../src/types/TopicTableProps';
 import TopicElement from './TopicElement';
 
@@ -45,11 +48,7 @@ const TopicTableMobile = ({
             >
               <ArrowBackIcon />
             </Fab>
-            <Chip
-              color="warning"
-              size="small"
-              label={`${page} / ${lastPage}`}
-            />
+            <Chip color="warning" size="small" label={`${page} / ${lastPage}`} />
             <Fab
               style={
                 loading || page >= lastPage

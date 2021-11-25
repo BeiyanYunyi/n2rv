@@ -1,7 +1,10 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { Card, CardHeader, Link, Stack, Typography } from '@mui/material';
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import Link from '@mui/material/Link';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 import { Element } from 'html-react-parser';
-import React from 'react';
 import SubjectRating from './SubjectRating';
 
 const SubjectCard = ({ domNode }: { domNode: Element }) => {
