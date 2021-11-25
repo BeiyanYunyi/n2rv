@@ -1,16 +1,23 @@
+import replace from '@rollup/plugin-replace';
 import react from '@vitejs/plugin-react';
-import legacy from '@vitejs/plugin-legacy';
-import ssr from 'vite-plugin-ssr/plugin';
 import { searchForWorkspaceRoot, UserConfig } from 'vite';
+import { VitePWA } from 'vite-plugin-pwa';
+import ssr from 'vite-plugin-ssr/plugin';
 
 const config: UserConfig = {
+  publicDir: 'static',
   server: { fs: { allow: [searchForWorkspaceRoot(process.cwd()), '.'] } },
   plugins: [
     react(),
     ssr(),
-    legacy({
-      targets: ['ie >= 11'],
-      additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
+    VitePWA({
+      mode: 'production',
+      base: '/',
+      registerType: 'autoUpdate',
+    }),
+    replace({
+      preventAssignment: true,
+      __DATE__: new Date().toISOString(),
     }),
   ],
   build: {

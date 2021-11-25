@@ -1,8 +1,7 @@
 import { Element, HTMLReactParserOptions } from 'html-react-parser';
-import React from 'react';
+import ImgView from '../../pages/index/components/ImgView';
 import SubjectCard from '../../pages/index/components/SubjectCard';
 import TopicCard from '../../pages/index/components/TopicCard';
-import ImgView from '../components/ImgView';
 
 const parserOpt: HTMLReactParserOptions = {
   // eslint-disable-next-line consistent-return

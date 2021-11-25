@@ -13,10 +13,10 @@ import {
 import format from 'date-fns/format';
 import parse from 'html-react-parser';
 import React from 'react';
-import ImgView from '../../../renderer/components/ImgView';
-import UserFace from '../../../renderer/components/UserFace';
 import Reply from '../../../src/types/Reply';
 import CommentQuote from './CommentQuote';
+import ImgView from './ImgView';
+import UserFace from './UserFace';
 
 const Comment = ({ reply, index }: { reply: Reply; index: number }) => (
   <Card>

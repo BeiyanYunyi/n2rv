@@ -1,10 +1,9 @@
 /* eslint-disable jsx-a11y/alt-text */
 import { Card, CardContent, CardHeader, Typography } from '@mui/material';
 import parse from 'html-react-parser';
-import React from 'react';
-import ImgView from '../../../renderer/components/ImgView';
-import UserFace from '../../../renderer/components/UserFace';
 import Reply from '../../../src/types/Reply';
+import ImgView from './ImgView';
+import UserFace from './UserFace';
 
 const CommentQuote = ({ reply }: { reply: Reply }) => (
   <Card style={{ margin: 8, marginBottom: 0 }} variant="outlined">

@@ -13,13 +13,13 @@ import { format } from 'date-fns';
 import parse from 'html-react-parser';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import UserFace from '../../../renderer/components/UserFace';
 import parserOpt from '../../../renderer/utils/parserOpt';
 import apiWrapper from '../../../renderer/wrapper/apiWrapper';
 import Reply from '../../../src/types/Reply';
 import Topic from '../../../src/types/Topic';
-import Comments from '../components/Comments';
 import AppWaline from '../components/AppWaline';
+import Comments from '../components/Comments';
+import UserFace from '../components/UserFace';
 
 const initialTopic: Topic = {
   title: '',

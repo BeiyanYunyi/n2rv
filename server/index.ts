@@ -13,7 +13,7 @@ require('express-async-errors');
 
 const isProduction = process.env.NODE_ENV === 'production';
 const root = path.resolve(`${__dirname}/..`);
-const logoPath = path.join(root, 'server', 'static');
+const logoPath = path.join(root, 'static');
 
 (async () => {
   const app = express();

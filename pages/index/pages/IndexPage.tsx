@@ -78,11 +78,7 @@ const IndexPage = () => {
           搜索
         </Button>
       </Stack>
-      {isMobile ? (
-        <TopicTableMobile {...topicTableProps} />
-      ) : (
-        <TopicTablePC {...topicTableProps} />
-      )}
+      {isMobile ? <TopicTableMobile {...topicTableProps} /> : <TopicTablePC {...topicTableProps} />}
       <AppWaline />
     </Container>
   );
