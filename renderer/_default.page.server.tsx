@@ -30,7 +30,7 @@ async function render(pageContext: PageContextBuiltIn & PageContext) {
         <meta name="description" content="${desc}" />
         <title>${title}</title>
       </head>
-      <body>
+      <body style="margin: 0;">
         <div id="page-view">${dangerouslySkipEscape(pageHtml)}</div>
       </body>
     </html>`;

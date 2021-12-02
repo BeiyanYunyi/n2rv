@@ -1,15 +1,6 @@
 import SearchIcon from '@mui/icons-material/Search';
-import {
-  Button,
-  Container,
-  IconButton,
-  InputAdornment,
-  Skeleton,
-  Stack,
-  TextField,
-} from '@mui/material';
+import { Container, IconButton, InputAdornment, Skeleton, Stack, TextField } from '@mui/material';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import apiWrapper from '../../../renderer/wrapper/apiWrapper';
 import { TopicWhileGetAll } from '../../../src/types/Topic';
 import TopicElement from '../components/TopicTable/TopicElement';
@@ -18,7 +9,6 @@ const SearchPage = () => {
   const [searchStr, setSearchStr] = useState('');
   const [topics, setTopics] = useState<TopicWhileGetAll[]>([]);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
   const search = async () => {
     setLoading(true);
     setTopics([]);
@@ -28,13 +18,6 @@ const SearchPage = () => {
   };
   return (
     <Container>
-      <Button
-        onClick={() => {
-          navigate('/');
-        }}
-      >
-        返回
-      </Button>
       <Stack spacing={1}>
         <TextField
           onKeyPress={(e) => {

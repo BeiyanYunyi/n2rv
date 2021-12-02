@@ -4,8 +4,8 @@ import 'lightgallery/css/lg-zoom.css';
 import 'lightgallery/css/lightgallery.css';
 import { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Outlet, Route, Routes } from 'react-router-dom';
-import ReloadPrompt from './components/ReloadPrompt';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Root from './components/Root';
 
 const SearchPage = lazy(() => import('./pages/SearchPage'));
 const TopicPage = lazy(() => import('./pages/TopicPage'));
@@ -14,15 +14,7 @@ const IndexPage = lazy(() => import('./pages/IndexPage'));
 const Page = () => (
   <Router>
     <Routes>
-      <Route
-        path="/"
-        element={
-          <>
-            <Outlet />
-            <ReloadPrompt />
-          </>
-        }
-      >
+      <Route path="/" element={<Root />}>
         <Route
           path="search/topics"
           element={
@@ -40,7 +32,7 @@ const Page = () => (
           }
         />
         <Route
-          path=""
+          index
           element={
             <Suspense fallback={<Typography>网页加载中</Typography>}>
               <IndexPage />
