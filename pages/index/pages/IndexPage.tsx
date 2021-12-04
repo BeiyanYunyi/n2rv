@@ -2,7 +2,6 @@ import { Container, FormControlLabel, Stack, Switch, useMediaQuery, useTheme } f
 import React from 'react';
 import apiWrapper from '../../../renderer/wrapper/apiWrapper';
 import { TopicWhileGetAll } from '../../../src/types/Topic';
-import AppWaline from '../components/AppWaline';
 import TopicTableMobile from '../components/TopicTable/TopicTableMobile';
 import TopicTablePC from '../components/TopicTable/TopicTablePC';
 
@@ -62,7 +61,6 @@ const IndexPage = () => {
         />
       </Stack>
       {isMobile ? <TopicTableMobile {...topicTableProps} /> : <TopicTablePC {...topicTableProps} />}
-      <AppWaline />
     </Container>
   );
 };

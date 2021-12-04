@@ -1,6 +1,8 @@
+import AddIcon from '@mui/icons-material/Add';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Chip, Fab, Stack, useTheme } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import TopicTableProps from '../../../../src/types/TopicTableProps';
 import TopicElement from './TopicElement';
 
@@ -13,6 +15,7 @@ const TopicTableMobile = ({
   lastPage,
 }: TopicTableProps) => {
   const theme = useTheme();
+  const navigate = useNavigate();
 
   return (
     <Stack spacing={1}>
@@ -22,6 +25,15 @@ const TopicTableMobile = ({
 
       <div style={{ position: 'fixed', bottom: 16, right: 16 }}>
         <Stack alignItems="center" spacing={1}>
+          <Fab
+            size="small"
+            color="primary"
+            onClick={() => {
+              navigate('/createTopic');
+            }}
+          >
+            <AddIcon />
+          </Fab>
           <Fab
             style={
               loading || page === 1

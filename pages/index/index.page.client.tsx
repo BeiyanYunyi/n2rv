@@ -2,6 +2,7 @@ import { Skeleton, Typography } from '@mui/material';
 import 'lightgallery/css/lg-thumbnail.css';
 import 'lightgallery/css/lg-zoom.css';
 import 'lightgallery/css/lightgallery.css';
+import 'vditor/dist/index.css';
 import { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
@@ -10,6 +11,7 @@ import Root from './components/Root';
 const SearchPage = lazy(() => import('./pages/SearchPage'));
 const TopicPage = lazy(() => import('./pages/TopicPage'));
 const IndexPage = lazy(() => import('./pages/IndexPage'));
+const CreateTopicPage = lazy(() => import('./pages/CreateTopicPage'));
 
 const Page = () => (
   <Router>
@@ -28,6 +30,14 @@ const Page = () => (
           element={
             <Suspense fallback={<Skeleton />}>
               <TopicPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="createTopic"
+          element={
+            <Suspense fallback={<Skeleton variant="rectangular" height={92} />}>
+              <CreateTopicPage />
             </Suspense>
           }
         />

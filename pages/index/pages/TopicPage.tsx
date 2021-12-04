@@ -12,13 +12,13 @@ import {
 import format from 'date-fns/format';
 import parse from 'html-react-parser';
 import React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import parserOpt from '../../../renderer/utils/parserOpt';
 import apiWrapper from '../../../renderer/wrapper/apiWrapper';
 import Reply from '../../../src/types/Reply';
 import Topic from '../../../src/types/Topic';
-import AppWaline from '../components/AppWaline';
 import Comments from '../components/Comments';
+import ReplyToTopic from '../components/ReplyToTopic';
 import UserFace from '../components/UserFace';
 
 const initialTopic: Topic = {
@@ -36,7 +36,6 @@ const initialTopic: Topic = {
 };
 
 const TopicPage = () => {
-  const navigate = useNavigate();
   const params = useParams();
   const [topic, setTopic] = React.useState<Topic>(initialTopic);
   const [comments, setComments] = React.useState<Reply[]>([]);
@@ -53,16 +52,6 @@ const TopicPage = () => {
   return (
     <Container>
       <Stack direction="row" spacing={1}>
-        <Button
-          href="/"
-          onClick={(e) => {
-            e.preventDefault();
-            navigate('/');
-          }}
-          variant="outlined"
-        >
-          返回
-        </Button>
         <>
           <Button
             href={`https://www.douban.com/group/topic/${topic.topicID}`}
@@ -120,7 +109,7 @@ const TopicPage = () => {
         </CardContent>
       </Card>
       <Comments replies={comments} />
-      <AppWaline />
+      <ReplyToTopic />
     </Container>
   );
 };

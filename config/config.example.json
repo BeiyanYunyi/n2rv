@@ -1,11 +1,15 @@
 {
   "address": "",
-  "servAddr":"",
+  "servAddr": "",
   "listenPort": 1145,
   "port": 5555,
   "username": "",
   "password": "",
   "database": "nsdbg",
   "groupURL": "",
-  "walineURL": "https://example.com"
+  "usersSettings": { "allowSignUp": true },
+  "bcryptConfig": {
+    "saltRounds": 114514
+  },
+  "jwtSecrets": "FkYouChenRui"
 }

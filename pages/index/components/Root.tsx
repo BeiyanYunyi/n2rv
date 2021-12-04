@@ -32,7 +32,13 @@ const Root = () => {
           >
             <SiteIcon />
           </IconButton>
-          <Typography variant="h6" sx={{ userSelect: 'none' }}>
+          <Typography
+            onClick={() => {
+              navigate('/');
+            }}
+            variant="h6"
+            sx={{ userSelect: 'none' }}
+          >
             影之避难所
           </Typography>
         </Toolbar>

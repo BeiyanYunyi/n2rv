@@ -6,6 +6,7 @@ import https from 'https';
 import path from 'path';
 import { createPageRenderer } from 'vite-plugin-ssr';
 import renderSiteMap from '../renderer/utils/renderSiteMap';
+import Storage from '../src/instances/Storage';
 import apiRouter from './routers/apiRouter';
 import corsRouter from './routers/corsRouter';
 
@@ -16,6 +17,7 @@ const root = path.resolve(`${__dirname}/..`);
 const logoPath = path.join(root, 'static');
 
 (async () => {
+  await Storage.init();
   const app = express();
   app.use('/static', express.static(logoPath));
   app.get('/sitemap', async (_req, res) => {

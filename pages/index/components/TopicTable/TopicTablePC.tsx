@@ -1,8 +1,10 @@
 /* eslint-disable no-nested-ternary */
+import AddIcon from '@mui/icons-material/Add';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import {
   Chip,
+  Fab,
   Grid,
   IconButton,
   Link,
@@ -16,7 +18,7 @@ import {
 } from '@mui/material';
 import format from 'date-fns/format';
 import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useBlockLayout, useTable } from 'react-table';
 import TopicTableProps from '../../../../src/types/TopicTableProps';
 
@@ -28,6 +30,8 @@ const TopicTablePC = ({
   setPage,
   lastPage,
 }: TopicTableProps) => {
+  const navigate = useNavigate();
+
   const processedData = React.useMemo(
     () =>
       topicList.map((ele) => ({
@@ -201,6 +205,16 @@ const TopicTablePC = ({
           </IconButton>
         </Grid>
       </Grid>
+      <div style={{ position: 'fixed', bottom: 16, right: 16 }}>
+        <Fab
+          color="primary"
+          onClick={() => {
+            navigate('/createTopic');
+          }}
+        >
+          <AddIcon />
+        </Fab>
+      </div>
     </>
   );
 };

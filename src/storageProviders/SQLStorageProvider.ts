@@ -1,10 +1,13 @@
+/* eslint-disable max-classes-per-file */
 import knex from 'knex';
 import tsquery from 'pg-tsquery';
 import config from '../../config/config.json';
+import NotFoundError from '../../server/errors/NotFoundError';
 import { ImageInDB } from '../types/Image';
 import Reply from '../types/Reply';
 import StorageProvider from '../types/StorageProvider';
 import Topic from '../types/Topic';
+import UserType from '../types/UserType';
 
 const topicWhileGetAll = [
   'title',
@@ -16,8 +19,11 @@ const topicWhileGetAll = [
   'isElite',
 ];
 
+const dbVersionLatest = 1;
+
 class SQLStorageProvider implements StorageProvider {
-  db = knex({
+  /** 数据库实例 */
+  private db = knex({
     client: 'pg',
     connection: {
       host: config.address,
@@ -29,6 +35,32 @@ class SQLStorageProvider implements StorageProvider {
     useNullAsDefault: true,
     searchPath: [config.groupURL.substring(29).replace('/', ''), 'public'],
   });
+
+  /** 判断是否已初始化，每次启动只需要初始化一次 */
+  private inited = false;
+
+  async init() {
+    if (!this.inited) {
+      const hasUserTable = await this.db.schema.hasTable('user');
+      if (!hasUserTable) {
+        await this.db.schema.createTable('user', (table) => {
+          table.bigIncrements('id').primary();
+          table.text('username').unique();
+          table.text('nickname').nullable();
+          table.text('password');
+          table.binary('avatar').nullable();
+        });
+      }
+      const hasVersionTable = await this.db.schema.hasTable(`dbVersion`);
+      if (!hasVersionTable) {
+        await this.db.schema.createTable(`dbVersion`, (table) => {
+          table.integer('dbVersion').primary();
+        });
+        await this.db(`dbVersion`).insert({ dbVersion: dbVersionLatest });
+      }
+      this.inited = true;
+    }
+  }
 
   async getAllTopics(skip: number, limit: number, needDeleted: boolean, needElite: boolean) {
     const query0 = this.db<Topic>('topicList')
@@ -99,6 +131,41 @@ class SQLStorageProvider implements StorageProvider {
     });
     return topicsTitle;
   }
+
+  User = {
+    createUser: async (user: UserType) => {
+      const userInDB = await this.db<UserType>('user').first('id').where('id', user.id);
+      if (userInDB) throw new NotFoundError('用户已存在');
+      await this.db<UserType>('user').insert(user);
+    },
+
+    getUser: async (userId: string) => {
+      const user = await this.db<UserType>('user')
+        .first('avatar', 'id', 'nickname', 'username')
+        .where('id', userId);
+      if (!user) return null;
+      return user;
+    },
+
+    updateUser: async (userId: string, userInfo: Partial<UserType>) => {
+      const userToUpdate = await this.db<UserType>('user').first('id').where('id', userId);
+      if (!userToUpdate) throw new NotFoundError('用户不存在');
+      const userInfoToUpdate = {
+        id: userId,
+        avatar: userInfo.avatar,
+        nickname: userInfo.nickname,
+        username: userInfo.username,
+        password: userInfo.password,
+      };
+      await this.db<UserType>('user').update(userInfoToUpdate);
+    },
+
+    deleteUser: async (userId: string) => {
+      const userToUpdate = await this.db<UserType>('user').first('id').where('id', userId);
+      if (!userToUpdate) throw new NotFoundError('用户不存在');
+      await this.db<UserType>('user').where('id', userId).delete();
+    },
+  };
 }
 
 export default SQLStorageProvider;
