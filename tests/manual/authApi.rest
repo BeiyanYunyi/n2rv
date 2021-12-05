@@ -1,0 +1,10 @@
+POST https://localhost:3000/api/auth/ HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+{"username":"陈睿","password":"114514"}
+
+###
+GET https://localhost:3000/api/auth/revokeToken HTTP/1.1
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IumZiOedvyIsImlkIjoiMSIsImlhdCI6MTYzODcwMjI1MjgzNn0.gzezufsNm5sLnLjjJcBXuUjReCwNQR9EuIRfVlwN250

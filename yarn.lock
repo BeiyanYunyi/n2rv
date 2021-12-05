@@ -1957,16 +1957,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/express-jwt@npm:^6.0.2":
-  version: 6.0.2
-  resolution: "@types/express-jwt@npm:6.0.2"
-  dependencies:
-    "@types/express": "*"
-    "@types/express-unless": "*"
-  checksum: 0fffb222216173342ba9fa53878153012563827645ccc59e3ed46b9facd1249ba3967fd38a28417a40fb669d5b5182c75b7992813e516adc6be9b95a0559e807
-  languageName: node
-  linkType: hard
-
 "@types/express-serve-static-core@npm:^4.17.18":
   version: 4.17.24
   resolution: "@types/express-serve-static-core@npm:4.17.24"
@@ -1978,16 +1968,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/express-unless@npm:*":
-  version: 0.5.2
-  resolution: "@types/express-unless@npm:0.5.2"
-  dependencies:
-    "@types/express": "*"
-  checksum: 31446f1871e29fb3c576f909c3770e167ac219f9dde94c82c236fe0da45f97bd509fd9dc8bb302caaf5b9b41589b0cb27b53309c8b8459b3904b0e3c98f215f7
-  languageName: node
-  linkType: hard
-
-"@types/express@npm:*, @types/express@npm:^4.17.13":
+"@types/express@npm:^4.17.13":
   version: 4.17.13
   resolution: "@types/express@npm:4.17.13"
   dependencies:
@@ -5543,7 +5524,6 @@ __metadata:
     "@rollup/plugin-replace": ^3.0.0
     "@types/bcryptjs": ^2.4.2
     "@types/express": ^4.17.13
-    "@types/express-jwt": ^6.0.2
     "@types/jsonwebtoken": ^8.5.6
     "@types/node": ^16.11.10
     "@types/react": ^17.0.37
@@ -5583,8 +5563,10 @@ __metadata:
     react-router-dom: ^6.0.2
     react-table: ^7.7.0
     rimraf: ^3.0.2
+    rollup: ^2.60.2
     ts-node: ^10.4.0
     typescript: ^4.5.2
+    uuid: ^8.3.2
     vditor: ^3.8.7
     vite: 2.6.14
     vite-plugin-pwa: ^0.11.7
@@ -6525,6 +6507,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"rollup@npm:^2.60.2":
+  version: 2.60.2
+  resolution: "rollup@npm:2.60.2"
+  dependencies:
+    fsevents: ~2.3.2
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  bin:
+    rollup: dist/bin/rollup
+  checksum: bcd41dfe8afb7e0d97ce2237752165bdda689bcce6321d96821d565de3e0c865a49b544923f315985be2bfde086f72b54aae4ae7c87f798b3cb9558a5bec4e65
+  languageName: node
+  linkType: hard
+
 "run-parallel@npm:^1.1.9":
   version: 1.2.0
   resolution: "run-parallel@npm:1.2.0"
@@ -7349,6 +7345,15 @@ __metadata:
   version: 1.0.1
   resolution: "utils-merge@npm:1.0.1"
   checksum: c81095493225ecfc28add49c106ca4f09cdf56bc66731aa8dabc2edbbccb1e1bfe2de6a115e5c6a380d3ea166d1636410b62ef216bb07b3feb1cfde1d95d5080
+  languageName: node
+  linkType: hard
+
+"uuid@npm:^8.3.2":
+  version: 8.3.2
+  resolution: "uuid@npm:8.3.2"
+  bin:
+    uuid: dist/bin/uuid
+  checksum: 5575a8a75c13120e2f10e6ddc801b2c7ed7d8f3c8ac22c7ed0c7b2ba6383ec0abda88c905085d630e251719e0777045ae3236f04c812184b7c765f63a70e58df
   languageName: node
   linkType: hard
 

@@ -31,7 +31,7 @@ const initialTopic: Topic = {
   reply: '',
   lastFetchTime: 0,
   isElite: false,
-  lastReplyTime: '',
+  lastReplyTime: 0,
   deleteTime: null,
 };
 
@@ -49,6 +49,8 @@ const TopicPage = () => {
     }
   }, [params.topicId]);
 
+  const isOriginal = !!topic.deleteTime && topic.deleteTime < 0;
+
   return (
     <Container>
       <Stack direction="row" spacing={1}>
@@ -63,7 +65,9 @@ const TopicPage = () => {
           </Button>
           {topic.deleteTime && (
             <Typography variant="caption" style={{ alignItems: 'center', display: 'flex' }}>
-              在{format(Math.abs(topic.deleteTime) * 1000, 'yyyy-MM-dd HH:mm:ss')}前已被删除
+              {isOriginal && '这是一个原创帖'}
+              {topic.deleteTime > 0 &&
+                `在${format(Math.abs(topic.deleteTime) * 1000, 'yyyy-MM-dd HH:mm:ss')}前已被删除`}
             </Typography>
           )}
         </>
@@ -73,7 +77,13 @@ const TopicPage = () => {
           {topic.title}
         </Typography>
         <CardHeader
-          avatar={<UserFace authorID={topic.authorID} authorName={topic.authorName} />}
+          avatar={
+            <UserFace
+              authorID={topic.authorID}
+              authorName={topic.authorName}
+              isOriginal={isOriginal}
+            />
+          }
           title={topic.authorName || <Skeleton />}
           subheader={
             topic.createTime ? format(topic.createTime * 1000, 'yyyy-MM-dd HH:mm:ss') : <Skeleton />

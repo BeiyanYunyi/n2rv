@@ -11,5 +11,7 @@
   "bcryptConfig": {
     "saltRounds": 114514
   },
-  "jwtSecrets": "FkYouChenRui"
+  "jwtSecrets": "FkYouChenRui",
+  "uuidv5Namespace": "a0aa0eba-46dd-4e5b-aec1-6641c9931269",
+  "allowAnonymous": true
 }

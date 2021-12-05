@@ -3,7 +3,7 @@ export default interface Topic {
   authorID: string;
   authorName: string;
   reply: string;
-  lastReplyTime: string | null;
+  lastReplyTime: number | null;
   topicID: string;
   isElite: boolean;
   content: string | null;

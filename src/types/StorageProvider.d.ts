@@ -47,6 +47,11 @@ export default class StorageProvider {
   /** 对帖子进行全文搜索 */
   fullTextQueryTopic(queryStr: string): Promise<TopicWhileGetAll[]>;
 
+  /** 插入帖子 */
+  insertNewTopic(
+    topic: Pick<Topic, 'authorID' | 'authorName' | 'content' | 'title'>,
+  ): Promise<Topic>;
+
   /** 用户相关功能，内部函数注释见
    * {@link StorageProvider.User StorageProvider} 里的定义
    */
@@ -54,14 +59,28 @@ export default class StorageProvider {
     /** 创建用户
      * @param user 用户
      */
-    createUser: (user: UserType) => Promise<void>;
+    createUser: (
+      user: Pick<UserType, 'password' | 'nickname' | 'username' | 'lastRevokeTime'>,
+    ) => Promise<void>;
 
     /** 获取单个用户信息
-     * @param userId 用户 ID
+     * @param id 用户 id
+     * @param username 用户名
+     * @param forAuth 是否是为验证用户而获取信息（会返回密码 hash 和 lastRevokeTime）
      */
     getUser: (
-      userId: string,
-    ) => Promise<Pick<UserType, 'avatar' | 'id' | 'nickname' | 'username'> | null>;
+      {
+        id,
+        username,
+      }: {
+        id?: string | undefined;
+        username?: string | undefined;
+      },
+      forAuth = false,
+    ) => Promise<Pick<
+      UserType,
+      'avatar' | 'id' | 'nickname' | 'username' | 'lastRevokeTime' | 'password'
+    > | null>;
 
     /** 更新用户信息
      * @param userId 用户 ID

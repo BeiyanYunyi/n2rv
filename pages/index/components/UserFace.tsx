@@ -1,10 +1,23 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Avatar, Link, Skeleton } from '@mui/material';
 import stringAvatar from '../../../renderer/utils/stringAvatar';
 
-const UserFace = ({ authorID, authorName }: { authorID: string; authorName: string }) => {
+const UserFace = ({
+  authorID,
+  authorName,
+  isOriginal = false,
+}: {
+  authorID: string;
+  authorName: string;
+  // eslint-disable-next-line react/require-default-props
+  isOriginal?: boolean;
+}) => {
   if (authorID) {
     return (
-      <Link href={`https://www.douban.com/people/${authorID}`} underline="none">
+      <Link
+        href={isOriginal ? undefined : `https://www.douban.com/people/${authorID}`}
+        underline="none"
+      >
         <Avatar {...stringAvatar(authorName)} />
       </Link>
     );

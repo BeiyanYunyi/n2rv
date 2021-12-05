@@ -1,12 +1,20 @@
 import express from 'express';
 import Storage from '../../src/instances/Storage';
 import Topic from '../../src/types/Topic';
+import errorHandler from '../middlewares/errorHandler';
+import localTopicsRouter from './localTopicsRouter';
+import loginRouter from './loginRouter';
+import usersRouter from './usersRouter';
 
 require('express-async-errors');
 
 const apiRouter = express.Router();
 
 apiRouter.use(express.json());
+
+apiRouter.use('/users', usersRouter);
+apiRouter.use('/auth', loginRouter);
+apiRouter.use('/localTopic', localTopicsRouter);
 
 apiRouter.get('/topic/:id', async (req, res) => {
   const topic = (await Storage.getTopic(req.params.id)) as Topic;
@@ -38,5 +46,7 @@ apiRouter.get('/search/topics', async (req, res) => {
   }
   return res.status(400).end();
 });
+
+apiRouter.use(errorHandler);
 
 export default apiRouter;

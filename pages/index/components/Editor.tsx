@@ -2,8 +2,8 @@ import { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import Vditor from 'vditor';
 
 export interface EditorRef {
-  value: () => void | undefined;
-  html: () => void | undefined;
+  value: () => string | undefined;
+  html: () => string | undefined;
   clearCache: () => void | undefined;
 }
 

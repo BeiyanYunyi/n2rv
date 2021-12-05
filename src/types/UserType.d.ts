@@ -4,4 +4,5 @@ export default interface UserType {
   nickname: string | null;
   password: string;
   avatar: Blob | null;
+  lastRevokeTime: string | number;
 }

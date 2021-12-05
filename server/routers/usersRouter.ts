@@ -1,97 +1,111 @@
-import express from 'express';
 import bcrypt from 'bcryptjs';
+import express from 'express';
 import jwt from 'express-jwt';
 import config from '../../config/config.json';
-import NotAllowedToSignUpError from '../errors/NotAllowedToSignUpError';
+import Storage from '../../src/instances/Storage';
 import ConflictError from '../errors/ConflictError';
+import NotAllowedToSignUpError from '../errors/NotAllowedToSignUpError';
+import NotFoundError from '../errors/NotFoundError';
 import expressjwtOptions from '../utils/expressJwtConstructor';
 
 const usersRouter = express.Router();
+
+require('express-async-errors');
 
 usersRouter.post('/', async (req, res) => {
   const { allowSignUp } = config.usersSettings;
   const { saltRounds } = config.bcryptConfig;
   if (!allowSignUp) throw new NotAllowedToSignUpError('[401] Not allowed to sign up');
-  const { body } = req;
-  const userInDB = await User.findOne({ username: body.username });
+  const { body } = req as {
+    body: {
+      username: string | undefined;
+      nickname: string | undefined;
+      password: string | undefined;
+    };
+  };
+  if (!body.username || !body.password) {
+    return res.status(400).json({ error: 'No username or password' });
+  }
+  const userInDB = await Storage.User.getUser({ username: body.username });
   if (userInDB !== null) throw new ConflictError(`${body.username} conflicted.`);
   const passwordHash = await bcrypt.hash(body.password, saltRounds);
-  const user = new User({
+  const user = {
     username: body.username,
-    name: body.name,
-    passwordHash,
-    tokenLastRevokedTime: Date.now(),
-  });
-  const savedUser = await user.save();
-  res.status(201).json(savedUser);
+    nickname: body.nickname || null,
+    password: passwordHash,
+    lastRevokeTime: Date.now().toString(),
+  };
+  await Storage.User.createUser(user);
+  const savedUser = await Storage.User.getUser({ username: body.username });
+  return res.json(savedUser);
 });
 
 usersRouter.use(jwt(expressjwtOptions));
 
-usersRouter.get('/', async (_req, res) => {
-  const users = await User.find({});
-  res.json(users);
-});
-
 usersRouter.get('/:username', async (req, res) => {
-  const user = await User.findOne({ username: req.params.username });
+  if (!req.params.username) return res.status(400).end();
+  const user = await Storage.User.getUser({ username: req.params.username });
   if (user === null) {
     throw new NotFoundError(`[404] Not Found ${req.params.username}`);
   }
-  res.json(user);
+  return res.json(user);
+});
+
+usersRouter.get('/id/:id', async (req, res) => {
+  if (!req.params.id) return res.status(400).end();
+  if (Number.isNaN(Number(req.params.id))) return res.status(400).end();
+  const user = await Storage.User.getUser({ id: req.params.id });
+  if (user === null) {
+    throw new NotFoundError(`[404] Not Found ${req.params.id}`);
+  }
+  return res.json(user);
 });
 
 usersRouter.put('/', async (req, res) => {
   const { body } = req;
-  const user = await User.findById(req.user.id);
+  const user = await Storage.User.getUser({ id: req.user.id }, true);
   if (user === null) {
     throw new NotFoundError(`[404] Not Found ${req.user.username}`);
   }
+  if (!body.oldPassword) {
+    return res.status(400).json({ error: 'No oldPassword' });
+  }
   const passwordCorrect =
-    user === null ? false : await bcrypt.compare(body.oldPassword, user.passwordHash);
+    user === null ? false : await bcrypt.compare(body.oldPassword, user.password);
   if (!passwordCorrect) {
     return res.status(401).json({
-      error: 'invalid username or password',
+      error: 'invalid password',
     });
   }
-  let passwordHash: string;
+  let password: string;
   if (body.newPassword) {
-    passwordHash = await bcrypt.hash(body.newPassword, saltRounds);
+    password = await bcrypt.hash(body.newPassword, config.bcryptConfig.saltRounds);
   } else {
-    passwordHash = user.passwordHash;
+    password = user.password;
   }
-  const savedUser = await User.findByIdAndUpdate(req.user.id, {
-    username: body.username ? body.username : user.name,
-    name: body.name ? body.name : user.name,
-    passwordHash,
-    tokenLastRevokedTime: Date.now(),
+  const savedUser = await Storage.User.updateUser(req.user.id, {
+    username: body.username ? body.username : undefined,
+    nickname: body.nickname ? body.nickname : undefined,
+    password,
+    lastRevokeTime: Date.now(),
   });
-  res.json(savedUser);
+  return res.json(savedUser);
 });
 
-usersRouter.delete('/', async (req, res, next) => {
-  const password64 = req.query.paword;
-  if (typeof password64 !== 'string') {
-    return next({ code: 400, message: '[400] invalid password' });
-  }
-  const userPassword = Base64.decode(password64);
-  const user = await User.findOne({ username: req.user.username });
+usersRouter.delete('/', async (req, res) => {
+  const { password } = req.body;
+  const user = await Storage.User.getUser({ username: req.user.username }, true);
   if (user === null) {
     throw new NotFoundError(`[404] Not Found ${req.user.username}`);
   }
-  const passwordCorrect =
-    user === null ? false : await bcrypt.compare(userPassword, user.passwordHash);
+  const passwordCorrect = user === null ? false : await bcrypt.compare(password, user.password);
   if (!passwordCorrect) {
     return res.status(401).json({
       error: 'invalid username or password',
     });
   }
-  await Promise.all([
-    User.findByIdAndDelete(req.user.id),
-    Uper.deleteMany({ subscriber: req.user.id }),
-    Video.deleteMany({ subscriber: req.user.id }),
-  ]);
-  res.status(204).end();
+  await Promise.all([Storage.User.deleteUser(req.user.id)]);
+  return res.status(204).end();
 });
 
 export default usersRouter;

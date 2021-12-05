@@ -1,7 +1,8 @@
-/* eslint-disable max-classes-per-file */
 import knex from 'knex';
 import tsquery from 'pg-tsquery';
+import { v4 as uuidv4 } from 'uuid';
 import config from '../../config/config.json';
+import ConflictError from '../../server/errors/ConflictError';
 import NotFoundError from '../../server/errors/NotFoundError';
 import { ImageInDB } from '../types/Image';
 import Reply from '../types/Reply';
@@ -41,14 +42,57 @@ class SQLStorageProvider implements StorageProvider {
 
   async init() {
     if (!this.inited) {
+      await this.db.schema.createSchemaIfNotExists(config.groupURL.substring(29).replace('/', ''));
+      const existTopicList = await this.db.schema.hasTable('topicList');
+      if (!existTopicList)
+        await this.db.schema.createTable('topicList', (table) => {
+          table.string('title');
+          table.string('authorID');
+          table.string('authorName');
+          table.integer('reply').unsigned();
+          table.bigInteger('lastReplyTime').nullable().unsigned().index();
+          table.string('topicID').primary();
+          table.boolean('isElite');
+          table.text('content').nullable();
+          table.bigInteger('lastFetchTime').nullable();
+          table.bigInteger('createTime').nullable();
+          table.bigInteger('deleteTime').nullable();
+        });
+      const existReplyTable = await this.db.schema.hasTable('reply');
+      if (!existReplyTable)
+        await this.db.schema.createTable('reply', (table) => {
+          table.string('replyID').primary().unsigned();
+          table.string('topicID');
+          table.string('authorID');
+          table.string('authorName');
+          table.boolean('isPoster');
+          table.bigInteger('replyTime').unsigned().index();
+          table.boolean('quoting');
+          table.text('quotingImage').nullable();
+          table.text('quotingText').nullable();
+          table.string('quotingAuthorID').nullable();
+          table.string('quotingAuthorName').nullable();
+          table.text('image').nullable();
+          table.text('content');
+          table.integer('votes').defaultTo(0);
+          table.foreign('topicID').references('topicList.topicID');
+        });
+      const existImageTable = await this.db.schema.hasTable('image');
+      if (!existImageTable)
+        await this.db.schema.createTable('image', (table) => {
+          table.bigIncrements('id').primary();
+          table.string('imgID').index().unique();
+          table.binary('imgContent');
+        });
       const hasUserTable = await this.db.schema.hasTable('user');
       if (!hasUserTable) {
         await this.db.schema.createTable('user', (table) => {
-          table.bigIncrements('id').primary();
-          table.text('username').unique();
+          table.string('id', 36).primary().index();
+          table.text('username').unique().index();
           table.text('nickname').nullable();
           table.text('password');
-          table.binary('avatar').nullable();
+          table.bigInteger('avatar').nullable();
+          table.bigInteger('lastRevokeTime');
         });
       }
       const hasVersionTable = await this.db.schema.hasTable(`dbVersion`);
@@ -86,7 +130,7 @@ class SQLStorageProvider implements StorageProvider {
         'createTime',
         'deleteTime',
       )
-      .where('topicID', '=', Number(topicID));
+      .where('topicID', '=', topicID);
     return topic || null;
   }
 
@@ -132,19 +176,64 @@ class SQLStorageProvider implements StorageProvider {
     return topicsTitle;
   }
 
+  async insertNewTopic(
+    topic: Pick<Topic, 'authorID' | 'authorName' | 'content' | 'title'>,
+  ): Promise<Topic> {
+    const now = Math.floor(Date.now() / 1000);
+    const topicID = uuidv4();
+    const topicToInsert: Topic = {
+      ...topic,
+      topicID,
+      reply: '0',
+      lastFetchTime: now,
+      lastReplyTime: now,
+      deleteTime: -now,
+      isElite: false,
+      createTime: now,
+    };
+    await this.db('topicList').insert(topicToInsert);
+    return topicToInsert;
+  }
+
   User = {
-    createUser: async (user: UserType) => {
-      const userInDB = await this.db<UserType>('user').first('id').where('id', user.id);
-      if (userInDB) throw new NotFoundError('用户已存在');
-      await this.db<UserType>('user').insert(user);
+    createUser: async (
+      user: Pick<UserType, 'password' | 'nickname' | 'username' | 'lastRevokeTime'>,
+    ) => {
+      const id = uuidv4();
+      const userInDB = await this.db<UserType>('user')
+        .first('username')
+        .where('username', user.username);
+      if (userInDB) throw new ConflictError('用户已存在');
+      await this.db<UserType>('user').insert({ id, ...user });
     },
 
-    getUser: async (userId: string) => {
-      const user = await this.db<UserType>('user')
-        .first('avatar', 'id', 'nickname', 'username')
-        .where('id', userId);
-      if (!user) return null;
-      return user;
+    getUser: async (
+      {
+        id,
+        username,
+      }: {
+        id?: string | undefined;
+        username?: string | undefined;
+      },
+      forAuth = false,
+    ) => {
+      const queryAry = ['avatar', 'id', 'nickname', 'username'];
+      if (forAuth) queryAry.push('password', 'lastRevokeTime');
+      if (id && !Number.isNaN(Number(id))) {
+        const user = await this.db<UserType>('user')
+          .first(...queryAry)
+          .where('id', id);
+        if (!user) return null;
+        return user;
+      }
+      if (username) {
+        const user = await this.db<UserType>('user')
+          .first(...queryAry)
+          .where('username', username);
+        if (!user) return null;
+        return user;
+      }
+      return null;
     },
 
     updateUser: async (userId: string, userInfo: Partial<UserType>) => {
@@ -152,12 +241,9 @@ class SQLStorageProvider implements StorageProvider {
       if (!userToUpdate) throw new NotFoundError('用户不存在');
       const userInfoToUpdate = {
         id: userId,
-        avatar: userInfo.avatar,
-        nickname: userInfo.nickname,
-        username: userInfo.username,
-        password: userInfo.password,
+        ...userInfo,
       };
-      await this.db<UserType>('user').update(userInfoToUpdate);
+      await this.db<UserType>('user').where('id', userId).update(userInfoToUpdate);
     },
 
     deleteUser: async (userId: string) => {
