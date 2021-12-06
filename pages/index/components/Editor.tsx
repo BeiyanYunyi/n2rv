@@ -5,6 +5,8 @@ export interface EditorRef {
   value: () => string | undefined;
   html: () => string | undefined;
   clearCache: () => void | undefined;
+  focus: () => void | undefined;
+  blur: () => void | undefined;
 }
 
 const Editor = forwardRef((_props, ref) => {
@@ -17,13 +19,16 @@ const Editor = forwardRef((_props, ref) => {
       vd?.setValue('');
       vd?.clearCache();
     };
-    return { value, html, clearCache };
+    const focus = () => vd?.focus();
+    const blur = () => vd?.blur();
+    return { value, html, clearCache, focus, blur };
   });
 
   useEffect(() => {
     const vditor = new Vditor('vditor', {
       after: () => {
         setVd(vditor);
+        vditor.blur();
       },
       height: window.innerHeight / 2,
       icon: 'material',

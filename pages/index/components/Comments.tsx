@@ -50,6 +50,7 @@ const Comment = ({ reply, index }: { reply: Reply; index: number }) => {
           startIcon={<ReplyIcon fontSize="inherit" />}
           onClick={() => {
             replyDispatch({ type: 'ReplyTo', payload: reply.replyID });
+            window.scroll(0, document.body.scrollHeight);
           }}
         >
           回复
