@@ -20,7 +20,7 @@ const AccountPage = () => {
           avatar={
             <UserFace
               authorID={authState.currentUser.id}
-              authorName={authState.currentUser.nickname || authState.currentUser.username}
+              authorName={authState.currentUser.username}
               isOriginal
             />
           }

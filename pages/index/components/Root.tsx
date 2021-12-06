@@ -61,11 +61,7 @@ const Root = () => {
                   navigate('/account');
                 }}
               >
-                <Avatar
-                  {...stringAvatar(
-                    authState.currentUser.nickname || authState.currentUser.username,
-                  )}
-                />
+                <Avatar {...stringAvatar(authState.currentUser.username)} />
               </IconButton>
             ) : (
               <IconButton

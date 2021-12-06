@@ -20,6 +20,7 @@ import Topic from '../../../src/types/Topic';
 import Comments from '../components/Comments';
 import ReplyToTopic from '../components/ReplyToTopic';
 import UserFace from '../components/UserFace';
+import { useReplyStateValue } from '../contexts/ReplyContext';
 
 const initialTopic: Topic = {
   title: '',
@@ -39,6 +40,7 @@ const TopicPage = () => {
   const params = useParams();
   const [topic, setTopic] = React.useState<Topic>(initialTopic);
   const [comments, setComments] = React.useState<Reply[]>([]);
+  const [, replyStateDispatch] = useReplyStateValue();
   React.useEffect(() => {
     if (params.topicId) {
       apiWrapper.getTopic(params.topicId).then((res) => {
@@ -46,8 +48,9 @@ const TopicPage = () => {
         setComments(res.comments);
         document.title = res.topic.title;
       });
+      replyStateDispatch({ type: 'Cancel' });
     }
-  }, [params.topicId]);
+  }, [params.topicId, replyStateDispatch]);
 
   const isOriginal = !!topic.deleteTime && topic.deleteTime < 0;
 

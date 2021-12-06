@@ -206,9 +206,26 @@ class SQLStorageProvider implements StorageProvider {
     return reply;
   }
 
-  async insertOrReplaceReply(reply: Reply): Promise<Reply> {
-    await this.db<Reply>('reply').insert(reply).onConflict('replyID').merge();
+  async insertReply(reply: Reply): Promise<Reply> {
+    await Promise.all([
+      this.db<Reply>('reply').insert(reply),
+      this.db<Topic>('topicList').where('topicID', reply.topicID).update({
+        lastReplyTime: reply.replyTime,
+      }),
+    ]);
+    await this.updateReplyCount(reply.topicID);
     return reply;
+  }
+
+  async updateReplyCount(topicID: string) {
+    const count = await this.db<Reply>('reply')
+      .count({ count: 'replyID' })
+      .where('topicID', topicID);
+    if (count.length !== 0 && count[0].count) {
+      await this.db<Topic>('topicList')
+        .update({ reply: count[0].count.toString() })
+        .where('topicID', topicID);
+    }
   }
 
   User = {

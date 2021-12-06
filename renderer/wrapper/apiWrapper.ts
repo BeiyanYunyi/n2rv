@@ -44,6 +44,19 @@ class ApiWrapper {
     return data.topic;
   }
 
+  async replyAnonymousTopic(anonymousReplyProps: {
+    content: string;
+    topicID: string;
+    authorName: string;
+    quotingID: string | undefined;
+  }) {
+    const { data }: { data: Reply } = await this.client.post(
+      '/localReply/anonymous',
+      anonymousReplyProps,
+    );
+    return data;
+  }
+
   async signup(signUpProps: { username: string; nickname: string; password: string }) {
     const dataToSend = {
       ...signUpProps,

@@ -46,7 +46,7 @@ const insertReply = async (body: {
     quotingText,
     quotingImage,
   };
-  return Storage.insertOrReplaceReply(replyToInsert);
+  return Storage.insertReply(replyToInsert);
 };
 
 const localRepliesRouter = express.Router();

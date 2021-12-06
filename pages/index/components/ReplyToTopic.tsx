@@ -1,8 +1,11 @@
-import { Button } from '@mui/material';
-import { useRef } from 'react';
+import { Button, Stack, TextField, Typography } from '@mui/material';
+import { useRef, useState } from 'react';
+import apiWrapper from '../../../renderer/wrapper/apiWrapper';
 import authedApiWrapper from '../../../renderer/wrapper/authedApiWrapper';
 import AppSetStateAction from '../../../src/types/AppSetStateAction';
 import Reply from '../../../src/types/Reply';
+import { useAuthStateValue } from '../contexts/AuthContext';
+import { useReplyStateValue } from '../contexts/ReplyContext';
 import Editor, { EditorRef } from './Editor';
 
 const ReplyToTopic = ({
@@ -12,30 +15,61 @@ const ReplyToTopic = ({
   setComments: AppSetStateAction<Reply[]>;
   topicID: string | undefined;
 }) => {
+  const [authState] = useAuthStateValue();
+  const [replyState, replyDispatch] = useReplyStateValue();
+  const [authorName, setAuthorName] = useState('');
   const editorRef = useRef<EditorRef>(null);
-  return (
-    <div style={{ marginTop: 8 }}>
-      <Editor ref={editorRef} />
-      <Button
-        sx={{ marginTop: 1 }}
-        variant="outlined"
-        onClick={async () => {
-          const html = editorRef.current?.html();
-          if (html && topicID) {
-            const reply = await authedApiWrapper.replyTopic({
+  const handleSubmit = async () => {
+    const html = editorRef.current?.html();
+    if ((authorName || authState.type === 'Authenticated') && html && topicID) {
+      const reply =
+        authState.type === 'Authenticated'
+          ? await authedApiWrapper.replyTopic({
               content: html,
               topicID,
-              quotingID: undefined,
+              quotingID: replyState.replyTo,
+            })
+          : await apiWrapper.replyAnonymousTopic({
+              content: html,
+              topicID,
+              quotingID: replyState.replyTo,
+              authorName,
             });
-            editorRef.current?.clearCache();
-            return setComments((state) => state.concat(reply));
-          }
-          return alert('不得为空');
-        }}
-      >
+      editorRef.current?.clearCache();
+      setComments((state) => state.concat(reply));
+    } else {
+      alert('不得为空');
+    }
+  };
+  return (
+    <Stack sx={{ marginTop: 1 }} spacing={1}>
+      {replyState.replyTo && (
+        <>
+          <Typography>回复 #{replyState.replyTo}</Typography>
+          <Button
+            onClick={() => {
+              replyDispatch({ type: 'Cancel' });
+            }}
+          >
+            不回复这个
+          </Button>
+        </>
+      )}
+      {authState.type === 'Unauthenticated' && (
+        <TextField
+          label="作者名"
+          fullWidth
+          value={authorName}
+          onChange={(e) => {
+            setAuthorName(e.target.value);
+          }}
+        />
+      )}
+      <Editor ref={editorRef} />
+      <Button variant="outlined" onClick={handleSubmit}>
         回复
       </Button>
-    </div>
+    </Stack>
   );
 };
 

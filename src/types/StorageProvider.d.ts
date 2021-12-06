@@ -59,7 +59,10 @@ export default class StorageProvider {
   ): Promise<Topic>;
 
   /** 插入回复 */
-  insertOrReplaceReply(reply: Reply): Promise<Reply>;
+  insertReply(reply: Reply): Promise<Reply>;
+
+  /** 更新回复计数 */
+  updateReplyCount(topicID: string): Promise<void>;
 
   /** 用户相关功能，内部函数注释见
    * {@link StorageProvider.User StorageProvider} 里的定义
