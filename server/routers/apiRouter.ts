@@ -2,6 +2,7 @@ import express from 'express';
 import Storage from '../../src/instances/Storage';
 import Topic from '../../src/types/Topic';
 import errorHandler from '../middlewares/errorHandler';
+import localRepliesRouter from './localRepliesRouter';
 import localTopicsRouter from './localTopicsRouter';
 import loginRouter from './loginRouter';
 import usersRouter from './usersRouter';
@@ -15,6 +16,7 @@ apiRouter.use(express.json());
 apiRouter.use('/users', usersRouter);
 apiRouter.use('/auth', loginRouter);
 apiRouter.use('/localTopic', localTopicsRouter);
+apiRouter.use('/localReply', localRepliesRouter);
 
 apiRouter.get('/topic/:id', async (req, res) => {
   const topic = (await Storage.getTopic(req.params.id)) as Topic;

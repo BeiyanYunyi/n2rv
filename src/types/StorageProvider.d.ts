@@ -1,4 +1,5 @@
 import Topic, { TopicWhileGetAll } from './Topic';
+import Reply from './Reply';
 import UserType from './UserType';
 
 export default class StorageProvider {
@@ -33,6 +34,11 @@ export default class StorageProvider {
    */
   getComments(topicID: string | number): Promise<Reply[]>;
 
+  /** 获取单个回复 */
+  getComment(
+    replyID: string,
+  ): Promise<Pick<Reply, 'authorID' | 'authorName' | 'image' | 'content'> | null>;
+
   /** 获取图片
    * @param imgID 图片ID
    */
@@ -51,6 +57,9 @@ export default class StorageProvider {
   insertNewTopic(
     topic: Pick<Topic, 'authorID' | 'authorName' | 'content' | 'title'>,
   ): Promise<Topic>;
+
+  /** 插入回复 */
+  insertOrReplaceReply(reply: Reply): Promise<Reply>;
 
   /** 用户相关功能，内部函数注释见
    * {@link StorageProvider.User StorageProvider} 里的定义

@@ -3,6 +3,7 @@ export default interface UserType {
   username: string;
   nickname: string | null;
   password: string;
-  avatar: Blob | null;
+  avatar: string | null;
   lastRevokeTime: string | number;
+  isVerified: boolean;
 }

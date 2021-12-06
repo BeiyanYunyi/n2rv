@@ -1,6 +1,7 @@
 import axios from 'axios';
 import Reply from '../../src/types/Reply';
 import Topic, { TopicWhileGetAll } from '../../src/types/Topic';
+import UserType from '../../src/types/UserType';
 
 class ApiWrapper {
   client = axios.create({ baseURL: '/api' });
@@ -41,6 +42,16 @@ class ApiWrapper {
       anonymousTopicProps,
     );
     return data.topic;
+  }
+
+  async signup(signUpProps: { username: string; nickname: string; password: string }) {
+    const dataToSend = {
+      ...signUpProps,
+      nickname: signUpProps.nickname ? signUpProps.nickname : undefined,
+    };
+    const { data }: { data: Pick<UserType, 'avatar' | 'id' | 'nickname' | 'username'> } =
+      await this.client.post('/users', dataToSend);
+    return data;
   }
 }
 

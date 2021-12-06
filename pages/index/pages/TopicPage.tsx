@@ -119,7 +119,7 @@ const TopicPage = () => {
         </CardContent>
       </Card>
       <Comments replies={comments} />
-      <ReplyToTopic />
+      <ReplyToTopic setComments={setComments} topicID={params.topicId} />
     </Container>
   );
 };

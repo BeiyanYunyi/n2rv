@@ -42,7 +42,16 @@ usersRouter.post('/', async (req, res) => {
 
 usersRouter.use(jwt(expressjwtOptions));
 
-usersRouter.get('/:username', async (req, res) => {
+usersRouter.get('/me', async (req, res) => {
+  if (!req.user.username) return res.status(400).end();
+  const user = await Storage.User.getUser({ username: req.user.username });
+  if (user === null) {
+    throw new NotFoundError(`[404] Not Found ${req.user.username}`);
+  }
+  return res.json(user);
+});
+
+usersRouter.get('/username/:username', async (req, res) => {
   if (!req.params.username) return res.status(400).end();
   const user = await Storage.User.getUser({ username: req.params.username });
   if (user === null) {

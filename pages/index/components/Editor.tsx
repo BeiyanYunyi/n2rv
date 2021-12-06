@@ -13,7 +13,10 @@ const Editor = forwardRef((_props, ref) => {
   useImperativeHandle(ref, () => {
     const value = () => vd?.getValue();
     const html = () => vd?.getHTML();
-    const clearCache = () => vd?.clearCache();
+    const clearCache = () => {
+      vd?.setValue('');
+      vd?.clearCache();
+    };
     return { value, html, clearCache };
   });
 

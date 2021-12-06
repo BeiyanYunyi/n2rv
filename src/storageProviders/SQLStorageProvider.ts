@@ -93,6 +93,7 @@ class SQLStorageProvider implements StorageProvider {
           table.text('password');
           table.bigInteger('avatar').nullable();
           table.bigInteger('lastRevokeTime');
+          table.boolean('isVerified');
         });
       }
       const hasVersionTable = await this.db.schema.hasTable(`dbVersion`);
@@ -195,6 +196,21 @@ class SQLStorageProvider implements StorageProvider {
     return topicToInsert;
   }
 
+  async getComment(
+    replyID: string,
+  ): Promise<Pick<Reply, 'authorID' | 'authorName' | 'image' | 'content'> | null> {
+    const reply =
+      (await this.db<Reply>('reply')
+        .first('authorID', 'authorName', 'content', 'image')
+        .where('replyID', replyID)) || null;
+    return reply;
+  }
+
+  async insertOrReplaceReply(reply: Reply): Promise<Reply> {
+    await this.db<Reply>('reply').insert(reply).onConflict('replyID').merge();
+    return reply;
+  }
+
   User = {
     createUser: async (
       user: Pick<UserType, 'password' | 'nickname' | 'username' | 'lastRevokeTime'>,
@@ -204,7 +220,8 @@ class SQLStorageProvider implements StorageProvider {
         .first('username')
         .where('username', user.username);
       if (userInDB) throw new ConflictError('用户已存在');
-      await this.db<UserType>('user').insert({ id, ...user });
+      const userToInsert: UserType = { id, ...user, avatar: null, isVerified: false };
+      await this.db<UserType>('user').insert(userToInsert);
     },
 
     getUser: async (
@@ -219,7 +236,7 @@ class SQLStorageProvider implements StorageProvider {
     ) => {
       const queryAry = ['avatar', 'id', 'nickname', 'username'];
       if (forAuth) queryAry.push('password', 'lastRevokeTime');
-      if (id && !Number.isNaN(Number(id))) {
+      if (id) {
         const user = await this.db<UserType>('user')
           .first(...queryAry)
           .where('id', id);
