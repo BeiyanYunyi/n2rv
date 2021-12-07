@@ -21,6 +21,7 @@ import React from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useBlockLayout, useTable } from 'react-table';
 import TopicTableProps from '../../../../src/types/TopicTableProps';
+import isUUID from '../../utils/isUUID';
 
 const TopicTablePC = ({
   topicList,
@@ -39,6 +40,7 @@ const TopicTablePC = ({
         lastReplyTime: ele.lastReplyTime
           ? format(Number(ele.lastReplyTime) * 1000, 'yy-MM-dd HH:mm')
           : '',
+        needDecreasePadding: ele.isElite || isUUID(ele.topicID),
       })),
     [topicList],
   );
@@ -120,8 +122,8 @@ const TopicTablePC = ({
                     {...cell.getCellProps({
                       style: {
                         padding: 8,
-                        paddingTop: cell.row.original.isElite ? 6 : 8,
-                        paddingBottom: cell.row.original.isElite ? 6 : 8,
+                        paddingTop: cell.row.original.needDecreasePadding ? 6 : 8,
+                        paddingBottom: cell.row.original.needDecreasePadding ? 6 : 8,
                       },
                     })}
                   >
@@ -142,9 +144,12 @@ const TopicTablePC = ({
                           to={`topic/${cell.row.original.topicID}`}
                           underline="hover"
                         >
-                          <Stack direction="row" alignItems="center">
+                          <Stack direction="row" alignItems="center" spacing={0.5}>
                             {cell.row.original.isElite && (
                               <Chip label="精品" size="small" color="error" />
+                            )}
+                            {isUUID(cell.row.original.topicID) && (
+                              <Chip label="原创" size="small" color="success" variant="outlined" />
                             )}
                             {cell.render('Cell')}
                           </Stack>

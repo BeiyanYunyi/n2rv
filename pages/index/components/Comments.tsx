@@ -19,6 +19,7 @@ import ImgView from './ImgView';
 import UserFace from './UserFace';
 import { useReplyStateValue } from '../contexts/ReplyContext';
 import parserOpt from '../../../renderer/utils/parserOpt';
+import isUUID from '../utils/isUUID';
 
 const Comment = ({ reply, index }: { reply: Reply; index: number }) => {
   const [, replyDispatch] = useReplyStateValue();
@@ -33,6 +34,9 @@ const Comment = ({ reply, index }: { reply: Reply; index: number }) => {
           <Stack direction="row" spacing={1}>
             {reply.isPoster && (
               <Chip label="楼主" color="primary" size="small" variant="outlined" />
+            )}
+            {isUUID(reply.replyID) && (
+              <Chip label="原创" color="success" size="small" variant="outlined" />
             )}
             <Chip label={`# ${index}`} size="small" variant="outlined" />
           </Stack>

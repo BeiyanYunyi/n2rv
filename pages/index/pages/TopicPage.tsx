@@ -21,6 +21,7 @@ import Comments from '../components/Comments';
 import ReplyToTopic from '../components/ReplyToTopic';
 import UserFace from '../components/UserFace';
 import { useReplyStateValue } from '../contexts/ReplyContext';
+import isUUID from '../utils/isUUID';
 
 const initialTopic: Topic = {
   title: '',
@@ -92,16 +93,13 @@ const TopicPage = () => {
             topic.createTime ? format(topic.createTime * 1000, 'yyyy-MM-dd HH:mm:ss') : <Skeleton />
           }
           action={
-            <>
-              <Chip
-                label="楼主"
-                color="primary"
-                size="small"
-                variant="outlined"
-                style={{ marginRight: 8 }}
-              />
+            <Stack direction="row" spacing={1}>
+              <Chip label="楼主" color="primary" size="small" variant="outlined" />
+              {isUUID(topic.topicID) && (
+                <Chip label="原创" color="success" size="small" variant="outlined" />
+              )}
               <Chip label="# 1" size="small" variant="outlined" />
-            </>
+            </Stack>
           }
         />
         <CardContent style={{ paddingTop: 0 }}>
@@ -111,10 +109,7 @@ const TopicPage = () => {
             ) : (
               topic.content &&
               parse(
-                topic.content
-                  .replaceAll('https://img', '/cors/https://img')
-                  .replaceAll('.webp', '.jpg')
-                  .replace('<br />', ''),
+                topic.content.replace(/https:\/\/img/g, '/cors/https://img').replace('<br />', ''),
                 parserOpt,
               )
             )}
