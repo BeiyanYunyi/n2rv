@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { Avatar, Link, Skeleton } from '@mui/material';
 import stringAvatar from '../../../renderer/utils/stringAvatar';
+import isUUID from '../utils/isUUID';
 
 const UserFace = ({
   authorID,
@@ -15,7 +16,9 @@ const UserFace = ({
   if (authorID) {
     return (
       <Link
-        href={isOriginal ? undefined : `https://www.douban.com/people/${authorID}`}
+        href={
+          isOriginal || isUUID(authorID) ? undefined : `https://www.douban.com/people/${authorID}`
+        }
         underline="none"
       >
         <Avatar {...stringAvatar(authorName)} />

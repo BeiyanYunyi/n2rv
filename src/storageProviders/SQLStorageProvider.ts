@@ -107,15 +107,22 @@ class SQLStorageProvider implements StorageProvider {
     }
   }
 
-  async getAllTopics(skip: number, limit: number, needDeleted: boolean, needElite: boolean) {
+  async getAllTopics(prop: {
+    skip: number;
+    limit: number;
+    needDeleted: boolean;
+    needElite: boolean;
+    needOriginal: boolean;
+  }) {
     const query0 = this.db<Topic>('topicList')
       .select(...topicWhileGetAll)
       .orderBy('lastReplyTime', 'desc')
-      .offset(skip)
-      .limit(limit);
-    const query1 = needDeleted ? query0.whereNotNull('deleteTime') : query0;
-    const query2 = needElite ? query1.where('isElite', true) : query1;
-    const topics = await query2;
+      .offset(prop.skip)
+      .limit(prop.limit);
+    const query1 = prop.needDeleted ? query0.where('deleteTime', '>', 0) : query0;
+    const query2 = prop.needElite ? query1.where('isElite', true) : query1;
+    const query3 = prop.needOriginal ? query2.where('deleteTime', '<', 0) : query2;
+    const topics = await query3;
     return topics;
   }
 
@@ -149,11 +156,12 @@ class SQLStorageProvider implements StorageProvider {
     return null;
   }
 
-  async getPages(deleted: boolean, elite: boolean) {
+  async getPages(props: { deleted: boolean; elite: boolean; original: boolean }) {
     const query0 = this.db<Topic>('topicList');
-    const query1 = deleted ? query0.whereNotNull('deleteTime') : query0;
-    const query2 = elite ? query1.where('isElite', true) : query1;
-    const count = await query2.count('topicID');
+    const query1 = props.deleted ? query0.whereNotNull('deleteTime') : query0;
+    const query2 = props.elite ? query1.where('isElite', true) : query1;
+    const query3 = props.original ? query2.where('deleteTime', '<', 0) : query2;
+    const count = await query3.count('topicID');
     return Math.floor(Number(count[0].count) / 50) + 1;
   }
 

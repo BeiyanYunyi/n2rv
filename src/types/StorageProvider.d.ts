@@ -11,13 +11,15 @@ export default class StorageProvider {
    * @param limit 共获取多少帖（用于分页）
    * @param needDeleted 是否仅获取已删除的帖子
    * @param needElite 是否仅获取精品帖
+   * @param needOriginal 是否仅获取避难所帖
    */
-  getAllTopics(
-    skip: number,
-    limit: number,
-    needDeleted: boolean,
-    needElite: boolean,
-  ): Promise<TopicWhileGetAll[]>;
+  getAllTopics(getAllTopicProp: {
+    skip: number;
+    limit: number;
+    needDeleted: boolean;
+    needElite: boolean;
+    needOriginal: boolean;
+  }): Promise<TopicWhileGetAll[]>;
 
   /** 获取帖子，该查询也只查询帖子的部分字段
    * @param topicID 帖子ID
@@ -47,8 +49,9 @@ export default class StorageProvider {
   /** 获取帖子总页数
    * @param deleted 是否仅获取已删除的帖子
    * @param elite 是否仅获取精品帖
+   * @param original 是否仅获取避难所帖
    */
-  getPages(deleted: boolean, elite: boolean): Promise<number>;
+  getPages(props: { deleted: boolean; elite: boolean; original: boolean }): Promise<number>;
 
   /** 对帖子进行全文搜索 */
   fullTextQueryTopic(queryStr: string): Promise<TopicWhileGetAll[]>;

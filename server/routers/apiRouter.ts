@@ -28,18 +28,35 @@ apiRouter.get('/topic/:id', async (req, res) => {
 });
 
 apiRouter.get('/topic', async (req, res) => {
-  const { page, needDeleted, needElite } = req.query as {
+  const { page, needDeleted, needElite, needOriginal } = req.query as {
     page: string | undefined;
     needDeleted: string | undefined;
     needElite: string | undefined;
+    needOriginal: string | undefined;
   };
-  const pages = await Storage.getPages(!!needDeleted, !!needElite);
+  const pages = await Storage.getPages({
+    deleted: !!needDeleted,
+    elite: !!needElite,
+    original: !!needOriginal,
+  });
   if (!page) {
-    const topicList = await Storage.getAllTopics(0, 50, !!needDeleted, !!needElite);
+    const topicList = await Storage.getAllTopics({
+      skip: 0,
+      limit: 50,
+      needDeleted: !!needDeleted,
+      needElite: !!needElite,
+      needOriginal: !!needOriginal,
+    });
     return res.send({ topicList, pages });
   }
   const pageNum = Number(page) * 50;
-  const topicList = await Storage.getAllTopics(pageNum, 50, !!needDeleted, !!needElite);
+  const topicList = await Storage.getAllTopics({
+    skip: pageNum,
+    limit: 50,
+    needDeleted: !!needDeleted,
+    needElite: !!needElite,
+    needOriginal: !!needOriginal,
+  });
   return res.send({ topicList, pages });
 });
 

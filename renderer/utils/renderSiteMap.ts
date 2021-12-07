@@ -3,7 +3,13 @@ import config from '../../config/config.json';
 import Storage from '../../src/instances/Storage';
 
 const renderSiteMap = async () => {
-  const topics = await Storage.getAllTopics(0, 1000, false, false);
+  const topics = await Storage.getAllTopics({
+    skip: 0,
+    limit: 1000,
+    needDeleted: false,
+    needElite: false,
+    needOriginal: false,
+  });
   const urlAry = [`https://${config.servAddr}:${config.listenPort}`].concat(
     topics.map((topic) => `https://${config.servAddr}:${config.listenPort}/topic/${topic.topicID}`),
   );
