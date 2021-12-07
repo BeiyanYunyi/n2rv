@@ -2,6 +2,7 @@
 import express from 'express';
 import path from 'path';
 import { createPageRenderer } from 'vite-plugin-ssr';
+import config from '../config/config.json';
 import renderSiteMap from '../renderer/utils/renderSiteMap';
 import Storage from '../src/instances/Storage';
 import apiRouter from './routers/apiRouter';
@@ -15,6 +16,7 @@ const logoPath = path.join(root, 'static');
 
 const app = express();
 app.use('/static', express.static(logoPath));
+app.use('/uploads', express.static(config.upload.uploadFileStoragePath));
 app.get('/sitemap', async (_req, res) => {
   const sitemap = await renderSiteMap();
   res.send(sitemap);

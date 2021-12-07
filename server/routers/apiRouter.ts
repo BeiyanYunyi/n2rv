@@ -4,12 +4,15 @@ import Topic from '../../src/types/Topic';
 import errorHandler from '../middlewares/errorHandler';
 import localRepliesRouter from './localRepliesRouter';
 import localTopicsRouter from './localTopicsRouter';
+import localUploadRouter from './localUploadRouter';
 import loginRouter from './loginRouter';
 import usersRouter from './usersRouter';
 
 require('express-async-errors');
 
 const apiRouter = express.Router();
+
+apiRouter.use('/localUpload', localUploadRouter);
 
 apiRouter.use(express.json());
 
