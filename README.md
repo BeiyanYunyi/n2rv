@@ -6,6 +6,9 @@
 
 ```bash
 git clone https://github.com/lixiang810/n2rv
+```
+之后请复制 `config/config.example.json` 到 `config/config.json` 并做好配置。
+```bash
 cd n2rv
 yarn
 # yarn dev 用于开发
