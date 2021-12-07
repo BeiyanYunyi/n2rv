@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import { Card, CardContent, CardHeader, Typography } from '@mui/material';
 import parse from 'html-react-parser';
+import parserOpt from '../../../renderer/utils/parserOpt';
 import Reply from '../../../src/types/Reply';
 import ImgView from './ImgView';
 import UserFace from './UserFace';
@@ -15,7 +16,7 @@ const CommentQuote = ({ reply }: { reply: Reply }) => (
       {reply.quotingImage && <ImgView src={`/cors/${reply.quotingImage}`} />}
       {reply.quotingText && (
         <Typography component="div" variant="caption">
-          {parse(reply.quotingText)}
+          {parse(reply.quotingText, parserOpt)}
         </Typography>
       )}
     </CardContent>

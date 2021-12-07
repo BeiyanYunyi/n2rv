@@ -16,7 +16,6 @@ const AppVditor = ({ setVd }: { setVd: AppSetStateAction<Vditor | undefined> }) 
     const vditor = new Vditor('vditor', {
       after: () => {
         setVd(vditor);
-        vditor.blur();
       },
       height: window.innerHeight / 2,
       icon: 'material',

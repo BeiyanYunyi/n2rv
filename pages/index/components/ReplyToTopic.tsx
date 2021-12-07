@@ -36,6 +36,8 @@ const ReplyToTopic = ({
               authorName,
             });
       editorRef.current?.clearCache();
+      editorRef.current?.blur();
+      replyDispatch({ type: 'Cancel' });
       setComments((state) => state.concat(reply));
     } else {
       alert('不得为空');

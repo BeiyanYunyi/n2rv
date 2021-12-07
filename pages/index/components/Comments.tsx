@@ -18,6 +18,7 @@ import CommentQuote from './CommentQuote';
 import ImgView from './ImgView';
 import UserFace from './UserFace';
 import { useReplyStateValue } from '../contexts/ReplyContext';
+import parserOpt from '../../../renderer/utils/parserOpt';
 
 const Comment = ({ reply, index }: { reply: Reply; index: number }) => {
   const [, replyDispatch] = useReplyStateValue();
@@ -39,7 +40,7 @@ const Comment = ({ reply, index }: { reply: Reply; index: number }) => {
       />
       <CardContent sx={{ paddingTop: 0, paddingBottom: 0 }}>
         {reply.image && <ImgView src={`/cors/${reply.image}`} />}
-        <Typography component="div">{parse(reply.content)}</Typography>
+        <Typography component="div">{parse(reply.content, parserOpt)}</Typography>
       </CardContent>
       <CardActions sx={{ justifyContent: 'flex-end' }}>
         <Button variant="text" startIcon={<ThumbUpIcon fontSize="inherit" />} size="small" disabled>
