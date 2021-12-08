@@ -3,7 +3,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Chip, Fab, Stack, useTheme } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import TopicTableProps from '../../../../src/types/TopicTableProps';
+import TopicTableProps from '../../../../types/TopicTableProps';
 import TopicElement from './TopicElement';
 
 const TopicTableMobile = ({

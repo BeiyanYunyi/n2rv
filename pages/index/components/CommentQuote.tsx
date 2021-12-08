@@ -3,7 +3,7 @@ import { Button, Card, CardContent, CardHeader, Typography } from '@mui/material
 import parse from 'html-react-parser';
 import { useState } from 'react';
 import parserOpt from '../../../renderer/utils/parserOpt';
-import Reply from '../../../src/types/Reply';
+import Reply from '../../../types/Reply';
 import ImgView from './ImgView';
 import UserFace from './UserFace';
 

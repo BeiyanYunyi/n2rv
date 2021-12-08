@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-pascal-case */
 import config from '../../config/config.json';
-import Storage from '../../src/instances/Storage';
+import Storage from '../../server/storageProviders/Storage';
 
 const renderSiteMap = async () => {
   const topics = await Storage.getAllTopics({

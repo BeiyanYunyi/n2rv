@@ -2,7 +2,7 @@ import { Button } from '@mui/material';
 import { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import Vditor from 'vditor';
 import authedApiWrapper from '../../../renderer/wrapper/authedApiWrapper';
-import AppSetStateAction from '../../../src/types/AppSetStateAction';
+import AppSetStateAction from '../../../types/AppSetStateAction';
 import { useAuthStateValue } from '../contexts/AuthContext';
 
 export interface EditorRef {

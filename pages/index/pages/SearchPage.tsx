@@ -2,7 +2,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { Container, IconButton, InputAdornment, Skeleton, Stack, TextField } from '@mui/material';
 import { useState } from 'react';
 import apiWrapper from '../../../renderer/wrapper/apiWrapper';
-import { TopicWhileGetAll } from '../../../src/types/Topic';
+import { TopicWhileGetAll } from '../../../types/Topic';
 import TopicElement from '../components/TopicTable/TopicElement';
 
 const SearchPage = () => {

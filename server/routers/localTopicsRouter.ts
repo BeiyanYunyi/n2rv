@@ -2,7 +2,7 @@ import express from 'express';
 import expressJwt from 'express-jwt';
 import { v5 as uuidv5 } from 'uuid';
 import config from '../../config/config.json';
-import Storage from '../../src/instances/Storage';
+import Storage from '../storageProviders/Storage';
 import AnonymousNotAllowedError from '../errors/AnonymousNotAllowedError';
 import expressjwtOptions from '../utils/expressJwtConstructor';
 

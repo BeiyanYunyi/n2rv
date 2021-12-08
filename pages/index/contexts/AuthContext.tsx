@@ -1,5 +1,5 @@
 import { createContext, FC, ReactElement, Reducer, useContext, useReducer } from 'react';
-import UserType from '../../../src/types/UserType';
+import UserType from '../../../types/UserType';
 
 export type State =
   | {

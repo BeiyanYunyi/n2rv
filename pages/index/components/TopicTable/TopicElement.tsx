@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { stringToColor } from '../../../../renderer/utils/stringAvatar';
-import { TopicWhileGetAll } from '../../../../src/types/Topic';
+import { TopicWhileGetAll } from '../../../../types/Topic';
 import formatLastReplyTime from '../../utils/formatLastReplyTime';
 import ReplyChip from '../ReplyChip';
 

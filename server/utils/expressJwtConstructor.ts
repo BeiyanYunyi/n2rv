@@ -1,5 +1,5 @@
 import { UnauthorizedError } from 'express-jwt';
-import Storage from '../../src/instances/Storage';
+import Storage from '../storageProviders/Storage';
 import logger from './logger';
 import config from '../../config/config.json';
 

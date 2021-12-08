@@ -13,7 +13,7 @@ import {
 import ReplyIcon from '@mui/icons-material/Reply';
 import format from 'date-fns/format';
 import parse from 'html-react-parser';
-import Reply from '../../../src/types/Reply';
+import Reply from '../../../types/Reply';
 import CommentQuote from './CommentQuote';
 import ImgView from './ImgView';
 import UserFace from './UserFace';

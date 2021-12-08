@@ -2,13 +2,13 @@ import knex from 'knex';
 import tsquery from 'pg-tsquery';
 import { v4 as uuidv4 } from 'uuid';
 import config from '../../config/config.json';
-import ConflictError from '../../server/errors/ConflictError';
-import NotFoundError from '../../server/errors/NotFoundError';
-import { ImageInDB } from '../types/Image';
-import Reply from '../types/Reply';
-import StorageProvider from '../types/StorageProvider';
-import Topic from '../types/Topic';
-import UserType from '../types/UserType';
+import ConflictError from '../errors/ConflictError';
+import NotFoundError from '../errors/NotFoundError';
+import { ImageInDB } from '../../types/Image';
+import Reply from '../../types/Reply';
+import StorageProvider from '../../types/StorageProvider';
+import Topic from '../../types/Topic';
+import UserType from '../../types/UserType';
 
 const topicWhileGetAll = [
   'title',

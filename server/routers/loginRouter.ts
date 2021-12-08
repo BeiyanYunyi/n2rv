@@ -4,7 +4,7 @@ import express from 'express';
 import expressJwt from 'express-jwt';
 import jwt from 'jsonwebtoken';
 import config from '../../config/config.json';
-import Storage from '../../src/instances/Storage';
+import Storage from '../storageProviders/Storage';
 import expressjwtOptions from '../utils/expressJwtConstructor';
 
 require('express-async-errors');

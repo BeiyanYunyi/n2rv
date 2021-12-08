@@ -1,7 +1,7 @@
 import express from 'express';
 import corsAnywhere from 'cors-anywhere';
-import getImgID from '../../src/utils/getImgID';
-import Storage from '../../src/instances/Storage';
+import getImgID from '../utils/getImgID';
+import Storage from '../storageProviders/Storage';
 
 require('express-async-errors');
 

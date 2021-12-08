@@ -1,7 +1,7 @@
 import axios from 'axios';
-import Reply from '../../src/types/Reply';
-import Topic from '../../src/types/Topic';
-import UserType from '../../src/types/UserType';
+import Reply from '../../types/Reply';
+import Topic from '../../types/Topic';
+import UserType from '../../types/UserType';
 
 class AuthedApiWrapper {
   token = `Bearer ${localStorage.getItem('apiToken')}`;

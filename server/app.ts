@@ -4,7 +4,7 @@ import path from 'path';
 import { createPageRenderer } from 'vite-plugin-ssr';
 import config from '../config/config.json';
 import renderSiteMap from '../renderer/utils/renderSiteMap';
-import Storage from '../src/instances/Storage';
+import Storage from './storageProviders/Storage';
 import apiRouter from './routers/apiRouter';
 import corsRouter from './routers/corsRouter';
 

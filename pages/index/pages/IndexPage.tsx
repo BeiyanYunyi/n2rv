@@ -1,7 +1,7 @@
 import { Container, FormControlLabel, Grid, Switch, useMediaQuery, useTheme } from '@mui/material';
 import React from 'react';
 import apiWrapper from '../../../renderer/wrapper/apiWrapper';
-import { TopicWhileGetAll } from '../../../src/types/Topic';
+import { TopicWhileGetAll } from '../../../types/Topic';
 import TopicTableMobile from '../components/TopicTable/TopicTableMobile';
 import TopicTablePC from '../components/TopicTable/TopicTablePC';
 
