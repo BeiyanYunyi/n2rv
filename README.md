@@ -25,23 +25,37 @@ main 分支的 commit 间不保证数据库迁移性，仅对不同 release 间�
 
 ```jsonc
 {
-  "address": "", // 数据库地址
-  "servAddr": "", // 服务器地址（用于网页链接等）
-  "listenPort": 1145, // 服务器监听端口
-  "port": 5555, // 数据库监听端口
-  "username": "", // 数据库用户名
-  "password": "", // 数据库密码
-  "database": "nsdbg", // 数据库名
-  "groupURL": "", // 豆瓣小组链接，例：https://www.douban.com/group/114514/ 注意不要包含别的东西
-  "usersSettings": { "allowSignUp": true }, // 允许注册
-  "bcryptConfig": {
-    "saltRounds": 114514 // bcrypt 的 saltRounds
+  "groupURL": "", // 小组URL，如：https://www.douban.com/group/717382/ 不要包含别的东西，尤其是问号 / 井号和它们后面那堆
+  "httpsServerConfig": {
+    // https 服务器的设置
+    "servAddr": "", // 服务器工作地址（注意不是监听地址）
+    "listenPort": 1145 // 服务器工作端口（注意不是监听端口）
   },
-  "jwtSecrets": "FkYouChenRui", // JsonWebToken 的密钥，注意保管
-  "uuidv5Namespace": "a0aa0eba-46dd-4e5b-aec1-6641c9931269", // 一个 uuid（版本不限），用于生成 uuidv5
-  "allowAnonymous": true, // 允许匿名发帖 / 回复
-  "upload": {
-    "uploadFileStoragePath": "uploads/", // 文件上传目录
+  "databaseConfig": {
+    // 数据库相关设置
+    "address": "", // 地址
+    "port": 5555, // 端口
+    "username": "", // 用户名
+    "password": "", // 密码
+    "database": "" // 数据库名
+  },
+  "usersConfig": {
+    // 用户相关设置
+    "allowSignUp": true, // 允许用户注册
+    "allowAnonymous": true // 允许匿名发帖 / 回复
+  },
+  "bcryptConfig": {
+    // bcrypt 配置
+    "saltRounds": 19 // 加盐的参数，具体请学密码学
+  },
+  "signingConfig": {
+    // 签名 / hash 相关配置
+    "jwtSecrets": "FkYouChenRui", // jsonwebtoken 的 secrets，切勿外泄
+    "uuidv5Namespace": "a0aa0eba-46dd-4e5b-aec1-6641c9931269" // 用于为匿名发帖的作者生成 uuidv5，可以了解一下 uuidv5 是什么
+  },
+  "uploadConfig": {
+    // 上传文件相关配置
+    "uploadFileStoragePath": "uploads/", // 上传文件存放目录
     "allowAllImages": true, // 允许所有 MIME 类型为图片的文件，开了以后，下面那个配置可以去掉 image/ 开头的 MIME-Type
     "allowedMimeType": ["image/jpeg", "image/png", "image/gif", "image/webp"] // 允许的 MIME 类型列表
   }
