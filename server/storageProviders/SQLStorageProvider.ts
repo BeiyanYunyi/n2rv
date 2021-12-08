@@ -27,11 +27,11 @@ class SQLStorageProvider implements StorageProvider {
   private db = knex({
     client: 'pg',
     connection: {
-      host: config.address,
-      port: config.port,
-      user: config.username,
-      password: config.password,
-      database: config.database,
+      host: config.databaseConfig.address,
+      port: config.databaseConfig.port,
+      user: config.databaseConfig.username,
+      password: config.databaseConfig.password,
+      database: config.databaseConfig.database,
     },
     useNullAsDefault: true,
     searchPath: [config.groupURL.substring(29).replace('/', ''), 'public'],

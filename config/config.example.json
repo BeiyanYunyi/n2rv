@@ -1,20 +1,28 @@
 {
-  "address": "",
-  "servAddr": "",
-  "listenPort": 1145,
-  "port": 5555,
-  "username": "",
-  "password": "",
-  "database": "nsdbg",
   "groupURL": "",
-  "usersSettings": { "allowSignUp": true },
-  "bcryptConfig": {
-    "saltRounds": 114514
+  "httpsServerConfig": {
+    "servAddr": "",
+    "listenPort": 1145
   },
-  "jwtSecrets": "FkYouChenRui",
-  "uuidv5Namespace": "a0aa0eba-46dd-4e5b-aec1-6641c9931269",
-  "allowAnonymous": true,
-  "upload": {
+  "databaseConfig": {
+    "address": "",
+    "port": 5555,
+    "username": "",
+    "password": "",
+    "database": ""
+  },
+  "usersConfig": {
+    "allowSignUp": true,
+    "allowAnonymous": true
+  },
+  "bcryptConfig": {
+    "saltRounds": 19
+  },
+  "signingConfig": {
+    "jwtSecrets": "FkYouChenRui",
+    "uuidv5Namespace": "a0aa0eba-46dd-4e5b-aec1-6641c9931269"
+  },
+  "uploadConfig": {
     "uploadFileStoragePath": "uploads/",
     "allowAllImages": true,
     "allowedMimeType": ["image/jpeg", "image/png", "image/gif", "image/webp"]

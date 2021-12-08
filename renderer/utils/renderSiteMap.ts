@@ -10,8 +10,13 @@ const renderSiteMap = async () => {
     needElite: false,
     needOriginal: false,
   });
-  const urlAry = [`https://${config.servAddr}:${config.listenPort}`].concat(
-    topics.map((topic) => `https://${config.servAddr}:${config.listenPort}/topic/${topic.topicID}`),
+  const urlAry = [
+    `https://${config.httpsServerConfig.servAddr}:${config.httpsServerConfig.listenPort}`,
+  ].concat(
+    topics.map(
+      (topic) =>
+        `https://${config.httpsServerConfig.servAddr}:${config.httpsServerConfig.listenPort}/topic/${topic.topicID}`,
+    ),
   );
   return urlAry.join('\n');
 };

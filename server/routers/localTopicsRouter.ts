@@ -11,7 +11,8 @@ require('express-async-errors');
 const localTopicsRouter = express.Router();
 
 localTopicsRouter.post('/anonymous', async (req, res) => {
-  if (!config.allowAnonymous) throw new AnonymousNotAllowedError('Anonymous is not allowed!');
+  if (!config.usersConfig.allowAnonymous)
+    throw new AnonymousNotAllowedError('Anonymous is not allowed!');
   const { body } = req as {
     body: {
       authorName: string | undefined;
@@ -26,7 +27,7 @@ localTopicsRouter.post('/anonymous', async (req, res) => {
     authorName: body.authorName,
     content: body.content,
     title: body.title,
-    authorID: uuidv5(body.authorName, config.uuidv5Namespace),
+    authorID: uuidv5(body.authorName, config.signingConfig.uuidv5Namespace),
   };
   const topic = await Storage.insertNewTopic(topicToInsert);
   return res.json({ topic });

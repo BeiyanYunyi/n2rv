@@ -13,7 +13,7 @@ const usersRouter = express.Router();
 require('express-async-errors');
 
 usersRouter.post('/', async (req, res) => {
-  const { allowSignUp } = config.usersSettings;
+  const { allowSignUp } = config.usersConfig;
   const { saltRounds } = config.bcryptConfig;
   if (!allowSignUp) throw new NotAllowedToSignUpError('[401] Not allowed to sign up');
   const { body } = req as {

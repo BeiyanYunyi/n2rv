@@ -52,14 +52,15 @@ const insertReply = async (body: {
 const localRepliesRouter = express.Router();
 
 localRepliesRouter.post('/anonymous', async (req, res) => {
-  if (!config.allowAnonymous) throw new AnonymousNotAllowedError('Anonymous is not allowed!');
+  if (!config.usersConfig.allowAnonymous)
+    throw new AnonymousNotAllowedError('Anonymous is not allowed!');
   const { body } = req as {
     body: Pick<Reply, 'content' | 'topicID' | 'authorName'> & { quotingID: string | undefined };
   };
   if (!body.authorName || !body.content || !body.topicID) {
     return res.status(400).json({ error: 'invalid request' });
   }
-  const authorID = uuidv5(body.authorName, config.uuidv5Namespace);
+  const authorID = uuidv5(body.authorName, config.signingConfig.uuidv5Namespace);
   const replyToReturn = await insertReply({
     quotingID: body.quotingID,
     topicID: body.topicID,

@@ -12,7 +12,7 @@ const localUploadRouter = express.Router();
 localUploadRouter.use(expressJwt(expressjwtOptions));
 
 const storage = multer.diskStorage({
-  destination: config.upload.uploadFileStoragePath || 'uploads/',
+  destination: config.uploadConfig.uploadFileStoragePath || 'uploads/',
   filename: (_req, file, cb) => {
     const filename = file.originalname.split('.');
     cb(null, `upload-${Date.now()}.${filename[filename.length - 1]}`);
@@ -22,10 +22,10 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage,
   fileFilter: (_req, file, cb) => {
-    if (config.upload.allowAllImages && file.mimetype.startsWith('image/')) {
+    if (config.uploadConfig.allowAllImages && file.mimetype.startsWith('image/')) {
       return cb(null, true);
     }
-    if (config.upload.allowedMimeType.find((type) => type === file.mimetype)) {
+    if (config.uploadConfig.allowedMimeType.find((type) => type === file.mimetype)) {
       return cb(null, true);
     }
     return cb(null, false);

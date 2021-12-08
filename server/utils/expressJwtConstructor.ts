@@ -21,7 +21,7 @@ const tokenChecker = async (
   return done(null, false);
 };
 
-const SECRET = config.jwtSecrets;
+const SECRET = config.signingConfig.jwtSecrets;
 const expressjwtOptions = {
   secret: SECRET,
   algorithms: ['HS256'],

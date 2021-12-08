@@ -9,7 +9,7 @@ import expressjwtOptions from '../utils/expressJwtConstructor';
 
 require('express-async-errors');
 
-const SECRET = config.jwtSecrets;
+const SECRET = config.signingConfig.jwtSecrets;
 const loginRouter = express.Router();
 
 loginRouter.post('/', async (req, res) => {

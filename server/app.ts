@@ -16,7 +16,7 @@ const logoPath = path.join(root, 'static');
 
 const app = express();
 app.use('/static', express.static(logoPath));
-app.use('/uploads', express.static(config.upload.uploadFileStoragePath));
+app.use('/uploads', express.static(config.uploadConfig.uploadFileStoragePath));
 app.get('/sitemap', async (_req, res) => {
   const sitemap = await renderSiteMap();
   res.send(sitemap);
