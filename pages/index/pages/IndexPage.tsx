@@ -1,40 +1,21 @@
 import { Container, FormControlLabel, Grid, Switch, useMediaQuery, useTheme } from '@mui/material';
 import React from 'react';
-import apiWrapper from '../../../renderer/wrapper/apiWrapper';
-import { TopicWhileGetAll } from '../../../types/Topic';
 import TopicTableMobile from '../components/TopicTable/TopicTableMobile';
 import TopicTablePC from '../components/TopicTable/TopicTablePC';
+import { fetchTopics, setNeedDeleted, setNeedElite, setNeedOriginal } from '../redux/pageSlice';
+import { useAppDispatch, useAppSelector } from '../redux/store';
 
 const IndexPage = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const [topicList, setTopicList] = React.useState<TopicWhileGetAll[]>([]);
-  const [needDeleted, setNeedDeleted] = React.useState(false);
-  const [needElite, setNeedElite] = React.useState(false);
-  const [needOriginal, setNeedOriginal] = React.useState(false);
-  const [loading, setLoading] = React.useState(false);
-  const [page, setPage] = React.useState(1);
-  const [lastPage, setLastPage] = React.useState(1);
+  const dispatch = useAppDispatch();
+  const { page, needDeleted, needElite, needOriginal } = useAppSelector((state) => state.page);
   React.useEffect(() => {
     document.title = '影之避难所';
   }, []);
   React.useEffect(() => {
-    apiWrapper.getTopics({ page, needDeleted, needElite, needOriginal }).then((res) => {
-      setLastPage(res.pages);
-      setTopicList(res.topicList);
-      setLoading(false);
-    });
-  }, [page, needDeleted, needElite, needOriginal]);
-  const topicTableProps = {
-    topicList,
-    needDeleted,
-    setNeedDeleted,
-    loading,
-    setLoading,
-    page,
-    setPage,
-    lastPage,
-  };
+    dispatch(fetchTopics());
+  }, [page, dispatch, needDeleted, needElite, needOriginal]);
   return (
     <Container>
       <Grid container justifyContent="center" direction="row">
@@ -44,7 +25,7 @@ const IndexPage = () => {
               <Switch
                 checked={needDeleted}
                 onChange={() => {
-                  setNeedDeleted((oriState) => !oriState);
+                  dispatch(setNeedDeleted(!needDeleted));
                 }}
               />
             }
@@ -57,7 +38,7 @@ const IndexPage = () => {
               <Switch
                 checked={needElite}
                 onChange={() => {
-                  setNeedElite((oriState) => !oriState);
+                  dispatch(setNeedElite(!needElite));
                 }}
               />
             }
@@ -70,7 +51,7 @@ const IndexPage = () => {
               <Switch
                 checked={needOriginal}
                 onChange={() => {
-                  setNeedOriginal((oriState) => !oriState);
+                  dispatch(setNeedOriginal(!needOriginal));
                 }}
               />
             }
@@ -78,7 +59,7 @@ const IndexPage = () => {
           />
         </Grid>
       </Grid>
-      {isMobile ? <TopicTableMobile {...topicTableProps} /> : <TopicTablePC {...topicTableProps} />}
+      {isMobile ? <TopicTableMobile /> : <TopicTablePC />}
     </Container>
   );
 };

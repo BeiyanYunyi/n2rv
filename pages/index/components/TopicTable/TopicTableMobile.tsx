@@ -3,19 +3,15 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Chip, Fab, Stack, useTheme } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import TopicTableProps from '../../../../types/TopicTableProps';
+import { setPage } from '../../redux/pageSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
 import TopicElement from './TopicElement';
 
-const TopicTableMobile = ({
-  topicList,
-  loading,
-  setLoading,
-  page,
-  setPage,
-  lastPage,
-}: TopicTableProps) => {
+const TopicTableMobile = () => {
   const theme = useTheme();
   const navigate = useNavigate();
+  const { topicList, loading, page, lastPage } = useAppSelector((state) => state.page);
+  const dispatch = useAppDispatch();
 
   return (
     <Stack spacing={1}>
@@ -48,8 +44,7 @@ const TopicTableMobile = ({
             onClick={
               page !== 1
                 ? () => {
-                    setLoading(true);
-                    setPage((oriPage) => oriPage - 1);
+                    dispatch(setPage(page - 1));
                   }
                 : undefined
             }
@@ -71,8 +66,7 @@ const TopicTableMobile = ({
             onClick={
               page < lastPage
                 ? () => {
-                    setLoading(true);
-                    setPage((oriPage) => oriPage + 1);
+                    dispatch(setPage(page + 1));
                   }
                 : undefined
             }

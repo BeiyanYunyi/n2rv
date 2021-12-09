@@ -20,18 +20,15 @@ import format from 'date-fns/format';
 import React from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useBlockLayout, useTable } from 'react-table';
-import TopicTableProps from '../../../../types/TopicTableProps';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
+import { setPage } from '../../redux/pageSlice';
 import isUUID from '../../utils/isUUID';
 
-const TopicTablePC = ({
-  topicList,
-  loading,
-  setLoading,
-  page,
-  setPage,
-  lastPage,
-}: TopicTableProps) => {
+const TopicTablePC = () => {
   const navigate = useNavigate();
+
+  const { topicList, loading, page, lastPage } = useAppSelector((state) => state.page);
+  const dispatch = useAppDispatch();
 
   const processedData = React.useMemo(
     () =>
@@ -180,8 +177,7 @@ const TopicTablePC = ({
             onClick={
               page !== 1
                 ? () => {
-                    setLoading(true);
-                    setPage((oriPage) => oriPage - 1);
+                    dispatch(setPage(page - 1));
                   }
                 : undefined
             }
@@ -200,8 +196,7 @@ const TopicTablePC = ({
             onClick={
               page < lastPage
                 ? () => {
-                    setLoading(true);
-                    setPage((oriPage) => oriPage + 1);
+                    dispatch(setPage(page + 1));
                   }
                 : undefined
             }
