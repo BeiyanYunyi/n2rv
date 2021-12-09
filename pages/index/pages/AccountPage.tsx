@@ -2,10 +2,12 @@ import { Button, Card, CardActions, CardHeader, Container } from '@mui/material'
 import { useNavigate } from 'react-router-dom';
 import authedApiWrapper from '../../../renderer/wrapper/authedApiWrapper';
 import UserFace from '../components/UserFace';
-import { useAuthStateValue } from '../contexts/AuthContext';
+import { useAppDispatch, useAppSelector } from '../redux/store';
+import { logout } from '../redux/userAuthSlice';
 
 const AccountPage = () => {
-  const [authState, authStateDispatch] = useAuthStateValue();
+  const authState = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   if (authState.type === 'Unauthenticated') {
     navigate('/login');
@@ -32,7 +34,7 @@ const AccountPage = () => {
             onClick={async () => {
               await authedApiWrapper.logout();
               navigate('/', { replace: true });
-              authStateDispatch({ type: 'Logout' });
+              dispatch(logout(null));
             }}
           >
             退出登录

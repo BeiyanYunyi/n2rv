@@ -5,13 +5,13 @@ import { useNavigate } from 'react-router-dom';
 import apiWrapper from '../../../renderer/wrapper/apiWrapper';
 import authedApiWrapper from '../../../renderer/wrapper/authedApiWrapper';
 import Editor, { EditorRef } from '../components/Editor';
-import { useAuthStateValue } from '../contexts/AuthContext';
+import { useAppSelector } from '../redux/store';
 
 const CreateTopicPage = () => {
   const navigate = useNavigate();
   const editorRef = useRef<EditorRef>(null);
   const [title, setTitle] = useState('');
-  const [authState] = useAuthStateValue();
+  const authState = useAppSelector((state) => state.auth);
   const [authorName, setAuthorName] = useState('');
 
   const handleSubmit = async () => {

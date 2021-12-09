@@ -5,20 +5,22 @@ import { useEffect, useRef } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import stringAvatar from '../../../renderer/utils/stringAvatar';
 import authedApiWrapper from '../../../renderer/wrapper/authedApiWrapper';
-import { useAuthStateValue } from '../contexts/AuthContext';
+import { useAppDispatch, useAppSelector } from '../redux/store';
+import { login } from '../redux/userAuthSlice';
 import AppMenu, { AppMenuRef } from './AppMenu';
 import ReloadPrompt from './ReloadPrompt';
 import SiteIcon from './SiteIcon';
 
 const Root = () => {
   const appMenuRef = useRef<AppMenuRef>(null);
-  const [authState, authStateDispatch] = useAuthStateValue();
+  const authState = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
   useEffect(() => {
     const apiToken = localStorage.getItem('apiToken');
     if (apiToken) {
-      authedApiWrapper.getMe().then((data) => authStateDispatch({ type: 'Login', payload: data }));
+      authedApiWrapper.getMe().then((data) => dispatch(login(data)));
     }
-  }, [authStateDispatch]);
+  }, [dispatch]);
   const navigate = useNavigate();
   return (
     <>

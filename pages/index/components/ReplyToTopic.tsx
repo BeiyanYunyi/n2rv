@@ -4,8 +4,8 @@ import apiWrapper from '../../../renderer/wrapper/apiWrapper';
 import authedApiWrapper from '../../../renderer/wrapper/authedApiWrapper';
 import AppSetStateAction from '../../../types/AppSetStateAction';
 import Reply from '../../../types/Reply';
-import { useAuthStateValue } from '../contexts/AuthContext';
-import { useReplyStateValue } from '../contexts/ReplyContext';
+import { cancel } from '../redux/replySlice';
+import { useAppDispatch, useAppSelector } from '../redux/store';
 import Editor, { EditorRef } from './Editor';
 
 const ReplyToTopic = ({
@@ -15,8 +15,9 @@ const ReplyToTopic = ({
   setComments: AppSetStateAction<Reply[]>;
   topicID: string | undefined;
 }) => {
-  const [authState] = useAuthStateValue();
-  const [replyState, replyDispatch] = useReplyStateValue();
+  const authState = useAppSelector((state) => state.auth);
+  const replyState = useAppSelector((state) => state.reply);
+  const dispatch = useAppDispatch();
   const [authorName, setAuthorName] = useState('');
   const editorRef = useRef<EditorRef>(null);
   const handleSubmit = async () => {
@@ -37,7 +38,7 @@ const ReplyToTopic = ({
             });
       editorRef.current?.clearCache();
       editorRef.current?.blur();
-      replyDispatch({ type: 'Cancel' });
+      dispatch(cancel());
       setComments((state) => state.concat(reply));
     } else {
       alert('不得为空');
@@ -50,7 +51,7 @@ const ReplyToTopic = ({
           <Typography>回复 #{replyState.replyTo}</Typography>
           <Button
             onClick={() => {
-              replyDispatch({ type: 'Cancel' });
+              dispatch(cancel());
             }}
           >
             不回复这个

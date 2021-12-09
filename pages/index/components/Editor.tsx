@@ -3,7 +3,7 @@ import { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import Vditor from 'vditor';
 import authedApiWrapper from '../../../renderer/wrapper/authedApiWrapper';
 import AppSetStateAction from '../../../types/AppSetStateAction';
-import { useAuthStateValue } from '../contexts/AuthContext';
+import { useAppSelector } from '../redux/store';
 
 export interface EditorRef {
   value: () => string | undefined;
@@ -14,7 +14,7 @@ export interface EditorRef {
 }
 
 const AppVditor = ({ setVd }: { setVd: AppSetStateAction<Vditor | undefined> }) => {
-  const [authState] = useAuthStateValue();
+  const authState = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     const getToolbar = () => {
@@ -70,7 +70,7 @@ const AppVditor = ({ setVd }: { setVd: AppSetStateAction<Vditor | undefined> }) 
 const Editor = forwardRef((_props, ref) => {
   const [vd, setVd] = useState<Vditor>();
   const [open, setOpen] = useState(false);
-  const [authState] = useAuthStateValue();
+  const authState = useAppSelector((state) => state.auth);
 
   useImperativeHandle(ref, () => {
     const value = () => vd?.getValue();

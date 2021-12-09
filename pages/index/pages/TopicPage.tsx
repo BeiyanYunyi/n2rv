@@ -20,7 +20,8 @@ import Topic from '../../../types/Topic';
 import Comments from '../components/Comments';
 import ReplyToTopic from '../components/ReplyToTopic';
 import UserFace from '../components/UserFace';
-import { useReplyStateValue } from '../contexts/ReplyContext';
+import { cancel } from '../redux/replySlice';
+import { useAppDispatch } from '../redux/store';
 import isUUID from '../utils/isUUID';
 
 const initialTopic: Topic = {
@@ -41,7 +42,7 @@ const TopicPage = () => {
   const params = useParams();
   const [topic, setTopic] = React.useState<Topic>(initialTopic);
   const [comments, setComments] = React.useState<Reply[]>([]);
-  const [, replyStateDispatch] = useReplyStateValue();
+  const dispatch = useAppDispatch();
   React.useEffect(() => {
     if (params.topicId) {
       apiWrapper.getTopic(params.topicId).then((res) => {
@@ -49,9 +50,9 @@ const TopicPage = () => {
         setComments(res.comments);
         document.title = res.topic.title;
       });
-      replyStateDispatch({ type: 'Cancel' });
+      dispatch(cancel());
     }
-  }, [params.topicId, replyStateDispatch]);
+  }, [params.topicId, dispatch]);
 
   const isOriginal = !!topic.deleteTime && topic.deleteTime < 0;
 

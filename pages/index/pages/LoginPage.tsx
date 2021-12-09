@@ -14,13 +14,14 @@ import { useNavigate } from 'react-router-dom';
 import apiWrapper from '../../../renderer/wrapper/apiWrapper';
 import authedApiWrapper from '../../../renderer/wrapper/authedApiWrapper';
 import ColoredSwitch from '../components/ColoredSwitch';
-import { useAuthStateValue } from '../contexts/AuthContext';
+import { useAppDispatch } from '../redux/store';
+import { login as userLogin } from '../redux/userAuthSlice';
 
 const LoginPage = (): JSX.Element => {
   const [username, setUsername] = React.useState<string>('');
   const [nickname, setNickname] = React.useState<string>('');
   const [password, setPassword] = React.useState<string>('');
-  const [, authStateDispatch] = useAuthStateValue();
+  const dispatch = useAppDispatch();
   const [islogin, setIsLogin] = React.useState<boolean>(true);
   const navigate = useNavigate();
 
@@ -29,7 +30,7 @@ const LoginPage = (): JSX.Element => {
     if (!res) return alert('用户名与密码不匹配');
     authedApiWrapper.changeToken(res);
     const user = await authedApiWrapper.getMe();
-    authStateDispatch({ type: 'Login', payload: user });
+    dispatch(userLogin(user));
     return navigate('/', { replace: true });
   };
 

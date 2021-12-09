@@ -1,4 +1,5 @@
 /* eslint-disable jsx-a11y/alt-text */
+import ReplyIcon from '@mui/icons-material/Reply';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import {
   Button,
@@ -10,19 +11,19 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import ReplyIcon from '@mui/icons-material/Reply';
 import format from 'date-fns/format';
 import parse from 'html-react-parser';
+import parserOpt from '../../../renderer/utils/parserOpt';
 import Reply from '../../../types/Reply';
+import { replyTo } from '../redux/replySlice';
+import { useAppDispatch } from '../redux/store';
+import isUUID from '../utils/isUUID';
 import CommentQuote from './CommentQuote';
 import ImgView from './ImgView';
 import UserFace from './UserFace';
-import { useReplyStateValue } from '../contexts/ReplyContext';
-import parserOpt from '../../../renderer/utils/parserOpt';
-import isUUID from '../utils/isUUID';
 
 const Comment = ({ reply, index }: { reply: Reply; index: number }) => {
-  const [, replyDispatch] = useReplyStateValue();
+  const dispatch = useAppDispatch();
   return (
     <Card>
       {reply.quoting && <CommentQuote reply={reply} />}
@@ -54,7 +55,7 @@ const Comment = ({ reply, index }: { reply: Reply; index: number }) => {
           variant="text"
           startIcon={<ReplyIcon fontSize="inherit" />}
           onClick={() => {
-            replyDispatch({ type: 'ReplyTo', payload: reply.replyID });
+            dispatch(replyTo(reply.replyID));
             window.scroll(0, document.body.scrollHeight);
           }}
         >
