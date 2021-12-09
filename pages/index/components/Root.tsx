@@ -1,8 +1,8 @@
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import MenuIcon from '@mui/icons-material/Menu';
-import { AppBar, Avatar, IconButton, Toolbar, Typography } from '@mui/material';
+import { AppBar, Avatar, IconButton, Link, Toolbar, Typography } from '@mui/material';
 import { useEffect, useRef } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate, Link as BrowserLink } from 'react-router-dom';
 import stringAvatar from '../../../renderer/utils/stringAvatar';
 import authedApiWrapper from '../../../renderer/wrapper/authedApiWrapper';
 import { useAppDispatch, useAppSelector } from '../redux/store';
@@ -45,15 +45,11 @@ const Root = () => {
           >
             <SiteIcon />
           </IconButton>
-          <Typography
-            onClick={() => {
-              navigate('/');
-            }}
-            variant="h6"
-            sx={{ userSelect: 'none' }}
-          >
-            影之避难所
-          </Typography>
+          <Link component={BrowserLink} to="/" color="inherit" underline="none">
+            <Typography variant="h6" sx={{ userSelect: 'none' }}>
+              影之避难所
+            </Typography>
+          </Link>
           <div style={{ flexGrow: 1 }} />
           <div style={{ display: 'flex' }}>
             {authState.type === 'Authenticated' ? (

@@ -10,7 +10,7 @@ const parserOpt: HTMLReactParserOptions = {
       if (domNode.attribs && domNode.name === 'img') {
         return <ImgView src={domNode.attribs.src} />;
       }
-      if (domNode.attribs && domNode.attribs.class === 'topic-card ') {
+      if (domNode.attribs && domNode.attribs.class?.startsWith('topic-card')) {
         return <TopicCard domNode={domNode} />;
       }
       if (domNode.attribs && domNode.attribs.class === 'subject-container') {
