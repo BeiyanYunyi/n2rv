@@ -41,8 +41,12 @@ const LoginPage = (): JSX.Element => {
 
   const handleSignUpClick = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
-    await apiWrapper.signup({ username, nickname, password });
-    await login();
+    try {
+      await apiWrapper.signup({ username, nickname, password });
+      await login();
+    } catch (e) {
+      alert('注册失败，很有可能是用户名冲突');
+    }
   };
 
   return (
