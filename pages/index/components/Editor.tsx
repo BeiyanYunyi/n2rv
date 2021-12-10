@@ -13,42 +13,26 @@ export interface EditorRef {
   blur: () => void | undefined;
 }
 
+const toolbarBefore: Array<string | IMenuItem> = [
+  'headings',
+  'bold',
+  'italic',
+  'strike',
+  'link',
+  '|',
+  'list',
+  'ordered-list',
+  'check',
+  '|',
+  'quote',
+  'line',
+  'code',
+];
+
 const AppVditor = ({ setVd }: { setVd: AppSetStateAction<Vditor | undefined> }) => {
   const authState = useAppSelector((state) => state.auth);
 
   useEffect(() => {
-    const getToolbar = () => {
-      const toolbarBefore: Array<string | IMenuItem> = [
-        'headings',
-        'bold',
-        'italic',
-        'strike',
-        'link',
-        '|',
-        'list',
-        'ordered-list',
-        'check',
-        '|',
-        'quote',
-        'line',
-        'code',
-      ];
-      const toolbarAfter = [
-        '|',
-        'undo',
-        'redo',
-        '|',
-        'edit-mode',
-        {
-          name: 'more',
-          toolbar: ['export', 'outline', 'preview', 'devtools', 'info', 'help'],
-        },
-      ];
-      if (authState.type === 'Authenticated') {
-        return toolbarBefore.concat('upload').concat(...toolbarAfter);
-      }
-      return toolbarBefore.concat(...toolbarAfter);
-    };
     const vditor = new Vditor('vditor', {
       after: () => {
         setVd(vditor);
@@ -61,7 +45,32 @@ const AppVditor = ({ setVd }: { setVd: AppSetStateAction<Vditor | undefined> }) 
         fieldName: 'image',
         multiple: false,
       },
-      toolbar: getToolbar(),
+      toolbar: (() => {
+        const toolbarAfter: Array<string | IMenuItem> = [
+          '|',
+          'undo',
+          'redo',
+          '|',
+          'edit-mode',
+          {
+            name: 'delete',
+            tipPosition: 'n',
+            tip: '清除内容',
+            click() {
+              vditor.setValue('', false);
+            },
+            icon: '<svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"></path></svg>',
+          },
+          {
+            name: 'more',
+            toolbar: ['export', 'outline', 'preview', 'devtools', 'info', 'help'],
+          },
+        ];
+        if (authState.type === 'Authenticated') {
+          return toolbarBefore.concat('upload').concat(...toolbarAfter);
+        }
+        return toolbarBefore.concat(...toolbarAfter);
+      })(),
     });
   }, [setVd, authState]);
   return <div style={{ height: window.innerHeight }} id="vditor" />;
@@ -89,8 +98,12 @@ const Editor = forwardRef((_props, ref) => {
       {open ? (
         <AppVditor setVd={setVd} />
       ) : (
-        <Button fullWidth sx={{ height: window.innerHeight / 2 }} onClick={() => setOpen(true)}>
-          点击输入内容{authState.type === 'Unauthenticated' ? '\r\n登录后可上传图片' : ''}
+        <Button
+          fullWidth
+          sx={{ height: window.innerHeight / 2, textTransform: 'none' }}
+          onClick={() => setOpen(true)}
+        >
+          {authState.type === 'Unauthenticated' ? '点击输入内容 登录后可上传图片' : '点击输入内容'}
         </Button>
       )}
     </div>
