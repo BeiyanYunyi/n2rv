@@ -15,7 +15,7 @@ const loginRouter = express.Router();
 loginRouter.post('/', async (req, res) => {
   const { body } = req;
 
-  const user = await Storage.User.getUser({ username: body.username }, true);
+  const user = await Storage.getUser({ username: body.username }, true);
   if (!user) return res.status(404).json({ error: 'User Not Found' });
   const passwordCorrect =
     user === null ? false : await bcrypt.compare(body.password, user.password);
@@ -41,7 +41,7 @@ loginRouter.post('/', async (req, res) => {
 loginRouter.use(expressJwt(expressjwtOptions));
 
 loginRouter.get('/revokeToken', async (req, res) => {
-  await Storage.User.updateUser(req.user.id, {
+  await Storage.updateUser(req.user.id, {
     lastRevokeTime: Date.now(),
   });
   res.status(200).end();

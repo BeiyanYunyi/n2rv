@@ -67,45 +67,40 @@ export default class StorageProvider {
   /** 更新回复计数 */
   updateReplyCount(topicID: string): Promise<void>;
 
-  /** 用户相关功能，内部函数注释见
-   * {@link StorageProvider.User StorageProvider} 里的定义
+  /** 创建用户
+   * @param user 用户
    */
-  User: {
-    /** 创建用户
-     * @param user 用户
-     */
-    createUser: (
-      user: Pick<UserType, 'password' | 'nickname' | 'username' | 'lastRevokeTime'>,
-    ) => Promise<void>;
+  createUser(
+    user: Pick<UserType, 'password' | 'nickname' | 'username' | 'lastRevokeTime'>,
+  ): Promise<void>;
 
-    /** 获取单个用户信息
-     * @param id 用户 id
-     * @param username 用户名
-     * @param forAuth 是否是为验证用户而获取信息（会返回密码 hash 和 lastRevokeTime）
-     */
-    getUser: (
-      {
-        id,
-        username,
-      }: {
-        id?: string | undefined;
-        username?: string | undefined;
-      },
-      forAuth = false,
-    ) => Promise<Pick<
-      UserType,
-      'avatar' | 'id' | 'nickname' | 'username' | 'lastRevokeTime' | 'password'
-    > | null>;
+  /** 获取单个用户信息
+   * @param id 用户 id
+   * @param username 用户名
+   * @param forAuth 是否是为验证用户而获取信息（会返回密码 hash 和 lastRevokeTime）
+   */
+  getUser(
+    {
+      id,
+      username,
+    }: {
+      id?: string | undefined;
+      username?: string | undefined;
+    },
+    forAuth = false,
+  ): Promise<Pick<
+    UserType,
+    'avatar' | 'id' | 'nickname' | 'username' | 'lastRevokeTime' | 'password'
+  > | null>;
 
-    /** 更新用户信息
-     * @param userId 用户 ID
-     * @param userInfo 用户信息的一部分
-     */
-    updateUser: (userId: string, userInfo: Partial<UserType>) => Promise<void>;
+  /** 更新用户信息
+   * @param userId 用户 ID
+   * @param userInfo 用户信息的一部分
+   */
+  updateUser(userId: string, userInfo: Partial<UserType>): Promise<void>;
 
-    /** 删除用户
-     * @param userId 用户 ID
-     */
-    deleteUser: (userId: string) => Promise<void>;
-  };
+  /** 删除用户
+   * @param userId 用户 ID
+   */
+  deleteUser(userId: string): Promise<void>;
 }

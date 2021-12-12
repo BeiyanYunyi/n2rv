@@ -26,7 +26,7 @@ usersRouter.post('/', async (req, res) => {
   if (!body.username || !body.password) {
     return res.status(400).json({ error: 'No username or password' });
   }
-  const userInDB = await Storage.User.getUser({ username: body.username });
+  const userInDB = await Storage.getUser({ username: body.username });
   if (userInDB !== null) throw new ConflictError(`${body.username} conflicted.`);
   const passwordHash = await bcrypt.hash(body.password, saltRounds);
   const user = {
@@ -35,8 +35,8 @@ usersRouter.post('/', async (req, res) => {
     password: passwordHash,
     lastRevokeTime: Date.now().toString(),
   };
-  await Storage.User.createUser(user);
-  const savedUser = await Storage.User.getUser({ username: body.username });
+  await Storage.createUser(user);
+  const savedUser = await Storage.getUser({ username: body.username });
   return res.json(savedUser);
 });
 
@@ -44,7 +44,7 @@ usersRouter.use(jwt(expressjwtOptions));
 
 usersRouter.get('/me', async (req, res) => {
   if (!req.user.username) return res.status(400).end();
-  const user = await Storage.User.getUser({ username: req.user.username });
+  const user = await Storage.getUser({ username: req.user.username });
   if (user === null) {
     throw new NotFoundError(`[404] Not Found ${req.user.username}`);
   }
@@ -53,7 +53,7 @@ usersRouter.get('/me', async (req, res) => {
 
 usersRouter.get('/username/:username', async (req, res) => {
   if (!req.params.username) return res.status(400).end();
-  const user = await Storage.User.getUser({ username: req.params.username });
+  const user = await Storage.getUser({ username: req.params.username });
   if (user === null) {
     throw new NotFoundError(`[404] Not Found ${req.params.username}`);
   }
@@ -63,7 +63,7 @@ usersRouter.get('/username/:username', async (req, res) => {
 usersRouter.get('/id/:id', async (req, res) => {
   if (!req.params.id) return res.status(400).end();
   if (Number.isNaN(Number(req.params.id))) return res.status(400).end();
-  const user = await Storage.User.getUser({ id: req.params.id });
+  const user = await Storage.getUser({ id: req.params.id });
   if (user === null) {
     throw new NotFoundError(`[404] Not Found ${req.params.id}`);
   }
@@ -72,7 +72,7 @@ usersRouter.get('/id/:id', async (req, res) => {
 
 usersRouter.put('/', async (req, res) => {
   const { body } = req;
-  const user = await Storage.User.getUser({ id: req.user.id }, true);
+  const user = await Storage.getUser({ id: req.user.id }, true);
   if (user === null) {
     throw new NotFoundError(`[404] Not Found ${req.user.username}`);
   }
@@ -92,7 +92,7 @@ usersRouter.put('/', async (req, res) => {
   } else {
     password = user.password;
   }
-  const savedUser = await Storage.User.updateUser(req.user.id, {
+  const savedUser = await Storage.updateUser(req.user.id, {
     username: body.username ? body.username : undefined,
     nickname: body.nickname ? body.nickname : undefined,
     password,
@@ -103,7 +103,7 @@ usersRouter.put('/', async (req, res) => {
 
 usersRouter.delete('/', async (req, res) => {
   const { password } = req.body;
-  const user = await Storage.User.getUser({ username: req.user.username }, true);
+  const user = await Storage.getUser({ username: req.user.username }, true);
   if (user === null) {
     throw new NotFoundError(`[404] Not Found ${req.user.username}`);
   }
@@ -113,7 +113,7 @@ usersRouter.delete('/', async (req, res) => {
       error: 'invalid username or password',
     });
   }
-  await Promise.all([Storage.User.deleteUser(req.user.id)]);
+  await Promise.all([Storage.deleteUser(req.user.id)]);
   return res.status(204).end();
 });
 

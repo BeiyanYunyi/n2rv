@@ -31,7 +31,7 @@ const initialTopic: Topic = {
   authorName: '',
   content: null,
   createTime: null,
-  reply: '',
+  reply: 0,
   lastFetchTime: 0,
   isElite: false,
   lastReplyTime: 0,

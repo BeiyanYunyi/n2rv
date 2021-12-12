@@ -8,7 +8,7 @@ const tokenChecker = async (
   payload: { username: string; id: string; iat: number },
   done: any,
 ) => {
-  const userInDB = await Storage.User.getUser({ id: payload.id }, true);
+  const userInDB = await Storage.getUser({ id: payload.id }, true);
   if (userInDB === null || payload.iat < Number(userInDB.lastRevokeTime)) {
     logger.error(payload.id);
     return done(
