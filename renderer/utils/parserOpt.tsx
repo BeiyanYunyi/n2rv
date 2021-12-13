@@ -20,7 +20,7 @@ const parserOpt: HTMLReactParserOptions = {
         return (
           <div className="language-math">
             {parse(
-              (window as any).katex.renderToString(domToReact(domNode.children), {
+              (window as any).katex?.renderToString(domToReact(domNode.children), {
                 displayMode: true,
               }),
             )}
@@ -30,7 +30,7 @@ const parserOpt: HTMLReactParserOptions = {
       if (domNode.attribs && domNode.attribs.class === 'language-math' && domNode.name === 'span') {
         return (
           <span className="language-math">
-            {parse((window as any).katex.renderToString(domToReact(domNode.children)))}
+            {parse((window as any).katex?.renderToString(domToReact(domNode.children)))}
           </span>
         );
       }

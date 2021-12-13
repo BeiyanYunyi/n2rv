@@ -160,7 +160,7 @@ class SequelizeStorageProvider implements StorageProvider {
     const replyPms = this.models.Reply.create(reply);
     const [topic, insertedReply] = await Promise.all([topicPms, replyPms]);
     if (topic) {
-      await topic.update({ lastReplyTime: insertedReply.replyTime });
+      await topic.update({ lastReplyTime: insertedReply.toJSON().replyTime });
     }
     await this.updateReplyCount(reply.topicID);
     return insertedReply;

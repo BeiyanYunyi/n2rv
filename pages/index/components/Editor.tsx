@@ -45,6 +45,7 @@ const AppVditor = ({ setVd }: { setVd: AppSetStateAction<Vditor | undefined> }) 
         fieldName: 'image',
         multiple: false,
       },
+      preview: { markdown: { autoSpace: true } },
       toolbar: (() => {
         const toolbarAfter: Array<string | IMenuItem> = [
           '|',
