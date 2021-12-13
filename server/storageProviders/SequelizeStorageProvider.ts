@@ -81,7 +81,7 @@ class SequelizeStorageProvider implements StorageProvider {
       ],
     });
     if (!topic) return null;
-    return topic;
+    return topic.toJSON();
   }
 
   async getComments(topicID: string | number): Promise<Reply[]> {
@@ -92,11 +92,11 @@ class SequelizeStorageProvider implements StorageProvider {
   async getComment(
     replyID: string,
   ): Promise<Pick<Reply, 'authorName' | 'authorID' | 'content' | 'image'> | null> {
-    const reply: Pick<Reply, 'authorName' | 'authorID' | 'content' | 'image'> | null =
-      await this.models.Reply.findByPk(replyID, {
-        attributes: ['authorName', 'authorID', 'content', 'image'],
-      });
-    return reply;
+    const reply = await this.models.Reply.findByPk(replyID, {
+      attributes: ['authorName', 'authorID', 'content', 'image'],
+    });
+    if (!reply) return null;
+    return reply.toJSON();
   }
 
   async getImg(imgID: string): Promise<Blob | null> {
@@ -152,7 +152,7 @@ class SequelizeStorageProvider implements StorageProvider {
       createTime: now,
     };
     const insertedTopic = await this.models.TopicList.create(topicToInsert);
-    return insertedTopic;
+    return insertedTopic.toJSON();
   }
 
   async insertReply(reply: Reply): Promise<Reply> {
@@ -163,7 +163,7 @@ class SequelizeStorageProvider implements StorageProvider {
       await topic.update({ lastReplyTime: insertedReply.toJSON().replyTime });
     }
     await this.updateReplyCount(reply.topicID);
-    return insertedReply;
+    return insertedReply.toJSON();
   }
 
   async updateReplyCount(topicID: string): Promise<void> {
@@ -196,17 +196,13 @@ class SequelizeStorageProvider implements StorageProvider {
     if (forAuth) queryAry.push('password', 'lastRevokeTime');
     if (id) {
       const user = await this.models.User.findByPk(id, { attributes: queryAry });
-      return user as Pick<
-        UserType,
-        'avatar' | 'id' | 'nickname' | 'username' | 'lastRevokeTime' | 'password'
-      > | null;
+      if (!user) return null;
+      return user.toJSON();
     }
     if (username) {
       const user = await this.models.User.findOne({ where: { username }, attributes: queryAry });
-      return user as Pick<
-        UserType,
-        'avatar' | 'id' | 'nickname' | 'username' | 'lastRevokeTime' | 'password'
-      > | null;
+      if (!user) return null;
+      return user.toJSON();
     }
     return null;
   }
