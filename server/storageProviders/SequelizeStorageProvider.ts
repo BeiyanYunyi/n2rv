@@ -85,7 +85,10 @@ class SequelizeStorageProvider implements StorageProvider {
   }
 
   async getComments(topicID: string | number): Promise<Reply[]> {
-    const reply = await this.models.Reply.findAll({ where: { topicID } });
+    const reply = await this.models.Reply.findAll({
+      where: { topicID },
+      order: [['replyTime', 'ASC']],
+    });
     return reply;
   }
 
