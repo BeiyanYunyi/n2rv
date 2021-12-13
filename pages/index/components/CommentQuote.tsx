@@ -8,7 +8,7 @@ import ImgView from './ImgView';
 import UserFace from './UserFace';
 
 const CommentQuote = ({ reply }: { reply: Reply }) => {
-  const [open, setOpen] = useState(reply.quotingText!.length <= 70);
+  const [open, setOpen] = useState(reply.quotingText && reply.quotingText.length <= 70);
   return (
     <Card style={{ margin: 8, marginBottom: 0 }} variant="outlined">
       <CardHeader
