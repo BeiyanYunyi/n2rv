@@ -26,7 +26,7 @@ const SearchPage = () => {
     if (searchStrStored) setSearchStr(searchStrStored);
     if (topicsStored) setTopics(JSON.parse(topicsStored));
     // 应当等到下一事件循环再执行，否则无效
-    if (scrollYStored)
+    if (scrollYStored !== null)
       setTimeout(() => {
         window.scrollTo(0, Number(scrollYStored));
       }, 0);
@@ -63,7 +63,7 @@ const SearchPage = () => {
               e.preventDefault();
               sessionStorage.setItem('searchStr', searchStr);
               sessionStorage.setItem('topics', JSON.stringify(topics));
-              if (window.scrollY) {
+              if (window.scrollY !== undefined) {
                 sessionStorage.setItem('searchScrollHeight', window.scrollY.toString());
               }
               navigate(`/topic/${topic.topicID}`);

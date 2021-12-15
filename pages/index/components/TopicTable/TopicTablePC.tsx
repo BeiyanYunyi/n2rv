@@ -34,7 +34,7 @@ const TopicTablePC = () => {
   useEffect(() => {
     const scrollYStored = sessionStorage.getItem('topicTableScrollHeight');
     // 应当等到下一事件循环再执行，否则无效
-    if (scrollYStored)
+    if (scrollYStored !== null)
       setTimeout(() => {
         window.scrollTo(0, Number(scrollYStored));
       }, 0);
@@ -149,7 +149,7 @@ const TopicTablePC = () => {
                         <Link
                           onClick={(e) => {
                             e.preventDefault();
-                            if (window.scrollY) {
+                            if (window.scrollY !== undefined) {
                               sessionStorage.setItem(
                                 'topicTableScrollHeight',
                                 window.scrollY.toString(),
