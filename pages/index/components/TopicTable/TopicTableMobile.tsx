@@ -2,10 +2,10 @@ import AddIcon from '@mui/icons-material/Add';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Chip, Fab, Stack, useTheme } from '@mui/material';
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { setPage } from '../../redux/pageSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
+import useScrollProgress from '../../utils/useScrollProgress';
 import TopicElement from './TopicElement';
 
 const TopicTableMobile = () => {
@@ -13,15 +13,7 @@ const TopicTableMobile = () => {
   const navigate = useNavigate();
   const { topicList, loading, page, lastPage } = useAppSelector((state) => state.page);
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    const scrollYStored = sessionStorage.getItem('topicTableScrollHeight');
-    // 应当等到下一事件循环再执行，否则无效
-    if (scrollYStored !== null)
-      setTimeout(() => {
-        window.scrollTo(0, Number(scrollYStored));
-      }, 0);
-  }, []);
+  const scrollProgress = useScrollProgress();
 
   return (
     <Stack spacing={1}>
@@ -31,9 +23,7 @@ const TopicTableMobile = () => {
           key={topic.topicID}
           onClick={(e) => {
             e.preventDefault();
-            if (window.scrollY !== undefined) {
-              sessionStorage.setItem('topicTableScrollHeight', window.scrollY.toString());
-            }
+            scrollProgress.save();
             navigate(`/topic/${topic.topicID}`);
           }}
         />
@@ -45,6 +35,7 @@ const TopicTableMobile = () => {
             size="small"
             color="primary"
             onClick={() => {
+              scrollProgress.save();
               navigate('/createTopic');
             }}
           >

@@ -18,27 +18,20 @@ import {
   Typography,
 } from '@mui/material';
 import format from 'date-fns/format';
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useBlockLayout, useTable } from 'react-table';
 import { setPage } from '../../redux/pageSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import isUUID from '../../utils/isUUID';
+import useScrollProgress from '../../utils/useScrollProgress';
 
 const TopicTablePC = () => {
   const navigate = useNavigate();
 
   const { topicList, loading, page, lastPage } = useAppSelector((state) => state.page);
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    const scrollYStored = sessionStorage.getItem('topicTableScrollHeight');
-    // 应当等到下一事件循环再执行，否则无效
-    if (scrollYStored !== null)
-      setTimeout(() => {
-        window.scrollTo(0, Number(scrollYStored));
-      }, 0);
-  }, []);
+  const scrollProgress = useScrollProgress();
 
   const processedData = useMemo(
     () =>
@@ -149,12 +142,7 @@ const TopicTablePC = () => {
                         <Link
                           onClick={(e) => {
                             e.preventDefault();
-                            if (window.scrollY !== undefined) {
-                              sessionStorage.setItem(
-                                'topicTableScrollHeight',
-                                window.scrollY.toString(),
-                              );
-                            }
+                            scrollProgress.save();
                             navigate(`/topic/${cell.row.original.topicID}`);
                           }}
                           href={`/topic/${cell.row.original.topicID}`}
