@@ -2,6 +2,7 @@ import AddIcon from '@mui/icons-material/Add';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Chip, Fab, Stack, useTheme } from '@mui/material';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { setPage } from '../../redux/pageSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
@@ -13,10 +14,29 @@ const TopicTableMobile = () => {
   const { topicList, loading, page, lastPage } = useAppSelector((state) => state.page);
   const dispatch = useAppDispatch();
 
+  useEffect(() => {
+    const scrollYStored = sessionStorage.getItem('topicTableScrollHeight');
+    // 应当等到下一事件循环再执行，否则无效
+    if (scrollYStored)
+      setTimeout(() => {
+        window.scrollTo(0, Number(scrollYStored));
+      }, 0);
+  }, []);
+
   return (
     <Stack spacing={1}>
       {topicList.map((topic) => (
-        <TopicElement topic={topic} key={topic.topicID} />
+        <TopicElement
+          topic={topic}
+          key={topic.topicID}
+          onClick={(e) => {
+            e.preventDefault();
+            if (window.scrollY) {
+              sessionStorage.setItem('topicTableScrollHeight', window.scrollY.toString());
+            }
+            navigate(`/topic/${topic.topicID}`);
+          }}
+        />
       ))}
 
       <div style={{ position: 'fixed', bottom: 16, right: 16 }}>

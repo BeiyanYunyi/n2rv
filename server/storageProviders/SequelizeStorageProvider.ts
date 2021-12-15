@@ -124,11 +124,11 @@ class SequelizeStorageProvider implements StorageProvider {
     const whereStr = this.topicWhileGetAll.map((val) => `"${val}"`).join(', ');
     const schema = config.groupURL.substring(29).replace('/', '');
     const topicsContentPms: Promise<TopicWhileGetAll[]> = sequelize.query(
-      `SELECT ${whereStr} FROM "${schema}"."topicList" WHERE to_tsvector(content) @@ to_tsquery(?)`,
+      `SELECT ${whereStr} FROM "${schema}"."topicList" WHERE to_tsvector('testzhcfg', content) @@ to_tsquery('testzhcfg', ?)`,
       { replacements: [parsedStr], type: QueryTypes.SELECT },
     );
     const topicsTitlePms: Promise<TopicWhileGetAll[]> = sequelize.query(
-      `SELECT ${whereStr} FROM "${schema}"."topicList" WHERE to_tsvector(content) @@ to_tsquery(?)`,
+      `SELECT ${whereStr} FROM "${schema}"."topicList" WHERE to_tsvector('testzhcfg', content) @@ to_tsquery('testzhcfg', ?)`,
       { replacements: [parsedStr], type: QueryTypes.SELECT },
     );
     const [topicsTitle, topicsContent] = await Promise.all([topicsTitlePms, topicsContentPms]);

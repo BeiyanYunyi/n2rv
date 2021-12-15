@@ -9,24 +9,23 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { MouseEventHandler } from 'react';
 import { stringToColor } from '../../../../renderer/utils/stringAvatar';
 import { TopicWhileGetAll } from '../../../../types/Topic';
 import formatLastReplyTime from '../../utils/formatLastReplyTime';
 import ReplyChip from '../ReplyChip';
 
-const TopicElement = ({ topic }: { topic: TopicWhileGetAll }) => {
-  const navigate = useNavigate();
+const TopicElement = ({
+  topic,
+  onClick,
+}: {
+  topic: TopicWhileGetAll;
+  onClick: MouseEventHandler<HTMLAnchorElement> | undefined;
+}) => {
   const theme = useTheme();
   return (
     <Card key={topic.topicID}>
-      <CardActionArea
-        href={`/topic/${topic.topicID}`}
-        onClick={(e) => {
-          e.preventDefault();
-          navigate(`/topic/${topic.topicID}`);
-        }}
-      >
+      <CardActionArea href={`/topic/${topic.topicID}`} onClick={onClick}>
         <Stack direction="row" alignItems="center">
           <ReplyChip reply={topic.reply} />
           <div>

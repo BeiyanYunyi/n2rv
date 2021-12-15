@@ -1,4 +1,5 @@
 /* eslint-disable no-nested-ternary */
+/* 这应该是整个 n2rv 里面可读性最差的一个文件了，真想丢掉不要 */
 import AddIcon from '@mui/icons-material/Add';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
@@ -17,11 +18,11 @@ import {
   Typography,
 } from '@mui/material';
 import format from 'date-fns/format';
-import React from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { useEffect, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useBlockLayout, useTable } from 'react-table';
-import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { setPage } from '../../redux/pageSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
 import isUUID from '../../utils/isUUID';
 
 const TopicTablePC = () => {
@@ -30,7 +31,16 @@ const TopicTablePC = () => {
   const { topicList, loading, page, lastPage } = useAppSelector((state) => state.page);
   const dispatch = useAppDispatch();
 
-  const processedData = React.useMemo(
+  useEffect(() => {
+    const scrollYStored = sessionStorage.getItem('topicTableScrollHeight');
+    // 应当等到下一事件循环再执行，否则无效
+    if (scrollYStored)
+      setTimeout(() => {
+        window.scrollTo(0, Number(scrollYStored));
+      }, 0);
+  }, []);
+
+  const processedData = useMemo(
     () =>
       topicList.map((ele) => ({
         ...ele,
@@ -42,13 +52,13 @@ const TopicTablePC = () => {
     [topicList],
   );
 
-  const defaultColumn = React.useMemo(
+  const defaultColumn = useMemo(
     () => ({
       width: 150,
     }),
     [],
   );
-  const columns = React.useMemo(
+  const columns = useMemo(
     () => [
       {
         Header: ' ',
@@ -137,8 +147,17 @@ const TopicTablePC = () => {
                     >
                       {cell.column.id === 'title' ? (
                         <Link
-                          component={RouterLink}
-                          to={`topic/${cell.row.original.topicID}`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            if (window.scrollY) {
+                              sessionStorage.setItem(
+                                'topicTableScrollHeight',
+                                window.scrollY.toString(),
+                              );
+                            }
+                            navigate(`/topic/${cell.row.original.topicID}`);
+                          }}
+                          href={`/topic/${cell.row.original.topicID}`}
                           underline="hover"
                         >
                           <Stack direction="row" alignItems="center" spacing={0.5}>
