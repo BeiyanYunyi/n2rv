@@ -67,7 +67,14 @@ class SequelizeStorageProvider implements StorageProvider {
     topicID: string | number,
   ): Promise<Pick<
     Topic,
-    'title' | 'topicID' | 'authorName' | 'authorID' | 'isElite' | 'content' | 'createTime'
+    | 'title'
+    | 'topicID'
+    | 'authorName'
+    | 'authorID'
+    | 'isElite'
+    | 'content'
+    | 'createTime'
+    | 'deleteTime'
   > | null> {
     const topic = await this.models.TopicList.findByPk(topicID, {
       attributes: [
@@ -78,6 +85,7 @@ class SequelizeStorageProvider implements StorageProvider {
         'isElite',
         'content',
         'createTime',
+        'deleteTime',
       ],
     });
     if (!topic) return null;

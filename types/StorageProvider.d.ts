@@ -28,7 +28,14 @@ export default class StorageProvider {
     topicID: string | number,
   ): Promise<Pick<
     Topic,
-    'title' | 'topicID' | 'authorName' | 'authorID' | 'content' | 'isElite' | 'createTime'
+    | 'title'
+    | 'topicID'
+    | 'authorName'
+    | 'authorID'
+    | 'content'
+    | 'isElite'
+    | 'createTime'
+    | 'deleteTime'
   > | null>;
 
   /** 获取一个帖子的所有回复
