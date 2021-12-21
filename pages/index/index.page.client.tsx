@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import 'vditor/dist/index.css';
-import Root from './components/Root';
+import Root from './pages/Root';
 import { store } from './redux/store';
 
 const SearchPage = lazy(() => import('./pages/SearchPage'));

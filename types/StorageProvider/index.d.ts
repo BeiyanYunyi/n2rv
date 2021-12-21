@@ -1,6 +1,8 @@
-import Topic, { TopicWhileGetAll } from './Topic';
-import Reply from './Reply';
-import UserType from './UserType';
+/* eslint-disable import/no-cycle */
+import Topic, { TopicWhileGetAll } from '../Topic';
+import Reply from '../Reply';
+import UserType from '../UserType';
+import Scraper from './Scraper';
 
 export default class StorageProvider {
   /** 初始化：建表 */
@@ -97,7 +99,7 @@ export default class StorageProvider {
     forAuth = false,
   ): Promise<Pick<
     UserType,
-    'avatar' | 'id' | 'nickname' | 'username' | 'lastRevokeTime' | 'password'
+    'avatar' | 'id' | 'nickname' | 'username' | 'lastRevokeTime' | 'password' | 'isVerified'
   > | null>;
 
   /** 更新用户信息
@@ -110,4 +112,6 @@ export default class StorageProvider {
    * @param userId 用户 ID
    */
   deleteUser(userId: string): Promise<void>;
+
+  Scraper: Scraper;
 }

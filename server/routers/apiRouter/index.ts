@@ -1,12 +1,13 @@
 import express from 'express';
-import Storage from '../storageProviders/Storage';
-import Topic from '../../types/Topic';
-import errorHandler from '../middlewares/errorHandler';
+import Storage from '../../storageProviders/Storage';
+import Topic from '../../../types/Topic';
+import errorHandler from '../../middlewares/errorHandler';
 import localRepliesRouter from './localRepliesRouter';
 import localTopicsRouter from './localTopicsRouter';
 import localUploadRouter from './localUploadRouter';
 import loginRouter from './loginRouter';
 import usersRouter from './usersRouter';
+import scraperRouter from './scraperRouter';
 
 require('express-async-errors');
 
@@ -16,6 +17,7 @@ apiRouter.use('/localUpload', localUploadRouter);
 
 apiRouter.use(express.json());
 
+apiRouter.use('/scraper', scraperRouter);
 apiRouter.use('/users', usersRouter);
 apiRouter.use('/auth', loginRouter);
 apiRouter.use('/localTopic', localTopicsRouter);

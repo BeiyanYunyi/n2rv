@@ -1,11 +1,22 @@
 /* eslint-disable consistent-return */
 
+import { JsonWebTokenError } from 'jsonwebtoken';
 import logger from '../utils/logger';
 
 const errorHandler = (error: any, _request: any, response: any, next: any): void => {
   logger.error(error);
   if (error.name === 'CastError' && error.kind === 'ObjectId') {
     return response.status(400).send({ error: 'malformatted id' });
+  }
+
+  if (error instanceof JsonWebTokenError) {
+    console.log(error.name);
+    switch (error.name) {
+      case 'invalid signature':
+        return response.status(401).send(error.message);
+      default:
+        break;
+    }
   }
 
   switch (error.name) {

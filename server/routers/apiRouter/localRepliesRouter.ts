@@ -1,11 +1,11 @@
 import express from 'express';
 import expressJwt from 'express-jwt';
 import { v4 as uuidv4, v5 as uuidv5 } from 'uuid';
-import config from '../../config/config.json';
-import Storage from '../storageProviders/Storage';
-import Reply from '../../types/Reply';
-import AnonymousNotAllowedError from '../errors/AnonymousNotAllowedError';
-import expressjwtOptions from '../utils/expressJwtConstructor';
+import config from '../../../config/config.json';
+import Storage from '../../storageProviders/Storage';
+import Reply from '../../../types/Reply';
+import AnonymousNotAllowedError from '../../errors/AnonymousNotAllowedError';
+import expressjwtOptions from '../../utils/expressJwtConstructor';
 
 require('express-async-errors');
 

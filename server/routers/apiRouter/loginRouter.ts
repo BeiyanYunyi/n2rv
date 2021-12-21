@@ -3,9 +3,9 @@ import bcrypt from 'bcryptjs';
 import express from 'express';
 import expressJwt from 'express-jwt';
 import jwt from 'jsonwebtoken';
-import config from '../../config/config.json';
-import Storage from '../storageProviders/Storage';
-import expressjwtOptions from '../utils/expressJwtConstructor';
+import config from '../../../config/config.json';
+import Storage from '../../storageProviders/Storage';
+import expressjwtOptions from '../../utils/expressJwtConstructor';
 
 require('express-async-errors');
 

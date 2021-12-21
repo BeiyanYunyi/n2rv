@@ -1,8 +1,8 @@
 import express from 'express';
 import expressJwt from 'express-jwt';
 import multer from 'multer';
-import config from '../../config/config.json';
-import expressjwtOptions from '../utils/expressJwtConstructor';
+import config from '../../../config/config.json';
+import expressjwtOptions from '../../utils/expressJwtConstructor';
 
 require('express-async-errors');
 

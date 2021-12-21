@@ -1,12 +1,12 @@
 import bcrypt from 'bcryptjs';
 import express from 'express';
 import jwt from 'express-jwt';
-import config from '../../config/config.json';
-import Storage from '../storageProviders/Storage';
-import ConflictError from '../errors/ConflictError';
-import NotAllowedToSignUpError from '../errors/NotAllowedToSignUpError';
-import NotFoundError from '../errors/NotFoundError';
-import expressjwtOptions from '../utils/expressJwtConstructor';
+import config from '../../../config/config.json';
+import Storage from '../../storageProviders/Storage';
+import ConflictError from '../../errors/ConflictError';
+import NotAllowedToSignUpError from '../../errors/NotAllowedToSignUpError';
+import NotFoundError from '../../errors/NotFoundError';
+import expressjwtOptions from '../../utils/expressJwtConstructor';
 
 const usersRouter = express.Router();
 

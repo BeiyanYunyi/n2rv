@@ -7,9 +7,9 @@ import stringAvatar from '../../../renderer/utils/stringAvatar';
 import authedApiWrapper from '../../../renderer/wrapper/authedApiWrapper';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import { login } from '../redux/userAuthSlice';
-import AppMenu, { AppMenuRef } from './AppMenu';
-import ReloadPrompt from './ReloadPrompt';
-import SiteIcon from './SiteIcon';
+import AppMenu, { AppMenuRef } from '../components/AppMenu';
+import ReloadPrompt from '../components/ReloadPrompt';
+import SiteIcon from '../components/SiteIcon';
 
 const Root = () => {
   const appMenuRef = useRef<AppMenuRef>(null);

@@ -1,20 +1,27 @@
+/* eslint-disable import/no-cycle */
 import tsquery from 'pg-tsquery';
 import { Op, QueryTypes, WhereOperators } from 'sequelize/dist';
 import { v4 as uuidv4 } from 'uuid';
-import config from '../../config/config.json';
-import Reply from '../../types/Reply';
-import StorageProvider from '../../types/StorageProvider';
-import Topic, { TopicWhileGetAll } from '../../types/Topic';
-import UserType from '../../types/UserType';
-import ConflictError from '../errors/ConflictError';
-import NotFoundError from '../errors/NotFoundError';
-import sequelize, { connectToDatabase } from './sequelize/db';
-import models from './sequelize/models';
+import config from '../../../config/config.json';
+import Reply from '../../../types/Reply';
+import StorageProvider from '../../../types/StorageProvider';
+import Scraper from '../../../types/StorageProvider/Scraper';
+import Topic, { TopicWhileGetAll } from '../../../types/Topic';
+import UserType from '../../../types/UserType';
+import ConflictError from '../../errors/ConflictError';
+import NotFoundError from '../../errors/NotFoundError';
+import sequelize, { connectToDatabase } from './db';
+import models from './models';
+import SequelizeScraperProvider from './SequelizeScraperProvider';
 
 class SequelizeStorageProvider implements StorageProvider {
   // eslint-disable-next-line class-methods-use-this
   async init(): Promise<void> {
     await connectToDatabase();
+  }
+
+  constructor() {
+    this.Scraper = new SequelizeScraperProvider(this);
   }
 
   private topicWhileGetAll = [
@@ -204,7 +211,7 @@ class SequelizeStorageProvider implements StorageProvider {
     forAuth = false,
   ) {
     const queryAry = ['avatar', 'id', 'nickname', 'username'];
-    if (forAuth) queryAry.push('password', 'lastRevokeTime');
+    if (forAuth) queryAry.push('password', 'lastRevokeTime', 'isVerified');
     if (id) {
       const user = await this.models.User.findByPk(id, { attributes: queryAry });
       if (!user) return null;
@@ -229,6 +236,8 @@ class SequelizeStorageProvider implements StorageProvider {
     if (!userToDelete) throw new NotFoundError('用户不存在');
     await userToDelete.destroy();
   }
+
+  Scraper: Scraper;
 }
 
 export default SequelizeStorageProvider;

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "AGPL-3.0-or-later",
   "scripts": {
-    "dev": "yarn server",
+    "dev": "cross-env NODE_ENV=dev yarn server",
     "prod": "yarn build && yarn server:prod",
     "build": "yarn build:clean && yarn build:vite",
     "build:vite": "vite build && vite build --ssr",
@@ -72,6 +72,7 @@
     "eslint-import-resolver-node": "^0.3.6",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.27.1",
     "eslint-plugin-react-hooks": "^4.3.0",
     "prettier": "^2.5.1",
