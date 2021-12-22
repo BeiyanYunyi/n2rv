@@ -24,23 +24,9 @@ import { cancel } from '../redux/replySlice';
 import { useAppDispatch } from '../redux/store';
 import isUUID from '../utils/isUUID';
 
-const initialTopic: Topic = {
-  title: '',
-  topicID: '',
-  authorID: '',
-  authorName: '',
-  content: null,
-  createTime: null,
-  reply: 0,
-  lastFetchTime: 0,
-  isElite: false,
-  lastReplyTime: 0,
-  deleteTime: null,
-};
-
 const TopicPage = () => {
   const params = useParams();
-  const [topic, setTopic] = React.useState<Topic>(initialTopic);
+  const [topic, setTopic] = React.useState<Topic | null>(null);
   const [comments, setComments] = React.useState<Reply[]>([]);
   const dispatch = useAppDispatch();
   React.useEffect(() => {
@@ -48,13 +34,17 @@ const TopicPage = () => {
       apiWrapper.getTopic(params.topicId).then((res) => {
         setTopic(res.topic);
         setComments(res.comments);
-        document.title = res.topic.title;
+        if (res.topic) document.title = res.topic.title;
       });
       dispatch(cancel());
     }
   }, [params.topicId, dispatch]);
 
-  const isOriginal = !!topic.deleteTime && topic.deleteTime < 0;
+  const isOriginal = topic && !!topic.deleteTime && topic.deleteTime < 0;
+
+  if (!topic) {
+    return <Typography>帖子不存在</Typography>;
+  }
 
   return (
     <Container>
@@ -86,7 +76,7 @@ const TopicPage = () => {
             <UserFace
               authorID={topic.authorID}
               authorName={topic.authorName}
-              isOriginal={isOriginal}
+              isOriginal={isOriginal === null ? false : isOriginal}
             />
           }
           title={topic.authorName || <Skeleton />}

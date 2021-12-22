@@ -7,6 +7,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import 'vditor/dist/index.css';
+import AppErrorBoundary from './components/AppErrorBoundary';
 import Root from './pages/Root';
 import { store } from './redux/store';
 
@@ -76,6 +77,11 @@ const Page = () => (
   </Provider>
 );
 
-ReactDOM.render(<Page />, window.document.getElementById('page-view'));
+ReactDOM.render(
+  <AppErrorBoundary>
+    <Page />
+  </AppErrorBoundary>,
+  window.document.getElementById('page-view'),
+);
 
 export default Page;
