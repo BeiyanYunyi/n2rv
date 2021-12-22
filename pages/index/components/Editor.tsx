@@ -37,6 +37,7 @@ const AppVditor = ({ setVd }: { setVd: AppSetStateAction<Vditor | undefined> }) 
       after: () => {
         setVd(vditor);
       },
+      mode: 'wysiwyg',
       height: window.innerHeight / 2,
       icon: 'material',
       upload: {
