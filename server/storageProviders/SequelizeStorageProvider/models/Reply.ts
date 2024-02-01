@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/lines-between-class-members */
-import { DataTypes, Model } from 'sequelize/dist';
+import { DataTypes, Model } from 'sequelize';
 import config from '../../../../config/config.json';
 import ReplyType from '../../../../types/Reply';
 import sequelize from '../db';

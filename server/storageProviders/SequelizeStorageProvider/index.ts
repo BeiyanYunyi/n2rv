@@ -1,6 +1,6 @@
 /* eslint-disable import/no-cycle */
 import tsquery from 'pg-tsquery';
-import { Op, QueryTypes, WhereOperators } from 'sequelize/dist';
+import { Op, QueryTypes, WhereOperators } from 'sequelize';
 import { v4 as uuidv4 } from 'uuid';
 import config from '../../../config/config.json';
 import Reply from '../../../types/Reply';

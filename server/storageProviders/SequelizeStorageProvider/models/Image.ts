@@ -1,4 +1,4 @@
-import { DataTypes, Model } from 'sequelize/dist';
+import { DataTypes, Model } from 'sequelize';
 import config from '../../../../config/config.json';
 import { ImageInDB } from '../../../../types/Image';
 import sequelize from '../db';

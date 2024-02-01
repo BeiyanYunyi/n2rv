@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Sequelize } from 'sequelize/dist';
+import { Sequelize } from 'sequelize';
 import config from '../../../config/config.json';
 
 const sequelize =

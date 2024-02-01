@@ -1,4 +1,4 @@
-import { SyncOptions } from 'sequelize/dist';
+import { SyncOptions } from 'sequelize';
 import sequelize from '../db';
 import config from '../../../../config/config.json';
 import Image from './Image';

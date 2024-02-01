@@ -10,7 +10,7 @@ require('express-async-errors');
 const isProduction = process.env.NODE_ENV === 'production';
 const root = path.resolve(`${__dirname}/..`);
 const port = process.env.PORT || 3000;
-if (isProduction) {
+if (!isProduction) {
   const key = fs.readFileSync(path.join(root, 'certs', 'priv.key')).toString();
   const cert = fs.readFileSync(path.join(root, 'certs', 'pub.cer')).toString();
   const server = https.createServer({ key, cert }, app);
